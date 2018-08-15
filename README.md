@@ -1,9 +1,9 @@
 # IPGeolocation API Typescript SDK
 
 ## Installation
-------------
+```cli
     npm i ip-geolocation-api-sdk-typescript
-------------
+```
     
 ## Usage
 ```ts
