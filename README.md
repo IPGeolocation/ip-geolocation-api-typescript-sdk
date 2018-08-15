@@ -1,4 +1,4 @@
-# ip-geolocation-api-sdk-typescript
+# IPGeolocation API Typescript SDK
 
 ## Installation
 ------------
