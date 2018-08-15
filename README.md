@@ -50,7 +50,7 @@ console.log(api.getGeolocation(geolocationParams));
 var tzParams = new TimezoneParams();
 
 tzParams.setIp("1.1.1.1");
-console.log(obj.getTimezone());
+console.log(api.getTimezone());
 ```
 ## Commands To Run
 1. tsc *.ts
