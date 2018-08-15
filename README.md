@@ -53,6 +53,6 @@ tzParams.setIp("1.1.1.1");
 console.log(obj.getTimezone());
 ```
 ## Commands To Run
-tsc *.ts
-node *.js
+1. tsc *.ts
+2. node *.js
 
