@@ -2,7 +2,7 @@
 
 ## Installation
 ```cli
-    npm i ip-geolocation-api-sdk-typescript
+npm i ip-geolocation-api-sdk-typescript
 ```
     
 ## Usage
