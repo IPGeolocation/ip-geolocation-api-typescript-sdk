@@ -78,14 +78,18 @@ export class IPGeolocationAPI {
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
     if (this.readyState === 4) {
-    
+            if(this.status == 0){
+                jsonData = {
+                "message": "Internet is not connected!"
+                };
+            }else{
                 jsonData = JSON.parse(this.responseText);
+            }
     }
     });
     console.log("https://api.ipgeolocation.io/"+subUrl+"?"+params+"");
     xhr.open("GET", "https://api.ipgeolocation.io/"+subUrl+"?"+params+"", false);
     xhr.send(data);
-    
     return jsonData;
     
     }
@@ -99,9 +103,15 @@ export class IPGeolocationAPI {
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
         xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-                    jsonData = JSON.parse(this.responseText);
-        }
+            if (this.readyState === 4) {
+                if(this.status == 0){
+                    jsonData = {
+                    "message": "Internet is not connected!"
+                    };
+                }else{
+                      jsonData = JSON.parse(this.responseText);
+                }
+            }
         });
         xhr.open("POST", "https://api.ipgeolocation.io/"+subUrl+"?apiKey="+apiKey+"", false);
         xhr.setRequestHeader("Content-Type", "application/json");
