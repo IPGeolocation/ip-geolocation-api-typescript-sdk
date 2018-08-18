@@ -1,0 +1,34 @@
+{
+  "name": "ip-geolocation-api-sdk-typescript",
+  "version": "1.0.2",
+  "description": "",
+  "main": "IPGeolocationAPI.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript/issues"
+  },
+  "homepage": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript#README",
+  "keywords": [
+    "ip",
+    "ipgeo",
+    "ip geolocation",
+    "ip geolocation api",
+    "time zone",
+    "ip geolocation sdk",
+    "geolocation javascript",
+    "geoip lookup",
+    "geoip api",
+    "ip location api"
+  ],
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
+}
