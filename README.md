@@ -5,7 +5,7 @@
 npm i ip-geolocation-api-sdk-typescript
 ```
     
-## Usage
+## Basic Usage
 ```ts
 import {IPGeolocationAPI} from './node_modules/ip-geolocation-api-sdk-typescript/IPGeolocationAPI';
 import {GeolocationParams} from './node_modules/ip-geolocation-api-sdk-typescript/IPGeolocationAPI';
@@ -55,4 +55,3 @@ console.log(api.getTimezone());
 ## Commands To Run
 1. tsc *.ts
 2. node *.js
-
