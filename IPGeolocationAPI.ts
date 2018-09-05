@@ -1,6 +1,7 @@
 import {GeolocationParams} from './GeolocationParams';
 import {TimezoneParams} from './TimezoneParams';
-import {XMLHttpRequest} from './node_modules/xmlhttprequest'
+import {XMLHttpRequest} from './node_modules/xmlhttprequest';
+
 export class IPGeolocationAPI {
     apiKey: string;
 
