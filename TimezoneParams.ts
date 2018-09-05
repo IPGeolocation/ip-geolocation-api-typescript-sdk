@@ -1,9 +1,8 @@
 export class TimezoneParams {
-
-    timezone :string;
-    ip :string;
-    latitude :number;
-    longitude :number;
+    timezone: string;
+    ip: string;
+    latitude: number;
+    longitude: number;
 
     constructor() {
         this.timezone = "";
@@ -40,6 +39,4 @@ export class TimezoneParams {
     getLongitude() {
         return this.longitude;
     }
-
 }
-
