@@ -97,3 +97,7 @@ console.log(ipgeolocationApi.getTimezone(timezoneParams));
 // Query time zone information for calling machine’s IP address
 console.log(ipgeolocationApi.getTimezone());
 ```
+
+### Commands To Run Typescript Application
+1. tsc *.ts
+2. node *.js
