@@ -1,33 +1,41 @@
 # IP Geolocation API Typescript SDK
 
 ## Introduction
-IPGeolocation API is the solution to identify country code (ISO2 and ISO3 standard), country name, continent code, continent name, country capital, state/province, district, city, zip code, latitude and longitude of city, is country belongs to Europian Union, calling code, top level domain (TLD), languages, country flag, internet service provider (ISP), connection type, organization, geoname ID, currency code, currency name, time zone ID, time zone offset, current time in the time zone, is time zone in daylight saving time, and total daylight savings. This document provides important information to help you get up to speed with IPGeolocation API using IP Geolocation API Typescript SDK.
+
+[IPGeolocation API](https://ipgeolocation.io) is the solution to identify country code (ISO2 and ISO3 standard), country name, continent code, continent name, country capital, state/province, district, city, zip code, latitude and longitude of city, is country belongs to Europian Union, calling code, top level domain (TLD), languages, country flag, internet service provider (ISP), connection type, organization, geoname ID, currency code, currency name, time zone ID, time zone offset, current time in the time zone, is time zone in daylight saving time, and total daylight savings. This document provides important information to help you get up to speed with IPGeolocation API using IP Geolocation API Typescript SDK.
 
 Developers can use this Typescript SDK for software and web projects related to, but not limited to:
 
-* Display native language and currency
-* Redirect based on the country
-* Digital rights management
-* Web log stats and analysis
-* Auto-selection of country, state/province and city on forms
-* Filter access from countries you do not do business with
-* Geo-targeting for increased sales and click-through
+1. Display native language and currency
+2. Redirect based on the country
+3. Digital rights management
+4. Web log stats and analysis
+5. Auto-selection of country, state/province and city on forms
+6. Filter access from countries you do not do business with
+7. Geo-targeting for increased sales and click-through
 
 ## Quick Start Guide
-In this document, you will go through the basic steps to use IP Geolocation API Typescript SDK.  
+
 You need a valid 'IPGeolocation API key' to use this SDK. [Sign up](https://ipgeolocation.io/signup) here and get your free API key if you don't have one.
 
-## System Requirements  
+**Note:** Complete documentation to use this SDK is also available at [IP Geolocation API Typescript SDK Documentation](https://ipgeolocation.io/documentation/ip-geolocation-api-typescript-sdk-201809051239).
+
+## System Requirements
+
 Internet connection is required to run this component.
 
 ## Installation
+
 ### NPM
+
 ```cli
 $ npm install ip-geolocation-api-sdk-typescript
 ```
 
 ## Basic Usage
+
 ### Setup API
+
 ```ts
 import {IPGeolocationAPI} from './node_modules/ip-geolocation-api-sdk-typescript/IPGeolocationAPI';
 
@@ -36,6 +44,7 @@ let ipgeolocationApi = new IPGeolocationAPI("YOUR_API_KEY");
 ```
 
 ### Geolocation Lookup
+
 ```ts
 import {GeolocationParams} from './node_modules/ip-geolocation-api-sdk-typescript/GeolocationParams';
 
@@ -57,6 +66,7 @@ console.log(ipgeolocationApi.getGeolocation(geolocationParams));
 ```
 
 ### Bulk Geolocations Lookup
+
 ```ts
 // Query geolocations for multiple IP addresses and all fields
 let geolocationParams = new GeolocationParams();
@@ -73,6 +83,7 @@ console.log(ipgeolocationApi.getGeolocation(geolocationParams));
 ```
 
 ### Time Zone API
+
 ```ts
 import {GeolocationParams} from './node_modules/ip-geolocation-api-sdk-typescript/TimezoneParams';
 
@@ -99,5 +110,6 @@ console.log(ipgeolocationApi.getTimezone());
 ```
 
 ### Commands To Run Typescript Application
+
 1. tsc *.ts
 2. node *.js
