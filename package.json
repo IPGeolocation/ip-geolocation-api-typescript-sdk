@@ -1,20 +1,38 @@
 {
-  "name": "ip-geolocation-api-sdk-typescript",
-  "version": "1.0.2",
-  "description": "",
-  "main": "IPGeolocationAPI.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_from": "ip-geolocation-api-sdk-typescript",
+  "_id": "ip-geolocation-api-sdk-typescript@1.0.4",
+  "_inBundle": false,
+  "_integrity": "sha512-3H57yHooCwH3glQLZskv8fw1PYFB9+95PZzsFO89acrzIeGcUsbUzd91f4uM8OJIODPXYP+UQEBajjIJWIOWeg==",
+  "_location": "/ip-geolocation-api-sdk-typescript",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ip-geolocation-api-sdk-typescript",
+    "name": "ip-geolocation-api-sdk-typescript",
+    "escapedName": "ip-geolocation-api-sdk-typescript",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript.git"
-  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-sdk-typescript/-/ip-geolocation-api-sdk-typescript-1.0.4.tgz",
+  "_shasum": "247858c28360a16ba09569b2e8501385c9d05356",
+  "_spec": "ip-geolocation-api-sdk-typescript",
+  "_where": "/home/developer/test-ts2",
   "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript/issues"
   },
+  "bundleDependencies": false,
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  },
+  "deprecated": false,
+  "description": "## Installation ```cli npm i ip-geolocation-api-sdk-typescript ```",
   "homepage": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript#README",
   "keywords": [
     "ip",
@@ -28,7 +46,15 @@
     "geoip api",
     "ip location api"
   ],
-  "dependencies": {
-    "xmlhttprequest": "^1.8.0"
-  }
+  "license": "ISC",
+  "main": "IPGeolocationAPI.ts",
+  "name": "ip-geolocation-api-sdk-typescript",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.4"
 }

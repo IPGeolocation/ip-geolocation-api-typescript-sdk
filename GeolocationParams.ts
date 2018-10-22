@@ -1,39 +1,40 @@
 export class GeolocationParams  {
-	ip: string;
-	fields: string;
-	ips: any;
- 
-	constructor() {
-		this.ip = "";
-		this.fields = "";
-		this.ips = "";
-	}
 
-	setIp(ip = "") {
-		this.ip = ip;
-	}
+      ip: string;
+      fields: string;
+      ips: any;
+      
+    constructor() {
+	 this.ip = "";
+	 this.fields = "";
+     this.ips = "";
+    }
 
-	getIp() {
-		return this.ip;
-	}
+    setIP(ip = "") {
+      this.ip = ip;
+    }
 
-	setFields(fields = "") {
-		this.fields = fields;
-	}
+    getIP() {
+        return this.ip;
+    }
 
-	getFields() {
-		return this.fields;
-	}
+    setFields(fields = "") {
+        this.fields = fields;
+    }
 
-	setIps(ips : any = null) {
-		if(ips.length > 50) {
-			console.log("Max. number of IP addresses cannot be more than 50.");
-		} else {
-			this.ips = ips;
-		}
-	}
+    getFields() {
+        return this.fields;
+    }
 
-	getIps() {
-		return this.ips;
-	}
+    setIPList(ips : any = null) {
+        if(ips.length > 50) {
+            console.log("Max. number of IP addresses cannot be more than 50.");
+        } else {
+            this.ips = ips;
+        }
+    }
+
+    getIPList() {
+        return this.ips;
+    }
 }
