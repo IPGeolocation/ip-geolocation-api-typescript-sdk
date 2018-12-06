@@ -1,15 +1,17 @@
 export class TimezoneParams {
 
     timezone :string;
-    ip :string;
     latitude :number;
     longitude :number;
+    ipAddress :string;
+    lang: string;
 
     constructor() {
         this.timezone = "";
-        this.ip = "";
         this.latitude = 1000.0;
         this.longitude = 1000.0;
+        this.ipAddress = "";
+        this.lang = "en";
     }
 
     setTimezone(timezone = "") {
@@ -20,17 +22,25 @@ export class TimezoneParams {
         return this.timezone;
     }
 
-    setIP(ip = "") {
-        this.ip = ip;
-    }
-
-    getIP() {
-        return this.ip;
-    }
-
-    setLocation(latitude = 0, longitude = 0) {
+    setLocation(latitude = 1000.0, longitude = 1000.0) {
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    setIPAddress(ipAddress = "") {
+        this.ipAddress = ipAddress;
+    }
+
+    getIPAddress() {
+        return this.ipAddress;
+    }
+
+    setLang(lang = "en") {
+        this.lang = lang;
+    }
+
+    getLang() {
+        return this.lang;
     }
 
     getLatitude() {

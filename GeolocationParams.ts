@@ -1,21 +1,21 @@
 export class GeolocationParams  {
 
-      ipAddress: string;
-      fields: string;
-      excludes: string;
-      lang: string;
-      ipAddresses: string[];
+    ipAddress: string;
+    fields: string;
+    excludes: string;
+    lang: string;
+    ipAddresses: string[];
       
     constructor() {
-	 this.ipAddress = "";
-     this.fields = "";
-     this.excludes = "";
-     this.lang = "en";
-     this.ipAddresses = [];
+	    this.ipAddress = "";
+        this.fields = "";
+        this.excludes = "";
+        this.lang = "en";
+        this.ipAddresses = [];
     }
 
     setIPAddress(ipAddress = "") {
-      this.ipAddress = ipAddress;
+        this.ipAddress = ipAddress;
     }
 
     getIPAddress() {
@@ -36,6 +36,14 @@ export class GeolocationParams  {
 
     getExcludes() {
         return this.excludes;
+    }
+
+    setLang(lang = "en") {
+        this.lang = lang;
+    }
+
+    getLang() {
+        return this.lang;
     }
 
     setIPAddresses(ipAddresses : string[] = []) {
