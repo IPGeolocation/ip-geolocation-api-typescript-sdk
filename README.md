@@ -60,22 +60,22 @@ ipgeolocationApi.getGeolocation(handleResponse);
 
 // Get complete geolocation in Russian** for IP address (1.1.1.1)
 let geolocationParams = new GeolocationParams();
-geolocationParams.setIPAddress("1.1.1.1");
-geolocationParams.setLang("ru");
+geolocationParams.setIPAddress('1.1.1.1');
+geolocationParams.setLang('ru');
 
 ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
 
 // Get custom geolocation (only "geo, time_zone and currency" fields/objects) for an IP address (1.1.1.1)
 let geolocationParams = new GeolocationParams();
-geolocationParams.setIPAddress("1.1.1.1"); 
-geolocationParams.setFields("geo,time_zone,currency");
+geolocationParams.setIPAddress('1.1.1.1'); 
+geolocationParams.setFields('geo,time_zone,currency');
 
 ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
 
-// Exclude fields/obejects from complete geolocation
+// Exclude fields/obejects from complete geolocation in Italian language
 let geolocationParams = new GeolocationParams();
-geolocationParams.setExcludes("continent_name,country_code3,time_zone");
-geolocationParams.setLang("it");
+geolocationParams.setExcludes('continent_name,country_code3,time_zone');
+geolocationParams.setLang('it');
 
 ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
 ```
@@ -93,7 +93,7 @@ ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
 // Specify the required fields/objects for multiple IP addresses
 let geolocationParams = new GeolocationParams();
 geolocationParams.setIPAddresses(['1.1.1.1', '2.2.2.2', '3.3.3.3']);
-geolocationParams.setFields("geo");
+geolocationParams.setFields('geo');
 
 ipgeolocationApi.getGeolocation(geolocationParams, geoResponse);
 ```
@@ -105,19 +105,19 @@ import { TimezoneParams } from './node_modules/ip-geolocation-api-sdk-typescript
 
 // Get time zone information by time zone ID
 let timezoneParams = new TimezoneParams();
-timezoneParams.setTimezone("America/New_York");
+timezoneParams.setTimezone('America/Los_Angeles');
 
 ipgeolocationApi.getTimezone(handleResponse, timezoneParams);
 
 // Get time zone information by latitude and longitude of the location
 let timezoneParams = new TimezoneParams();
-timezoneParams.setLocation("37.1838139", "-123.8105225);
+timezoneParams.setLocation('37.1838139', '-123.8105225');
 
 ipgeolocationApi.getTimezone(handleResponse, timezoneParams);
 
 // Get time zone information for IP address (1.1.1.1) and geolocation information Japanese**
 let timezoneParams = new TimezoneParams();
-timezoneParams.setIPAddress("1.1.1.1");
+timezoneParams.setIPAddress('1.1.1.1');
 
 ipgeolocationApi.getTimezone(handleResponse, timezoneParams);
 
