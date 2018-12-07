@@ -37,107 +37,106 @@ $ npm install ip-geolocation-api-sdk-typescript
 ### Setup API
 
 ```ts
-import {IPGeolocationAPI} from './node_modules/ip-geolocation-api-sdk-typescript/IPGeolocationAPI';
+import { IPGeolocationAPI } from './node_modules/ip-geolocation-api-sdk-typescript/IPGeolocationAPI';
 
-// Create IPGeolocationAPI object, passing your valid API key
-let ipgeolocationApi = new IPGeolocationAPI("YOUR_API_KEY");
-
-// If you want to authorize your requests by your _Request Origin_, you can create IPGeolocationAPI object without an API key.
-let ipgeolocationApi = new IPGeolocationAPI();
+// Create IPGeolocationAPI object. Constructor takes two parameters.
+// 1) API key (Optional: To authenticate your requests through "Request Origin", you can skip it.)
+// 2) Async (Optional: It is used to toggle "async" mode in the requests. By default, it is true.)
+let ipgeolocationApi = new IPGeolocationAPI("YOUR_API_KEY", false); 
 ```
 
 ### Geolocation Lookup
 
 ```ts
-import {GeolocationParams} from './node_modules/ip-geolocation-api-sdk-typescript/GeolocationParams';
+import { GeolocationParams } from './node_modules/ip-geolocation-api-sdk-typescript/GeolocationParams';
 
-// Query geolocation for the calling machine's IP address for all fields
-ipgeolocationApi.getGeolocation(null, geoResponse);
-function geoResponse(json) {
+// Function to handle API response
+function handleResponse(json) {
     console.log(json);
 }
 
-// Query geolocation for IP address (1.1.1.1) and all fields
-let geolocationParams = new GeolocationParams();
-geolocationParams.setIP("1.1.1.1");
+// Get complete geolocation for the calling machine's IP address
+ipgeolocationApi.getGeolocation(handleResponse);
 
-ipgeolocationApi.getGeolocation(geolocationParams, geoResponse);
-function geoResponse(json) {
-    console.log(json);
-}
-
-// Query geolocation for IP address (1.1.1.1) and fields (geo, time_zone and currency)
+// Get complete geolocation in Russian** for IP address (1.1.1.1)
 let geolocationParams = new GeolocationParams();
-geolocationParams.setIP("1.1.1.1"); 
+geolocationParams.setIPAddress("1.1.1.1");
+geolocationParams.setLang("ru");
+
+ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
+
+// Get custom geolocation (only "geo, time_zone and currency" fields/objects) for an IP address (1.1.1.1)
+let geolocationParams = new GeolocationParams();
+geolocationParams.setIPAddress("1.1.1.1"); 
 geolocationParams.setFields("geo,time_zone,currency");
 
-ipgeolocationApi.getGeolocation(geolocationParams, geoResponse);
-function geoResponse(json) {
-    console.log(json);
-}
+ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
+
+// Exclude fields/obejects from complete geolocation
+let geolocationParams = new GeolocationParams();
+geolocationParams.setExcludes("continent_name,country_code3,time_zone");
+geolocationParams.setLang("it");
+
+ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
 ```
 
 ### Bulk Geolocations Lookup
 
 ```ts
-// Query geolocations for multiple IP addresses and all fields
+// Query geolocation in German** for multiple IP addresses and all fields
 let geolocationParams = new GeolocationParams();
-geolocationParams.setIPList(['1.1.1.1', '2.2.2.2', '3.3.3.3']);
+geolocationParams.setLang('de');
+geolocationParams.setIPAddresses(['1.1.1.1', '2.2.2.2', '3.3.3.3']);
 
-ipgeolocationApi.getGeolocation(geolocationParams, geoResponse);
-function geoResponse(json) {
-    console.log(json);
-}
+ipgeolocationApi.getGeolocation(handleResponse, geolocationParams);
 
-// Query geolocations for multiple IP addresses but only 'geo' field
+// Specify the required fields/objects for multiple IP addresses
 let geolocationParams = new GeolocationParams();
-geolocationParams.setIPList(['1.1.1.1', '2.2.2.2', '3.3.3.3']);
+geolocationParams.setIPAddresses(['1.1.1.1', '2.2.2.2', '3.3.3.3']);
 geolocationParams.setFields("geo");
 
 ipgeolocationApi.getGeolocation(geolocationParams, geoResponse);
-function geoResponse(json) {
-    console.log(json);
-}
 ```
 
-### Time Zone API
+### Timezone API
 
 ```ts
-import {GeolocationParams} from './node_modules/ip-geolocation-api-sdk-typescript/TimezoneParams';
+import { TimezoneParams } from './node_modules/ip-geolocation-api-sdk-typescript/TimezoneParams';
 
-// Query time zone information by time zone ID
+// Get time zone information by time zone ID
 let timezoneParams = new TimezoneParams();
 timezoneParams.setTimezone("America/New_York");
 
-ipgeolocationApi.getTimezone(timezoneParams, timeZoneResponse);
-function timeZoneResponse(json) {
-    console.log(json);
-}
+ipgeolocationApi.getTimezone(handleResponse, timezoneParams);
 
-// Query time zone information by latitude and longitude of the location
+// Get time zone information by latitude and longitude of the location
 let timezoneParams = new TimezoneParams();
-timezoneParams.setLocation(37.1838139, -123.8105225);
+timezoneParams.setLocation("37.1838139", "-123.8105225);
 
-ipgeolocationApi.getTimezone(timezoneParams, timeZoneResponse);
-function timeZoneResponse(json) {
-    console.log(json);
-}
+ipgeolocationApi.getTimezone(handleResponse, timezoneParams);
 
-// Query time zone information for IP address (1.1.1.1)
+// Get time zone information for IP address (1.1.1.1) and geolocation information Japanese**
 let timezoneParams = new TimezoneParams();
-timezoneParams.setIP("1.1.1.1");
+timezoneParams.setIPAddress("1.1.1.1");
 
-ipgeolocationApi.getTimezone(timezoneParams, timeZoneResponse);
-function timeZoneResponse(json) {
-    console.log(json);
-}
+ipgeolocationApi.getTimezone(handleResponse, timezoneParams);
 
-// Query time zone information for calling machine’s IP address
-ipgeolocationApi.getTimezone(null, timeZoneResponse);
-function timeZoneResponse(json) {
-    console.log(json);
-}
+// Query time zone information for calling machine's IP address
+ipgeolocationApi.getTimezone(handleResponse);
 ```
+** IPGeolocation provides geolocation information in the following languages:
+
+* English (en)
+* German (de)
+* Russian (ru)
+* Japanese (ja)
+* French (fr)
+* Chinese Simplified (cn)
+* Spanish (es)
+* Czech (cs)
+* Italian (it)
+
+By default, geolocation information is returned in English. Response in a language other than English is available to paid users only.
 
 ### Commands To Run Typescript Application
 
