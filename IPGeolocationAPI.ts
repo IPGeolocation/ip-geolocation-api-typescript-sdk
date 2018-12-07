@@ -136,7 +136,7 @@ export class IPGeolocationAPI {
         });
 
         xhr.withCredentials = true;
-        xhr.open("GET", "https://api.ipgeolocation.io/".concat(subUrl, "?", urlParams, ""), this.async);
+        xhr.open("GET", "https://api.ipgeolocation.io/".concat(subUrl, "?", urlParams, ""), this.async, null, null);
         xhr.setRequestHeader("Accept", "application/json");
         xhr.send(null);
     }
@@ -164,7 +164,7 @@ export class IPGeolocationAPI {
         });
         
         xhr.withCredentials = true;
-        xhr.open("POST", "https://api.ipgeolocation.io/".concat(subUrl, "?", urlParams, ""), this.async);
+        xhr.open("POST", "https://api.ipgeolocation.io/".concat(subUrl, "?", urlParams, ""), this.async, null, null);
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(requestData);        
