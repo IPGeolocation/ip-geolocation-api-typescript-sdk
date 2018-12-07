@@ -124,6 +124,7 @@ ipgeolocationApi.getTimezone(handleResponse, timezoneParams);
 // Query time zone information for calling machine's IP address
 ipgeolocationApi.getTimezone(handleResponse);
 ```
+
 ** IPGeolocation provides geolocation information in the following languages:
 
 * English (en)
@@ -141,4 +142,4 @@ By default, geolocation information is returned in English. Response in a langua
 ### Commands To Run Typescript Application
 
 1. tsc *.ts
-2. node *.js
+2. node Main.js
