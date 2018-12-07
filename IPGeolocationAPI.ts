@@ -1,136 +1,174 @@
-import {GeolocationParams} from './GeolocationParams';
-import {TimezoneParams} from './TimezoneParams';
-import {XMLHttpRequest} from 'xmlhttprequest';
+import { GeolocationParams } from './GeolocationParams';
+import { TimezoneParams } from './TimezoneParams';
+import { XMLHttpRequest } from 'xmlhttprequest';
 export class IPGeolocationAPI {
 
     apiKey: string;
+    async: boolean;
 
-    constructor(apiKey: string = null) {
+    constructor(apiKey: string = null, async: boolean = true) {
         this.apiKey = apiKey;
+        this.async = async;
     }
 
     public getApiKey() {
         return this.apiKey;
     }
 
-    public getGeolocation(params : GeolocationParams = null, callback) {
-        if(params && params.getIPList())
-        { return this.postRequest("ipgeo-bulk", params, this.apiKey, callback);
-         }else {
-          return this.getRequest("ipgeo", this.buildGeolocationUrlParams(params, this.apiKey), callback);
-         }
-    }
-     
-    public getTimezone(params : TimezoneParams = null, callback) {
-        return this.getRequest("timezone", this.buildTimezoneUrlParams(params, this.apiKey), callback);
+    public isAsync() {
+        return this.async;
     }
 
-    private buildTimezoneUrlParams(params=null, apiKey="") {
-    var urlParams = "apiKey=" + apiKey;
+    public getGeolocation(callback, geolocationParams: GeolocationParams = null): void {
+        if(geolocationParams && geolocationParams.getIPAddresses().length === 0) {
+            this.getRequest("ipgeo", this.buildGeolocationUrlParams(this.apiKey, geolocationParams), callback);
+        } else {
+            const jsonData = JSON.stringify({
+                "ips": geolocationParams.getIPAddresses()
+            });
 
-    if(params != null) {
-        var param = params.getIP();
-        if(param && param != "") {
-            urlParams = urlParams + "&ip=" + param;
-        }
-
-        param = params.getTimezone();
-        if(param && param != "") {
-            urlParams = urlParams + "&tz=" + param;
-        }
-
-        var latitude = params.getLatitude();
-        var longitude = params.getLongitude();
-        if(latitude && latitude != 1000.0 && longitude && longitude != 1000.0) {
-            urlParams = urlParams + "&lat=" + latitude + "&long=" + longitude;
+            this.postRequest("ipgeo-bulk", this.buildGeolocationUrlParams(this.apiKey, geolocationParams), jsonData, callback);
         }
     }
-    return urlParams;
-    }
 
-    private buildGeolocationUrlParams(params=null, apiKey="") {
-        
-        var urlParams = "apiKey=" + apiKey;
-        if(params != null) {
-            var param = params.getIP();
-           
-            if(param && param != "") {
-                urlParams = urlParams + "&ip=" + param;
+    private buildGeolocationUrlParams(apiKey: string = null, geolocationParams: GeolocationParams = null): string {
+        let urlParams = "";
+
+        if(apiKey) {
+            urlParams = urlParams.concat("apiKey=", apiKey)
+        }
+
+        if(geolocationParams) {
+            if(geolocationParams.getIPAddress()) {
+                if(urlParams) {
+                    urlParams = urlParams.concat("&");
+                }
+                urlParams = urlParams.concat("ip=", geolocationParams.getIPAddress());
             }
-
-            param = params.getFields();
+    
+            if(geolocationParams.getFields()) {
+                if(urlParams) {
+                    urlParams = urlParams.concat("&");
+                }
+                urlParams = urlParams.concat("fields=", geolocationParams.getFields());
+            }
         
-            if(param && param != "") {
-                urlParams = urlParams + "&fields=" + param;
+            if(geolocationParams.getExcludes()) {
+                if(urlParams) {
+                    urlParams = urlParams.concat("&");
+                }
+                urlParams = urlParams.concat("excludes=", geolocationParams.getExcludes());
+            }
+        
+            if(geolocationParams.getLang()) {
+                if(urlParams) {
+                    urlParams = urlParams.concat("&");
+                }
+                urlParams = urlParams.concat("lang=", geolocationParams.getLang());
             }
         }
-
         return urlParams;
     }
-    
+     
+    public getTimezone(callback, timezoneParams: TimezoneParams = null): void {
+        this.getRequest("timezone", this.buildTimezoneUrlParams(this.apiKey, timezoneParams), callback);
+    }
 
-    private getRequest(subUrl = "", params = "", callback){
+    private buildTimezoneUrlParams(apiKey: string = null, timezoneParams: TimezoneParams = null) {
+        let urlParams = "";
 
-    var jsonData = null;
-    var data = null;
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === 4) {
-
-        if(this.status == 0){
-            jsonData = {
-            "message": "Internet is not connected!"
-            };
-        }else{
-              jsonData = JSON.parse(this.responseText);
+        if(apiKey) {
+            urlParams = urlParams.concat("apiKey=", apiKey);
         }
 
-        if (callback && typeof(callback) === typeof(Function)) {
-	        callback(jsonData);
-	    }
+        if(timezoneParams) {
+            if(timezoneParams.getIPAddress()) {
+                if(urlParams) {
+                    urlParams = urlParams.concat("&");
+                }
+                urlParams = urlParams.concat("ip=", timezoneParams.getIPAddress());
+            }
 
+            if(timezoneParams.getTimezone()) {
+                if(urlParams) {
+                    urlParams = urlParams.concat("&");
+                }
+                urlParams = urlParams.concat("tz=", timezoneParams.getTimezone());
+            }
+
+            if(timezoneParams.getLatitude() !== "1000.0" && timezoneParams.getLongitude() !== "1000.0") {
+                if(urlParams) {
+                    urlParams = urlParams.concat("&");
+                }
+                urlParams = urlParams.concat("lat=", timezoneParams.getLatitude(), "&long=", timezoneParams.getLongitude());
+            }
+        
+            if(timezoneParams.getLang()) {
+                if(urlParams) {
+                    urlParams = urlParams.concat("&");
+                }
+                urlParams = urlParams.concat("lang=", timezoneParams.getLang());
+            }
+        }
+        return urlParams;
     }
-    });
-    xhr.open("GET", "https://api.ipgeolocation.io/"+subUrl+"?"+params+"", true);
-    xhr.send(data);
-    return jsonData;
-    
-    }
 
-    private postRequest(subUrl = "", params : GeolocationParams = null, apiKey="", callback){
+    private getRequest(subUrl: string, urlParams: string = "", callback): void {
+        let jsonData = {};
+        let xhr = new XMLHttpRequest();
 
-        var jsonData = null; 
-        var data = JSON.stringify({
-          "ips": params.getIPList()
-        });
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-
-                if(this.status == 0){
+                if (this.status == 0){
                     jsonData = {
-                    "message": "Internet is not connected!"
+                        "message": "Internet is not connected!"
                     };
-                }else{
+                } else {
+                    jsonData = JSON.parse(this.responseText);
+                }
+
+                if (callback && typeof(callback) === typeof(Function)) {
+                    callback(jsonData);
+                } else {
+                    console.error(`Passed callback '${callback}' is not a valid Function.`)
+                }
+            }
+        });
+
+        xhr.withCredentials = true;
+        xhr.open("GET", "https://api.ipgeolocation.io/".concat(subUrl, "?", urlParams, ""), this.async);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send(null);
+    }
+
+    private postRequest(subUrl: string, urlParams: string = "", requestData: {} = {}, callback): void {
+        let jsonData = {}; 
+        let xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                if (this.status == 0){
+                    jsonData = {
+                        "message": "Internet is not connected!"
+                    };
+                } else {
                       jsonData = JSON.parse(this.responseText);
                 }
 
-	           if (callback && typeof(callback) === typeof(Function)) {
-		        callback(jsonData);
-		        }
-
+	            if (callback && typeof(callback) === typeof(Function)) {
+		            callback(jsonData);
+		        } else {
+                    console.error(`Passed callback '${callback}' is not a valid Function.`)
+                }
             }
         });
-        xhr.open("POST", "https://api.ipgeolocation.io/"+subUrl+"?apiKey="+apiKey+"", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(data);
-
-        return jsonData;
         
+        xhr.withCredentials = true;
+        xhr.open("POST", "https://api.ipgeolocation.io/".concat(subUrl, "?", urlParams, ""), this.async);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(requestData);        
     }
-
 }
 
 
