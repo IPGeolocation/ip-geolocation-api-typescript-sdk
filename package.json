@@ -19,7 +19,7 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-sdk-typescript/-/ip-geolocation-api-sdk-typescript-1.0.4.tgz",
+  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-sdk-typescript/-/ip-geolocation-api-sdk-typescript-1.0.5.tgz",
   "_shasum": "247858c28360a16ba09569b2e8501385c9d05356",
   "_spec": "ip-geolocation-api-sdk-typescript",
   "_where": "/home/developer/test-ts2",
@@ -29,7 +29,7 @@
   },
   "bundleDependencies": false,
   "deprecated": false,
-  "description": "## Installation ```cli npm i ip-geolocation-api-sdk-typescript ```",
+  "description": "[Typescript SDK for IP Geolocation API](https://ipgeolocation.io/documentation/ip-geolocation-api-typescript-sdk-201809051239). You can use this SDK to Geolocate an IP address and get time zone information based on geolocation coordinates, or an IP address.",
   "homepage": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript#README",
   "keywords": [
     "ip",
@@ -53,7 +53,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.4",
+  "version": "1.0.5",
   "dependencies": {
     "xmlhttprequest": "^1.8.0"
   }
