@@ -28,9 +28,6 @@
     "url": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript/issues"
   },
   "bundleDependencies": false,
-  "dependencies": {
-    "xmlhttprequest": "^1.8.0"
-  },
   "deprecated": false,
   "description": "## Installation ```cli npm i ip-geolocation-api-sdk-typescript ```",
   "homepage": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript#README",
@@ -56,5 +53,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.4"
+  "version": "1.0.4",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
 }
