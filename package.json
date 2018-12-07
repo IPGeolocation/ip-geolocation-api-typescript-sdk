@@ -1,6 +1,5 @@
 {
   "_from": "ip-geolocation-api-sdk-typescript",
-  "_id": "ip-geolocation-api-sdk-typescript@1.0.4",
   "_inBundle": false,
   "_integrity": "sha512-3H57yHooCwH3glQLZskv8fw1PYFB9+95PZzsFO89acrzIeGcUsbUzd91f4uM8OJIODPXYP+UQEBajjIJWIOWeg==",
   "_location": "/ip-geolocation-api-sdk-typescript",
@@ -56,5 +55,6 @@
   "version": "1.0.5",
   "dependencies": {
     "xmlhttprequest": "^1.8.0"
-  }
+  },
+  "devDependencies": {}
 }
