@@ -3,7 +3,7 @@ import { GeolocationParams } from "./GeolocationParams";
 import { TimezoneParams } from "./TimezoneParams";
 export class IPGeolocationAPI {
   private static buildGeolocationUrlParams(
-    apiKey: string = null,
+    apiKey: string = "",
     geolocationParams: GeolocationParams | null = null
   ): string {
     let urlParams = "";
@@ -48,7 +48,7 @@ export class IPGeolocationAPI {
   }
 
   private static buildTimezoneUrlParams(
-    apiKey: string = null,
+    apiKey: string = "",
     timezoneParams: TimezoneParams | null = null
   ) {
     let urlParams = "";
@@ -100,7 +100,7 @@ export class IPGeolocationAPI {
   public apiKey: string;
   public async: boolean;
 
-  constructor(apiKey: string = null, async: boolean = true) {
+  constructor(apiKey: string = "", async: boolean = true) {
     this.apiKey = apiKey;
     this.async = async;
   }
