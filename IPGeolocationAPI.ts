@@ -128,7 +128,7 @@ export class IPGeolocationAPI {
       );
     } else {
       const jsonData = JSON.stringify({
-        ips: geolocationParams.getIPAddresses()
+        ips: geolocationParams && geolocationParams.getIPAddresses()
       });
 
       this.postRequest(
