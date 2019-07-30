@@ -54,7 +54,7 @@
     "ip location api"
   ],
   "license": "ISC",
-  "main": "IPGeolocationAPI.ts",
+  "main": "index.ts",
   "name": "ip-geolocation-api-sdk-typescript",
   "repository": {
     "type": "git",
