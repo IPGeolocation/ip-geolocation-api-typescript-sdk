@@ -1,34 +1,45 @@
 {
-  "_from": "ip-geolocation-api-sdk-typescript",
+  "_from": "github:sergak01/ip-geolocation-api-typescript-sdk",
+  "_id": "ip-geolocation-api-sdk-typescript@1.0.7",
   "_inBundle": false,
-  "_integrity": "sha512-3H57yHooCwH3glQLZskv8fw1PYFB9+95PZzsFO89acrzIeGcUsbUzd91f4uM8OJIODPXYP+UQEBajjIJWIOWeg==",
+  "_integrity": "",
   "_location": "/ip-geolocation-api-sdk-typescript",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "ip-geolocation-api-sdk-typescript",
+    "type": "git",
+    "raw": "ip-geolocation-api-sdk-typescript@github:sergak01/ip-geolocation-api-typescript-sdk",
     "name": "ip-geolocation-api-sdk-typescript",
     "escapedName": "ip-geolocation-api-sdk-typescript",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+    "rawSpec": "github:sergak01/ip-geolocation-api-typescript-sdk",
+    "saveSpec": "github:sergak01/ip-geolocation-api-typescript-sdk",
+    "fetchSpec": null,
+    "gitCommittish": null
   },
   "_requiredBy": [
-    "#USER",
-    "/"
+    "/",
+    "/ip-geolocation"
   ],
-  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-sdk-typescript/-/ip-geolocation-api-sdk-typescript-1.0.5.tgz",
+  "_resolved": "github:sergak01/ip-geolocation-api-typescript-sdk#d90258b96dbcce59b4cc40c06418fc8c3f51b5ef",
   "_shasum": "247858c28360a16ba09569b2e8501385c9d05356",
-  "_spec": "ip-geolocation-api-sdk-typescript",
-  "_where": "/home/developer/test-ts2",
+  "_spec": "ip-geolocation-api-sdk-typescript@github:sergak01/ip-geolocation-api-typescript-sdk",
+  "_where": "/home/sergey/SoftRize/softrize-frontend",
   "author": "",
   "bugs": {
     "url": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript/issues"
   },
   "bundleDependencies": [],
+  "dependencies": {
+    "@types/node": "^12.6.8",
+    "xmlhttprequest": "^1.8.0"
+  },
   "deprecated": false,
   "description": "[Typescript SDK for IP Geolocation API](https://ipgeolocation.io/documentation/ip-geolocation-api-typescript-sdk-201809051239). You can use this SDK to Geolocate an IP address and get time zone information based on geolocation coordinates, or an IP address.",
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "tslint": "^5.17.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.5.1"
+  },
   "homepage": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript#README",
   "keywords": [
     "ip",
@@ -52,14 +63,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.7",
-  "dependencies": {
-    "xmlhttprequest": "^1.8.0"
-  },
-  "devDependencies": {
-    "prettier": "^1.18.2",
-    "tslint": "^5.17.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.5.1"
-  }
+  "version": "1.0.7"
 }

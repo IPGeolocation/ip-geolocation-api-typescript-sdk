@@ -1,6 +1,8 @@
-import { XMLHttpRequest } from "xmlhttprequest";
 import { GeolocationParams } from "./GeolocationParams";
 import { TimezoneParams } from "./TimezoneParams";
+
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 export class IPGeolocationAPI {
   private static buildGeolocationUrlParams(
     apiKey: string = "",
@@ -114,7 +116,7 @@ export class IPGeolocationAPI {
   }
 
   public getGeolocation(
-    callback,
+    callback: any,
     geolocationParams: GeolocationParams | null = null
   ): void {
     if (geolocationParams && geolocationParams.getIPAddresses().length === 0) {
@@ -144,7 +146,7 @@ export class IPGeolocationAPI {
   }
 
   public getTimezone(
-    callback,
+    callback: any,
     timezoneParams: TimezoneParams | null = null
   ): void {
     this.getRequest(
@@ -154,18 +156,25 @@ export class IPGeolocationAPI {
     );
   }
 
-  private getRequest(subUrl: string, urlParams: string = "", callback): void {
+  private getRequest(
+    subUrl: string,
+    urlParams: string = "",
+    callback: any
+  ): void {
     let jsonData = {};
     const xhr = new XMLHttpRequest();
 
     xhr.addEventListener("readystatechange", function() {
-      if (this.readyState === 4) {
-        if (this.status == 0) {
+      // @ts-ignore
+      const { responseText, status, readyState } = this;
+
+      if (readyState === 4) {
+        if (status == 0) {
           jsonData = {
             message: "Internet is not connected!"
           };
         } else {
-          jsonData = JSON.parse(this.responseText);
+          jsonData = JSON.parse(responseText);
         }
 
         if (callback && typeof callback === typeof Function) {
@@ -195,19 +204,22 @@ export class IPGeolocationAPI {
     subUrl: string,
     urlParams: string = "",
     requestData: {} = {},
-    callback
+    callback: any
   ): void {
     let jsonData = {};
     const xhr = new XMLHttpRequest();
 
     xhr.addEventListener("readystatechange", function() {
-      if (this.readyState === 4) {
-        if (this.status === 0) {
+      // @ts-ignore
+      const { responseText, status, readyState } = this;
+
+      if (readyState === 4) {
+        if (status === 0) {
           jsonData = {
             message: "Internet is not connected!"
           };
         } else {
-          jsonData = JSON.parse(this.responseText);
+          jsonData = JSON.parse(responseText);
         }
 
         if (callback && typeof callback === typeof Function) {
