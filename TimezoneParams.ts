@@ -1,30 +1,19 @@
 export class TimezoneParams {
 
-    timezone: string;
-    latitude: string;
-    longitude: string;
     ipAddress: string;
+    timezone: string;
     lang: string;
+    location: string;
+    latitude: number;
+    longitude: number;
 
     constructor() {
-        this.timezone = "";
-        this.latitude = "1000.0";
-        this.longitude = "1000.0";
         this.ipAddress = "";
+        this.timezone = "";
         this.lang = "en";
-    }
-
-    setTimezone(timezone: string = ""):  void {
-        this.timezone = timezone;
-    }
-
-    getTimezone(): string {
-        return this.timezone;
-    }
-
-    setLocation(latitude: string = "1000.0", longitude: string = "1000.0"): void {
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = "";
+        this.latitude = 1000.0;
+        this.longitude = 1000.0;
     }
 
     setIPAddress(ipAddress: string = ""): void {
@@ -35,6 +24,14 @@ export class TimezoneParams {
         return this.ipAddress;
     }
 
+    setTimezone(timezone: string = ""): void {
+        this.timezone = timezone;
+    }
+
+    getTimezone(): string {
+        return this.timezone;
+    }
+
     setLang(lang: string = "en"): void {
         this.lang = lang;
     }
@@ -43,11 +40,26 @@ export class TimezoneParams {
         return this.lang;
     }
 
-    getLatitude(): string {
+    setLocation(location: string = ""): void {
+        this.location = location;
+    }
+
+    getLocation(): string {
+        return this.location;
+    }
+
+    setCoordinates(la: number = 1000.0, lo: number = 1000.0): void {
+        if ((la >= -90 && la <= 90) && (lo >= -180 && lo <= 180)) {
+            this.latitude = la;
+            this.longitude = lo;
+        }
+    }
+
+    getLatitude(): number {
         return this.latitude;
     }
 
-    getLongitude(): string {
+    getLongitude(): number {
         return this.longitude;
     }
 }

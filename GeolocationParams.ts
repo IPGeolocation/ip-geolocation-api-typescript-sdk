@@ -1,17 +1,27 @@
-export class GeolocationParams  {
+export class GeolocationParams {
 
     ipAddress: string;
+    ipAddresses: string[];
+    lang: string;
     fields: string;
     excludes: string;
-    lang: string;
-    ipAddresses: string[];
-      
+    includeHostname: boolean;
+    includeHostnameFallbackLive: boolean;
+    includeLiveHostname: boolean;
+    includeSecurity: boolean;
+    includeUserAgent: boolean;
+
     constructor() {
-	    this.ipAddress = "";
+        this.ipAddress = "";
+        this.ipAddresses = [];
+        this.lang = "en";
         this.fields = "";
         this.excludes = "";
-        this.lang = "en";
-        this.ipAddresses = [];
+        this.includeHostname = false;
+        this.includeHostnameFallbackLive = false;
+        this.includeLiveHostname = false;
+        this.includeSecurity = false;
+        this.includeUserAgent = false;
     }
 
     setIPAddress(ipAddress: string = ""): void {
@@ -20,6 +30,26 @@ export class GeolocationParams  {
 
     getIPAddress(): string {
         return this.ipAddress;
+    }
+
+    setIPAddresses(ipAddresses: string[] = []): void {
+        if (ipAddresses.length > 50) {
+            console.log("Max. number of IP addresses cannot be more than 50.");
+        } else {
+            this.ipAddresses = ipAddresses;
+        }
+    }
+
+    getIPAddresses(): string[] {
+        return this.ipAddresses;
+    }
+
+    setLang(lang: string = "en"): void {
+        this.lang = lang;
+    }
+
+    getLang(): string {
+        return this.lang;
     }
 
     setFields(fields: string = ""): void {
@@ -38,23 +68,45 @@ export class GeolocationParams  {
         return this.excludes;
     }
 
-    setLang(lang: string = "en"): void {
-        this.lang = lang;
+    setIncludeHostname(hostname: boolean = false): void {
+        this.includeHostname = hostname;
     }
 
-    getLang(): string {
-        return this.lang;
+    isIncludeHostname(): boolean {
+        return this.includeHostname;
     }
 
-    setIPAddresses(ipAddresses : string[] = []): void {
-        if(ipAddresses.length > 50) {
-            console.log("Max. number of IP addresses cannot be more than 50.");
-        } else {
-            this.ipAddresses = ipAddresses;
-        }
+    setIncludeHostnameFallbackLive(hostnameFallbackLive: boolean = false): void {
+        this.includeHostnameFallbackLive = hostnameFallbackLive;
     }
 
-    getIPAddresses(): string[] {
-        return this.ipAddresses;
+    isIncludeHostnameFallbackLive(): boolean {
+        return this.includeHostnameFallbackLive;
     }
+
+    setIncludeLiveHostname(liveHostname: boolean = false): void {
+        this.includeLiveHostname = liveHostname;
+    }
+
+    isIncludeLiveHostname(): boolean {
+        return this.includeLiveHostname;
+    }
+
+
+    setIncludeSecurity(security: boolean = false): void {
+        this.includeSecurity = security;
+    }
+
+    isIncludeSecurity(): boolean {
+        return this.includeSecurity;
+    }
+
+    setIncludeUserAgent(userAgent: boolean = false): void {
+        this.includeUserAgent = userAgent;
+    }
+
+    isIncludeUserAgent(): boolean {
+        return this.includeUserAgent;
+    }
+
 }
