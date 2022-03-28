@@ -31,6 +31,9 @@ Internet connection is required to run this component.
 ```cli
 $ npm install ip-geolocation-api-sdk-typescript
 ```
+## Documentation
+Use the following URL to visit documentation
+[https://ipgeolocation.io/documentation.html](https://ipgeolocation.io/documentation.html)
 
 ## Basic Usage
 
@@ -123,6 +126,17 @@ ipgeolocationApi.getTimezone(handleResponse, timezoneParams);
 
 // Query time zone information for calling machine's IP address
 ipgeolocationApi.getTimezone(handleResponse);
+```
+
+### UserAgent API
+
+```ts
+// Get user agent information for single user agent string
+ipgeolocationApi.getUserAgent(handleResponse, "AppleTV6,2/11.1");
+
+// Get user agents information in bulk by providing array of user agent strings
+var uaStrings:string[] = ["AppleTV6,2/11.1", "Roku4640X/DVP-7.70 (297.70E04154A)", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1"];
+ipgeolocationApi.getBulkUserAgent(handleResponse, uaStrings);
 ```
 
 ** IPGeolocation provides geolocation information in the following languages:
