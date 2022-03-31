@@ -1,35 +1,11 @@
 {
-  "_from": "ip-geolocation-api-sdk-typescript",
-  "_inBundle": false,
-  "_integrity": "sha512-3H57yHooCwH3glQLZskv8fw1PYFB9+95PZzsFO89acrzIeGcUsbUzd91f4uM8OJIODPXYP+UQEBajjIJWIOWeg==",
-  "_location": "/ip-geolocation-api-sdk-typescript",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "ip-geolocation-api-sdk-typescript",
-    "name": "ip-geolocation-api-sdk-typescript",
-    "escapedName": "ip-geolocation-api-sdk-typescript",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-sdk-typescript/-/ip-geolocation-api-sdk-typescript-1.0.5.tgz",
-  "_shasum": "247858c28360a16ba09569b2e8501385c9d05356",
-  "_spec": "ip-geolocation-api-sdk-typescript",
-  "_where": "/home/developer/test-ts2",
   "author": "",
   "bugs": {
-    "url": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript/issues"
+    "url": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk"
   },
-  "bundleDependencies": false,
   "deprecated": false,
   "description": "[Typescript SDK for IP Geolocation API](https://ipgeolocation.io/documentation/ip-geolocation-api-typescript-sdk-201809051239). You can use this SDK to Geolocate an IP address and get time zone information based on geolocation coordinates, or an IP address.",
-  "homepage": "https://gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript#README",
+  "homepage": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk",
   "keywords": [
     "ip",
     "ipgeo",
@@ -37,7 +13,7 @@
     "ip geolocation api",
     "time zone",
     "ip geolocation sdk",
-    "geolocation javascript",
+    "geolocation typescript",
     "geoip lookup",
     "geoip api",
     "ip location api"
@@ -47,7 +23,7 @@
   "name": "ip-geolocation-api-sdk-typescript",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/ahsanNawaz111/ipGeoLocation-TypeScript.git"
+    "url": "git+ssh://git@github.com:IPGeolocation/ip-geolocation-api-typescript-sdk.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
