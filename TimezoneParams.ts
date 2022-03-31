@@ -1,5 +1,4 @@
 export class TimezoneParams {
-
     ipAddress: string;
     timezone: string;
     lang: string;
@@ -52,6 +51,8 @@ export class TimezoneParams {
         if ((la >= -90 && la <= 90) && (lo >= -180 && lo <= 180)) {
             this.latitude = la;
             this.longitude = lo;
+        } else {
+            throw new Error("Provided latitude and longitude values are out of bound.");
         }
     }
 

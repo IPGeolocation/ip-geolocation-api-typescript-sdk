@@ -1,5 +1,4 @@
 export class GeolocationParams {
-
     ipAddress: string;
     ipAddresses: string[];
     lang: string;

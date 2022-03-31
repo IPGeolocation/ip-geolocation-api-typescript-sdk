@@ -1,8 +1,8 @@
 import { GeolocationParams } from './GeolocationParams';
 import { TimezoneParams } from './TimezoneParams';
 import { XMLHttpRequest } from 'xmlhttprequest';
-export class IPGeolocationAPI {
 
+export class IPGeolocationAPI {
     apiKey: string;
     async: boolean;
 
@@ -11,7 +11,7 @@ export class IPGeolocationAPI {
         this.async = async;
     }
 
-    public getGeolocation(callback, geolocationParams: GeolocationParams = null): void {
+    public getGeolocation(callback: (json: any) => any, geolocationParams: GeolocationParams = null): void {
         if (geolocationParams && geolocationParams.getIPAddresses().length === 0) {
             this.getRequest("ipgeo", this.buildGeolocationUrlParams(this.apiKey, geolocationParams), callback);
         } else {
@@ -23,26 +23,22 @@ export class IPGeolocationAPI {
         }
     }
 
-    public getTimezone(callback, timezoneParams: TimezoneParams = null): void {
+    public getTimezone(callback: (json: any) => any, timezoneParams: TimezoneParams = null): void {
         this.getRequest("timezone", this.buildTimezoneUrlParams(this.apiKey, timezoneParams), callback);
     }
 
-    public getUserAgent(callback, uaString: string = null): void {
-        var jsonData: string = "{\"uaString\":\"" + uaString + "\"}";
+    public getUserAgent(callback: (json: any) => any, uaString: string = null): void {
+        var jsonData: string = JSON.stringify({
+            "uaString": uaString
+        });
+
         this.postRequest('user-agent', "apiKey=" + this.apiKey, jsonData, callback);
     }
 
-    public getBulkUserAgent(callback, uaStrings = []): void {
-        var jsonData: string = "{\"uaStrings\":[";
-        for (let i = 0; i < uaStrings.length; i++) {
-            if (i === 0) {
-                jsonData = jsonData.concat("\"" + uaStrings[i] + "\"");
-            } else {
-                jsonData = jsonData.concat(",");
-                jsonData = jsonData.concat("\"" + uaStrings[i] + "\"");
-            }
-        }
-        jsonData = jsonData.concat("]}");
+    public getBulkUserAgent(callback: (json: any) => any, uaStrings = []): void {
+        var jsonData: string = JSON.stringify({
+            "uaStrings": uaStrings
+        });
 
         this.postRequest('user-agent-bulk', "apiKey=" + this.apiKey, jsonData, callback);
     }
@@ -67,6 +63,7 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
                 }
+
                 urlParams = urlParams.concat("ip=", geolocationParams.getIPAddress());
             }
 
@@ -74,6 +71,7 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
                 }
+
                 urlParams = urlParams.concat("fields=", geolocationParams.getFields());
             }
 
@@ -81,6 +79,7 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
                 }
+
                 urlParams = urlParams.concat("excludes=", geolocationParams.getExcludes());
             }
 
@@ -88,12 +87,14 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
                 }
+
                 urlParams = urlParams.concat("lang=", geolocationParams.getLang());
             }
 
             if (geolocationParams.isIncludeHostname() || geolocationParams.isIncludeHostnameFallbackLive() || geolocationParams.isIncludeLiveHostname() || geolocationParams.isIncludeSecurity() || geolocationParams.isIncludeUserAgent()) {
                 var val: string = "";
                 var includeHost = false;
+
                 if (geolocationParams.isIncludeHostname()) {
                     val = "hostname";
                     includeHost = true;
@@ -104,6 +105,7 @@ export class IPGeolocationAPI {
                     val = "liveHostname";
                     includeHost = true;
                 }
+
                 if (geolocationParams.isIncludeSecurity()) {
                     if (includeHost) {
                         val = val + ",security";
@@ -111,6 +113,7 @@ export class IPGeolocationAPI {
                         val = "security";
                     }
                 }
+
                 if (geolocationParams.isIncludeUserAgent()) {
                     if (includeHost || geolocationParams.isIncludeSecurity()) {
                         val = val + ",useragent";
@@ -118,12 +121,15 @@ export class IPGeolocationAPI {
                         val = "useragent";
                     }
                 }
+
                 if (urlParams) {
                     urlParams = urlParams.concat('&');
                 }
+
                 urlParams = urlParams.concat('include=', val);
             }
         }
+
         return urlParams;
     }
 
@@ -139,6 +145,7 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
                 }
+
                 urlParams = urlParams.concat("ip=", timezoneParams.getIPAddress());
             }
 
@@ -146,6 +153,7 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
                 }
+
                 urlParams = urlParams.concat("tz=", timezoneParams.getTimezone());
             }
 
@@ -161,6 +169,7 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
                 }
+
                 urlParams = urlParams.concat("lat=" + timezoneParams.getLatitude() + "&long=" + timezoneParams.getLongitude());
             }
 
@@ -168,13 +177,15 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
                 }
+
                 urlParams = urlParams.concat("lang=", timezoneParams.getLang());
             }
         }
+
         return urlParams;
     }
 
-    private getRequest(subUrl: string, urlParams: string = "", callback): void {
+    private getRequest(subUrl: string, urlParams: string = "", callback: (json: any) => any): void {
         let jsonData = {};
         let xhr = new XMLHttpRequest();
 
@@ -188,7 +199,7 @@ export class IPGeolocationAPI {
                     jsonData = JSON.parse(this.responseText);
                 }
 
-                if (callback && typeof (callback) === typeof (Function)) {
+                if (callback) {
                     callback(jsonData);
                 } else {
                     console.error(`Passed callback '${callback}' is not a valid Function.`)
@@ -202,7 +213,7 @@ export class IPGeolocationAPI {
         xhr.send(null);
     }
 
-    private postRequest(subUrl: string, urlParams: string = "", requestData: {} = {}, callback): void {
+    private postRequest(subUrl: string, urlParams: string = "", requestData: {} = {}, callback: (json: any) => any): void {
         let jsonData = {};
         let xhr = new XMLHttpRequest();
 
@@ -216,7 +227,7 @@ export class IPGeolocationAPI {
                     jsonData = JSON.parse(this.responseText);
                 }
 
-                if (callback && typeof (callback) === typeof (Function)) {
+                if (callback) {
                     callback(jsonData);
                 } else {
                     console.error(`Passed callback '${callback}' is not a valid Function.`)
