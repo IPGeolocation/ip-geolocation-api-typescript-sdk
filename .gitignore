@@ -3,6 +3,5 @@ node_modules/
 
 # files
 package-lock.json
-Test.*
-*.js
 index.ts
+*.js
