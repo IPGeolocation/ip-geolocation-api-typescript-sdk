@@ -32,5 +32,7 @@
   "dependencies": {
     "xmlhttprequest": "^1.8.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/xmlhttprequest": "^1.8.2"
+  }
 }

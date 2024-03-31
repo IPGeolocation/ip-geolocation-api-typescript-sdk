@@ -253,7 +253,7 @@ export class IPGeolocationAPI {
         xhr.open("POST", "https://api.ipgeolocation.io/".concat(subUrl, "?", urlParams, ""), this.async, null, null);
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(requestData);
+        xhr.send(requestData as XMLHttpRequestBodyInit);
     }
 }
 
