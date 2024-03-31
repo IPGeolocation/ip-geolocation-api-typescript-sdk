@@ -3,36 +3,50 @@ import { TimezoneParams } from './TimezoneParams';
 import { XMLHttpRequest } from 'xmlhttprequest';
 
 export class IPGeolocationAPI {
-    apiKey: string;
+    apiKey: string | null;
     async: boolean;
 
-    constructor(apiKey: string = null, async: boolean = true) {
+    constructor(apiKey: string | null = null, async: boolean = true) {
         this.apiKey = apiKey;
         this.async = async;
     }
 
-    public getGeolocation(callback: (json: any) => any, geolocationParams: GeolocationParams = null): void {
+    public getGeolocation(callback: (json: any) => any, geolocationParams: GeolocationParams | null = null): void {
         if (geolocationParams && geolocationParams.getIPAddresses().length === 0) {
-            this.getRequest("ipgeo", this.buildGeolocationUrlParams(this.apiKey, geolocationParams), callback);
+            if (this.apiKey) {
+                this.getRequest("ipgeo", this.buildGeolocationUrlParams(this.apiKey, geolocationParams), callback);
+            } else {
+                throw new Error('API Key invalid');
+            }
         } else {
             const jsonData = JSON.stringify({
-                "ips": geolocationParams.getIPAddresses()
+                "ips": geolocationParams!.getIPAddresses()
             });
 
-            this.postRequest("ipgeo-bulk", this.buildGeolocationUrlParams(this.apiKey, geolocationParams), jsonData, callback);
+            if (this.apiKey && geolocationParams) {
+                this.postRequest("ipgeo-bulk", this.buildGeolocationUrlParams(this.apiKey, geolocationParams), jsonData, callback);
+            }
         }
     }
 
-    public getTimezone(callback: (json: any) => any, timezoneParams: TimezoneParams = null): void {
-        this.getRequest("timezone", this.buildTimezoneUrlParams(this.apiKey, timezoneParams), callback);
+    public getTimezone(callback: (json: any) => any, timezoneParams: TimezoneParams | null = null): void {
+        if (this.apiKey && timezoneParams) {
+            this.getRequest("timezone", this.buildTimezoneUrlParams(this.apiKey, timezoneParams), callback);
+        } else {
+            throw new Error('You need to provide a API Key valid or your Timezone is invalid');
+        }
     }
 
-    public getUserAgent(callback: (json: any) => any, uaString: string = null): void {
+    public getUserAgent(callback: (json: any) => any, uaString: string | null = null): void {
         var jsonData: string = JSON.stringify({
             "uaString": uaString
         });
 
-        this.postRequest('user-agent', "apiKey=" + this.apiKey, jsonData, callback);
+        if (this.apiKey) {
+            this.postRequest('user-agent', "apiKey=" + this.apiKey, jsonData, callback);
+        } else {
+            throw new Error('You need to provide a API Key');
+        }
     }
 
     public getBulkUserAgent(callback: (json: any) => any, uaStrings = []): void {
@@ -51,7 +65,7 @@ export class IPGeolocationAPI {
         return this.async;
     }
 
-    private buildGeolocationUrlParams(apiKey: string = null, geolocationParams: GeolocationParams = null): string {
+    private buildGeolocationUrlParams(apiKey: string | null = null, geolocationParams: GeolocationParams | null = null): string {
         let urlParams = "";
 
         if (apiKey) {
@@ -133,7 +147,7 @@ export class IPGeolocationAPI {
         return urlParams;
     }
 
-    private buildTimezoneUrlParams(apiKey: string = null, timezoneParams: TimezoneParams = null) {
+    private buildTimezoneUrlParams(apiKey: string | null = null, timezoneParams: TimezoneParams | null = null) {
         let urlParams = "";
 
         if (apiKey) {
@@ -161,10 +175,10 @@ export class IPGeolocationAPI {
                 if (urlParams) {
                     urlParams = urlParams.concat('&');
                 }
-    
+
                 urlParams = urlParams.concat('location=', timezoneParams.getLocation());
             }
-    
+
             if (timezoneParams.getLatitude() >= -90 && timezoneParams.getLatitude() <= 90 && timezoneParams.getLongitude() >= -180 && timezoneParams.getLongitude() <= 180) {
                 if (urlParams) {
                     urlParams = urlParams.concat("&");
