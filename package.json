@@ -9,10 +9,10 @@
     "url": "git+https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk.git"
   },
   "keywords": [
-    "axios",
-    "typescript",
-    "openapi-client",
-    "openapi-generator",
+    "ipgeolocation",
+    "typescript sdk",
+    "ipgeolocation typescript sdk",
+    "ipgeolocation sdk",
     "ipgeolocation-sdk-ts"
   ],
   "main": "./dist/index.js",
