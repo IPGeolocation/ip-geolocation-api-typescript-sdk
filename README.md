@@ -4,7 +4,7 @@
 
 **API version**: 2.0  
 **Package version**: 2.0.1
-**NPM package**: [`ip-geolocation-api-javascript-sdk`](https://www.npmjs.com/package/ip-geolocation-api-javascript-sdk)
+**NPM package**: [`ip-geolocation-api-typescript-sdk`](https://www.npmjs.com/package/ip-geolocation-api-typescript-sdk)
 
 ## Table of Contents
 
@@ -34,20 +34,20 @@
 Install the SDK directly from NPM:
 
 ```bash
-npm install ip-geolocation-api-javascript-sdk
+npm install ip-geolocation-api-typescript-sdk
 ```
 
 ## Using Yarn
 Alternatively, if you use Yarn:
 ```bash
-yarn add ip-geolocation-api-javascript-sdk
+yarn add ip-geolocation-api-typescript-sdk
 ```
 
 ## Manual Installation
 To include the SDK manually:
 1. Clone this repository:
 ```bash
-git clone https://github.com/ipgeolocation/ip-geolocation-api-javascript-sdk.git
+git clone https://github.com/ipgeolocation/ip-geolocation-api-typescript-sdk.git
 ```
 2. Navigate to the project folder and install dependencies:
 ```bash
@@ -60,24 +60,13 @@ yarn install
 
 # Authentication Setup
 To authenticate API requests, you'll need an API key from [ipgeolocation.io](https://ipgeolocation.io). Once you have the key, initialize the SDK client with it:
-```javascript
-const { APIClient } = require('ip-geolocation-api-javascript-sdk');
+```typescript
+import { Configuration } from "ip-geolocation-api-typescript-sdk";
 
-const client = APIClient.instance;
-client.authentications['ApiKeyAuth'].apiKey = 'YOUR_API_KEY_HERE';
+const configuration = new Configuration({
+    apiKey: "YOUR_API_KEY",
 
-```
-## Request Origin (No API Key)
-If you don't set an API key, the IPGeolocation API can still authenticate your request using **request origin**.
-This is useful if:
-- You're using the SDK from a **browser** or **server with allowed referrer/IP**
-- Your keyless usage is enabled in the dashboard
-  
-In this case, just skip setting the API key, and the API will automatically detect your request origin:
-```javascript
-const { APIClient } = require('ip-geolocation-api-javascript-sdk');
-const client = APIClient.instance;
-// No API key set — will use request origin
+});
 
 ```
 
@@ -103,24 +92,26 @@ Class | Method                                                                  
 # Example Usage
 
 ##  IP Geolocation Examples
-This section shows how to use the getIpGeolocation() method from the JavaScript SDK across Free, Standard, and Advanced subscription tiers. Each example highlights different parameter combinations: fields, include, and excludes.
+This section shows how to use the getIpGeolocation() method from the TypeScript SDK across Free, Standard, and Advanced subscription tiers. Each example highlights different parameter combinations: fields, include, and excludes.
 
 For the full list of supported fields/modules, refer to the [IP Geolocation API Docs](https://ipgeolocation.io/ip-location-api.html#documentation-overview).
 
 ### Developer (Free) Plan Examples
 #### Default Fields
-```javascript
-const { IPGeolocationAPI }  = require('ip-geolocation-api-javascript-sdk');
+```typescript
+import {
+  IPGeolocationApi,
+  Configuration
+} from 'ip-geolocation-api-typescript-sdk';
 
-const api = new IPGeolocationAPI();
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+const api = new IPGeolocationApi(configuration);
 
-api.getIpGeolocation({ ip: '8.8.8.8' }, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
+const { data } = await api.getIpGeolocation({
+    ip: '8.8.8.8'
 });
+console.log(data);
+
 ```
 If you don't provide an IP address, the API will use the request origin (IP of the request) to return geolocation data.
 
@@ -166,15 +157,31 @@ Sample Response:
 }z
 ```
 #### Filtering Fields and Exclusions
-```javascript
-api.getIpGeolocation({
-  ip: '8.8.4.4',
-  fields: 'location',
-  excludes: 'location.continent_code,location.continent_name'
-}, (error, data, response) => {
-  if (error) console.error(error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+import {
+    IPGeolocationApi,
+    Configuration
+  } from 'ip-geolocation-api-typescript-sdk';
+  
+  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+  
+  const api = new IPGeolocationApi(configuration);
+  
+  async function getLocation() {
+    try {
+      const { data } = await api.getIpGeolocation({
+        ip: '8.8.4.4',
+        fields: 'location',
+        excludes: 'location.continent_code,location.continent_name'
+      });
+  
+      console.log(data); 
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
+}
+  
+getLocation();
 ```
 Sample Response:
 ```
@@ -202,11 +209,29 @@ Sample Response:
 ```
 ### Standard Plan Examples
 #### Geolocation with Default Fields
-```javascript
-api.getIpGeolocation({ ip: '8.8.8.8' }, (error, data) => {
-  if (error) console.error(error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+import {
+    IPGeolocationApi,
+    Configuration
+  } from 'ip-geolocation-api-typescript-sdk';
+  
+  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+  
+  const api = new IPGeolocationApi(configuration);
+  
+  async function getLocation() {
+    try {
+      const { data } = await api.getIpGeolocation({
+        ip: '8.8.4.4',
+      });
+  
+      console.log(data); 
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
+}
+  
+getLocation();
 ```
 Sample Response:
 ```
@@ -259,16 +284,18 @@ Sample Response:
   }
 }
 ```
-### Language Support Example
+#### Language Support Example
 Here is an example to get the geolocation data for IP address '2001:4230:4890::1' in French language:
-```javascript
-api.getIpGeolocation({
-  ip: '2001:4230:4890::1',
-  lang: 'fr'
-}, (error, data) => {
-  if (error) console.error(error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+try {
+      const { data } = await api.getIpGeolocation({
+        ip: '2001:4230:4890::1',
+        lang: 'fr'
+      });
+      console.log(data); 
+} catch (error) {
+      console.error('Error fetching data:', error);
+}
 ```
 Sample Response:
 ```
@@ -321,15 +348,17 @@ Sample Response:
 }
 ```
 #### Include Hostname, Timezone, and User-Agent
-```javascript
-api.getIpGeolocation({
+```typescript
+try {
+  const { data } = await api.getIpGeolocation({
   ip: '4.5.6.7',
   fields: 'location.country_name,location.country_capital',
   include: 'user_agent,time_zone,hostnameFallbackLive'
-}, (error, data) => {
-  if (error) console.error(error);
-  else console.log(JSON.stringify(data, null, 2));
 });
+  console.log(data); 
+} catch (error) {
+      console.error('Error fetching data:', error);
+}
 ```
 Sample Response:
 ```
@@ -367,7 +396,7 @@ Sample Response:
     }
   },
   "user_agent": {
-    "user_agent_string": "Ipgeolocation/2.0/Javascript",
+    "user_agent_string": "Ipgeolocation/2.0/typescript",
     "name": "Ipgeolocation",
     "type": "Special",
     "version": "2.0",
@@ -403,15 +432,17 @@ Sample Response:
 
 ### Advanced Plan Example
 #### Include DMA, Abuse, and Security
-```javascript
-api.getIpGeolocation({
+```typescript
+try {
+  const { data } = await api.getIpGeolocation({
   ip: '8.8.8.8',
   excludes: 'location.country_flag,location.country_emoji',
   include: 'dma,abuse,security'
-}, (error, data) => {
-  if (error) console.error(error);
-  else console.log(JSON.stringify(data, null, 2));
 });
+  console.log(data); 
+} catch (error) {
+      console.error('Error fetching data:', error);
+}
 ```
 Sample Response:
 ```
@@ -510,20 +541,15 @@ These examples demonstrate typical usage of the IP Geolocation API with differen
 > **Note**: All features available in the Free plan are also included in the Standard and Advanced plans. Similarly, all features of the Standard plan are available in the Advanced plan.
 ## Bulk IP Geolocation Example
 The SDK supports bulk IP geolocation using getBulkIpGeolocation(). This is available for Standard and Advanced plans. All parameters like fields, include, and excludes can be used in bulk requests.
-```javascript
-const { BulkIPRequest } =  require('ip-geolocation-api-javascript-sdk');
-
-const bulkRequest = new BulkIPRequest();
-bulkRequest.ips = ['8.8.8.8', '1.1.1.1'];
-
-api.getBulkIpGeolocation(bulkRequest, {
-  fields: 'location.country_name,location.city',
-  excludes: 'location.continent_code',
-  include: 'security,timezone'
-}, (error, data) => {
-  if (error) console.error(error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+try {
+    const {data} = await api.getBulkIpGeolocation({
+    ips: ['8.8.8.8', '1.1.1.1']
+    });
+    console.log(data);
+    } catch (error) {
+    console.error('Error fetching location:', error);
+}
 
 ```
 ## IP Security Examples
@@ -532,18 +558,29 @@ The `getIpSecurityInfo()` method lets you query threat intelligence, proxy/VPN d
 For full endpoint specifications, refer to the [IP Security API documentation](https://ipgeolocation.io/ip-security-api.html#documentation-overview).
 
 ### Basic Request (Minimal Setup)
-```javascript
-const { APIClient, IPSecurityAPI } = require('ip-geolocation-api-javascript-sdk');
+```typescript
+import {
+    Configuration,
+    IPSecurityApi
+  } from 'ip-geolocation-api-typescript-sdk';
+  
 
-const client = APIClient.instance;
-client.authentications['ApiKeyAuth'].apiKey = 'YOUR_API_KEY';
-
-const api = new IPSecurityAPI(client);
-
-api.getIpSecurityInfo({ ip: '2.56.188.34' }, (error, data) => {
-  if (error) return console.error('API call failed:', error);
-  console.log(JSON.stringify(data, null, 2));
-});
+  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+  
+  const api = new IPSecurityApi(configuration);
+  
+  async function getSecurity() {
+    try {
+      const {data} = await api.getIpSecurityInfo({
+        ip: '2.56.188.34'
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
+  }
+  
+  getSecurity();
 ```
 Sample Response:
 ```
@@ -565,14 +602,16 @@ Sample Response:
 }
 ```
 ### Include Multiple Optional Fields
-```javascript
-api.getIpSecurityInfo({
-  ip: '2.56.188.34',
-  include: 'location,network,currency,time_zone,user_agent,country_metadata,hostname'
-}, (error, data) => {
-  if (error) return console.error('API call failed:', error);
-  console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+try {
+    const {data} = await api.getIpSecurityInfo({
+    ip: '2.56.188.34',
+    include: 'location,network,currency,time_zone,user_agent,country_metadata,hostname'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -649,7 +688,7 @@ Sample Response:
     }
   },
   "user_agent": {
-    "user_agent_string": "Ipgeolocation/2.0/Javascript",
+    "user_agent_string": "Ipgeolocation/2.0/typescript",
     "name": "Ipgeolocation",
     "type": "Special",
     "version": "2.0",
@@ -692,14 +731,16 @@ Sample Response:
 }
 ```
 ### Request with Field Filtering
-```javascript
-api.getIpSecurityInfo({
-  ip: '195.154.221.54',
-  fields: 'security.is_tor,security.is_proxy,security.is_bot,security.is_spam'
-}, (error, data) => {
-  if (error) return console.error('API call failed:', error);
-  console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+try {
+    const {data} = await api.getIpSecurityInfo({
+    ip: '195.154.221.54',
+    fields: 'security.is_tor,security.is_proxy,security.is_bot,security.is_spam'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -715,18 +756,16 @@ Sample Response:
 ```
 ## Bulk IP Security Lookup
 The SDK also supports bulk IP Security requests using the `getBulkIpSecurityInfo()` method. All parameters like fields, include, and excludes can also be used in bulk requests.
-```javascript
-const { BulkIPRequest } = require('ip-geolocation-api-javascript-sdk');
-
-const bulkRequest = new BulkIPRequest({ ips: ['2.56.188.34', '2.56.188.35'] });
-
-api.getBulkIpSecurityInfo(bulkRequest, {
-  include: 'location,network',
-  fields: 'security.threat_score,location.country_name'
-}, (error, data) => {
-  if (error) return console.error('API call failed:', error);
-  console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+try {
+    const {data} = await api.getBulkIpSecurityInfo({
+    ips: ['2.56.188.34', '8.8.8.8'],
+    fields: 'security.is_tor,security.is_proxy,security.is_bot,security.is_spam'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 
 ## ASN API Examples
@@ -735,25 +774,28 @@ This section provides usage examples of the `getAsnInfo()` method from the SDK. 
 
 Refer to the [ASN API documentation](https://ipgeolocation.io/asn-api.html#documentation-overview) for a detailed list of supported fields and behaviors.
 ### Get ASN Information by IP Address
-```javascript
-const { APIClient, ASNLookupAPI } = require('ip-geolocation-api-javascript-sdk');
-
-const client = APIClient.instance;
-client.authentications['ApiKeyAuth'].apiKey = 'YOUR_API_KEY';
-
-const api = new ASNLookupAPI(client);
-
-api.getAsnInfo(
-  { ip: '8.8.8.8' }, // IP address
-  (error, data, response) => {
-    if (error) {
-      console.error("API call failed:", error);
-    } else {
-      console.log(JSON.stringify(data, null, 2));
+```typescript
+import {
+    Configuration,
+    ASNLookupApi
+  } from 'ip-geolocation-api-typescript-sdk';
+  
+  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' }); 
+  const api = new ASNLookupApi(configuration);
+  
+  async function getASN() {
+    try {
+      const {data} = await api.getAsnInfo({
+        ip: '8.8.8.8' // IP Address
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching location:', error);
     }
   }
-);
-
+  
+getASN();
+  
 ```
 Sample Response:
 ```
@@ -776,17 +818,15 @@ Sample Response:
 ```
 
 ### Get ASN Information by ASN Number
-```javascript
-api.getAsnInfo(
-  { asn: 15169 }, // ASN number
-  (error, data, response) => {
-    if (error) {
-      console.error("API call failed:", error);
-    } else {
-      console.log(JSON.stringify(data, null, 2));
-    }
-  }
-);
+```typescript
+try {
+    const {data} = await api.getAsnInfo({
+    asn: 15169 // ASN number
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 
 ```
 Sample Response:
@@ -808,20 +848,16 @@ Sample Response:
 }
 ```
 ### Combine All objects using Include
-```javascript
-api.getAsnInfo(
-  {
-    asn: 12,
+```typescript
+try {
+    const {data} = await api.getAsnInfo({
+    asn: 12 // ASN number
     include: 'peers,downstreams,upstreams,routes,whois_response'
-  },
-  (error, data, response) => {
-    if (error) {
-      console.error("API call failed:", error);
-    } else {
-      console.log(JSON.stringify(data, null, 2));
-    }
-  }
-);
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -969,29 +1005,34 @@ Sample Response:
 }
 ```
 ## Timezone API Examples
-This section provides usage examples of the `getTimezoneInfo()` method from the JavaScript SDK, showcasing how to fetch timezone and time-related data using different query types — IP address, latitude/longitude, timezone ID, IATA code, ICAO code, or UN/LOCODE.
+This section provides usage examples of the `getTimezoneInfo()` method from the typescript SDK, showcasing how to fetch timezone and time-related data using different query types — IP address, latitude/longitude, timezone ID, IATA code, ICAO code, or UN/LOCODE.
 
 For full API specifications, refer to the [Timezone API documentation](https://ipgeolocation.io/timezone-api.html#documentation-overview).
 
 #### Get Timezone by IP Address
 
-```javascript
-const {APIClient, TimezoneAPI} = require('ip-geolocation-api-javascript-sdk');
+```typescript
+import {
+    Configuration,
+    TimezoneApi
+  } from 'ip-geolocation-api-typescript-sdk';
 
-const client = APIClient.instance;
-client.authentications['ApiKeyAuth'].apiKey = 'YOUR_API_KEY';
-
-const api = new TimezoneAPI();
-
-api.getTimezoneInfo({
-  ip: '8.8.8.8'
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling TimezoneAPI->getTimezoneInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
+  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+  const api = new TimezoneApi(configuration);
+  
+  async function getTimezone() {
+    try {
+      const {data} = await api.getTimezoneInfo({
+        ip: '8.8.8.8',
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
   }
-});
+  
+  getTimezone();
+  
 ```
 Sample Response:
 ```
@@ -1052,16 +1093,15 @@ Sample Response:
 }
 ```
 ### Get Timezone by Timezone Name
-```javascript
-api.getTimezoneInfo({
-  tz: 'Europe/London'
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling TimezoneAPI->getTimezoneInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
-});
+```typescript
+try {
+    const {data} = await api.getTimezoneInfo({
+    tz: 'Europe/London',
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -1105,16 +1145,15 @@ Sample Response:
 }
 ```
 ### Get Timezone from Any Address
-```javascript
-api.getTimezoneInfo({
-  location: 'Munich, Germany'
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling TimezoneAPI->getTimezoneInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
-});
+```typescript
+try {
+    const {data} = await api.getTimezoneInfo({
+    location: 'Munich, Germany',
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -1167,17 +1206,16 @@ Sample Response:
 }
 ```
 ### Get Timezone from Location Coordinates
-```javascript
-api.getTimezoneInfo({
-  lat: 48.8566,
-  _long: 2.3522
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling TimezoneAPI->getTimezoneInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
+```typescript
+try {
+    const {data} = await api.getTimezoneInfo({
+    lat: 48.8566,
+    _long: 2.3522
 });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -1221,16 +1259,15 @@ Sample Response:
 }
 ```
 ### Get Timezone and Airport Details from IATA Code
-```javascript
-api.getTimezoneInfo({
-  iataDode: 'ZRH'
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling TimezoneAPI->getTimezoneInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
+```typescript
+try {
+    const {data} = await api.getTimezoneInfo({
+    iataDode: 'ZRH'
 });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 
 ```
 Sample Response:
@@ -1291,16 +1328,15 @@ Sample Response:
 You can also fetch Airport Details and Timezone using any ICAO code by passing the `icaoCode` parameter.
 
 ### Get Timezone and City Details from UN/LOCODE
-```javascript
-api.getTimezoneInfo({
-  loCode: 'ESBCN'
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling TimezoneAPI->getTimezoneInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
-});
+```typescript
+try {
+    const {data} = await api.getTimezoneInfo({
+    loCode: 'ESBCN'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 
 Sample Response:
@@ -1361,25 +1397,30 @@ This section provides usage examples of the `convertTimeBetweenTimezones()` meth
 For more details, refer to the [Timezone Converter API documentation](https://ipgeolocation.io/timezone-api.html#convert-time-bw-time-zones).
 
 ### Convert Current Time from One Timezone to Another
-```javascript
-const { TimeConversionAPI, APIClient } = require('ip-geolocation-api-javascript-sdk');
+```typescript
+import {
+    Configuration,
+    TimeConversionApi
+  } from 'ip-geolocation-api-typescript-sdk';
 
-const apiClient = new APIClient();
-const api = new TimeConversionAPI(apiClient);
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+const api = new TimeConversionApi(configuration);
 
-const opts = {
-  time: "2024-12-08 11:00",
-  tzFrom: "America/New_York",
-  tzTo: "Asia/Tokyo"
-};
+async function getTimezoneConversion() {
+try {
+    const {data} = await api.convertTimeBetweenTimezones({
+    time: "2024-12-08 11:00",
+    tzFrom: "America/New_York",
+    tzTo: "Asia/Tokyo"
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error converting time:', error);
+}
+}
 
-api.convertTimeBetweenTimezones(opts, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling TimeConversionAPI->convertTimeBetweenTimezones:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
-});
+getTimezoneConversion();
+  
 
 ```
 Sample Response:
@@ -1403,27 +1444,35 @@ Simply provide the appropriate source and target parameters in the method.
 
 ## User Agent API Examples
 
-This section provides usage examples of the `getUserAgentDetails()` and `parseBulkUserAgentStrings()` methods from the JavaScript SDK. The **User Agent API** extracts and classifies information from user agent strings, including browser, engine, device, OS, and type metadata.
+This section provides usage examples of the `getUserAgentDetails()` and `parseBulkUserAgentStrings()` methods from the TypeScript SDK. The **User Agent API** extracts and classifies information from user agent strings, including browser, engine, device, OS, and type metadata.
 
 For full explanation, visit the [User Agent API documentation](https://ipgeolocation.io/user-agent-api.html#documentation-overview).
 
 ### Parse a Basic User Agent String
 
-```javascript
-const  { UserAgentAPI } = require('ip-geolocation-api-javascript-sdk');
-const api = new UserAgentAPI();
+```typescript
+import {
+    Configuration,
+    UserAgentApi
+  } from 'ip-geolocation-api-typescript-sdk';
 
-const opts = {
-  userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
-};
-
-api.getUserAgentDetails(opts, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling UserAgentAPI->getUserAgentDetails:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
+  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+  
+  const api = new UserAgentApi(configuration);
+  
+  async function getUserAgentDetails() {
+    try {
+      const {data} = await api.getUserAgentDetails({
+       userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
   }
-});
+  
+  getUserAgentDetails();
+  
 
 ```
 Sample Response:
@@ -1461,28 +1510,18 @@ Sample Response:
 The SDK also supports bulk User Agent parsing using the `parseBulkUserAgentStrings()` method. This allows parsing multiple user agent strings in a single request. All fields available in single-user-agent parsing are returned per entry.
 
 **Note**: Bulk User Agent API is only available for paid plans
-```javascript
-const { UserAgentAPI } = require('ip-geolocation-api-javascript-sdk');
-const api = new UserAgentAPI();
-
-const requestBody = {
-  ua_strings: [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1"
-  ]
-};
-
-const opts = {
-  BulkUserAgentRequest: requestBody
-};
-
-apiInstance.parseBulkUserAgentStrings(opts, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling UserAgentAPI->parseBulkUserAgentStrings:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
-});
+```typescript
+try {
+    const {data} = await api.parseBulkUserAgentStrings({
+    userAgents: [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0  Mobile/15E148 Safari/604.1"
+    ]
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 ## Astronomy API Examples
 This section provides usage examples of the `getAstronomyDetails()` method from the SDK, allowing developers to fetch **sun and moon timings** and **position data** based on **coordinates**, **IP**, or **location string**.
@@ -1490,21 +1529,29 @@ This section provides usage examples of the `getAstronomyDetails()` method from 
 Refer to the official [Astronomy API documentation](https://ipgeolocation.io/astronomy-api.html#documentation-overview) for more details.
 
 ### Astronomy by Coordinates
-```javascript
-const { APIClient, AstronomyAPI } = require('ip-geolocation-api-javascript-sdk');
-
-const client = new APIClient('YOUR_API_KEY');
-const api = new AstronomyAPI(client);
-
-const options = {
-  lat: '40.7128',
-  _long: '-74.0060'
-};
-
-api.getAstronomyDetails(options, (error, data, response) => {
-  if (error) console.error('Exception when calling AstronomyAPI->getAstronomyDetails:', error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+import {
+    Configuration,
+    AstronomyApi
+  } from 'ip-geolocation-api-typescript-sdk';
+  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+  
+  const api = new AstronomyApi(configuration);
+  
+  async function getAstronomy() {
+    try {
+      const {data} = await api.getAstronomyDetails({
+        lat: '40.7128',
+        _long: '-74.0060'
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
+  }
+  
+getAstronomy();
+  
 ```
 Sample Response:
 ```
@@ -1570,15 +1617,15 @@ Sample Response:
 }
 ```
 ### Astronomy by IP Address
-```javascript
-const options = {
-  ip: '8.8.8.8'
-};
-
-api.getAstronomyDetails(options, (error, data, response) => {
-  if (error) console.error('Exception when calling AstronomyAPI->getAstronomyDetails:', error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+try {
+    const {data} = await api.getAstronomyDetails({
+    ip: '8.8.8.8'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -1654,15 +1701,15 @@ Sample Response:
 }
 ```
 ### Astronomy by Location String
-```javascript
-const options = {
-  location: 'Milan, Italy'
-};
-
-api.getAstronomyDetails(options, (error, data, response) => {
-  if (error) console.error('Exception when calling AstronomyAPI->getAstronomyDetails:', error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+try {
+    const {data} = await api.getAstronomyDetails({
+    location: 'Milan, Italy'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -1730,17 +1777,23 @@ Sample Response:
 ```
 
 ### Astronomy for Specific Date
-```javascript
+```typescript
 const options = {
   lat: '-27.47',
   _long: '153.02',
   date: '2025-01-01'
 };
 
-api.getAstronomyDetails(options, (error, data, response) => {
-  if (error) console.error('Exception when calling AstronomyAPI->getAstronomyDetails:', error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+try {
+    const {data} = await api.getAstronomyDetails({
+    lat: '-27.47',
+    _long: '153.02',
+    date: '2025-01-01'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -1807,16 +1860,16 @@ Sample Response:
 ```
 ### Astronomy in Different Language
 You can also get Astronomy Data in other languages. This feature is only available for paid subscriptions.
-```javascript
-const options = {
-  ip: '1.1.1.1',
-  lang: 'fr'
-};
-
-api.getAstronomyDetails(options, (error, data, response) => {
-  if (error) console.error('Exception when calling AstronomyAPI->getAstronomyDetails:', error);
-  else console.log(JSON.stringify(data, null, 2));
-});
+```typescript
+try {
+    const {data} = await api.getAstronomyDetails({
+    ip: '1.1.1.1',
+    lang: 'fr'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -1902,23 +1955,27 @@ You can retrieve data like the responsible organization, role, contact emails, p
 Refer to the official [Abuse Contact API documentation](https://ipgeolocation.io/ip-abuse-contact-api.html#documentation-overview) for details on all available fields.
 
 ### Lookup Abuse Contact by IP
-```javascript
-const { APIClient, AbuseContactAPI } = require('ip-geolocation-api-javascript-sdk');
+```typescript
+import {
+    Configuration,
+    AbuseContactApi
+  } from 'ip-geolocation-api-typescript-sdk';
+  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+  const api = new AbuseContactApi(configuration);
 
-const client = APIClient.instance;
-client.authentications['ApiKeyAuth'].apiKey = 'YOUR_API_KEY';
-
-const api = new AbuseContactAPI(client);
-
-api.getAbuseContactInfo({
-  ip: '1.0.0.0'
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling AbuseContactAPI->getAbuseContactInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
+  async function getAbuseContact() {
+    try {
+      const {data} = await api.getAbuseContactInfo({
+        ip: '1.0.0.0'
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
   }
-});
+  
+getAbuseContact();
+  
 ```
 Sample Response:
 ```
@@ -1943,17 +2000,16 @@ Sample Response:
 }
 ```
 ### Lookup Abuse Contact with Specific Fields
-```javascript
-api.getAbuseContactInfo({
-  ip: '1.2.3.4',
-  fields: 'abuse.role,abuse.emails'
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling AbuseContactAPI->getAbuseContactInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
-});
+```typescript
+try {
+    const {data} = await api.getAbuseContactInfo({
+    ip: '1.2.3.4',
+    fields: 'abuse.role,abuse.emails'
+    });
+    console.log(data);
+} catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```
@@ -1968,17 +2024,16 @@ Sample Response:
 }
 ```
 ### Lookup Abuse Contact while Excluding Fields
-```javascript
-api.getAbuseContactInfo({
-  ip: '9.9.9.9',
-  excludes: 'abuse.handle,abuse.emails'
-}, (error, data, response) => {
-  if (error) {
-    console.error('Exception when calling AbuseContactAPI->getAbuseContactInfo:', error);
-  } else {
-    console.log(JSON.stringify(data, null, 2));
-  }
-});
+```typescript
+try {
+    const {data} = await api.getAbuseContactInfo({
+    ip: '9.9.9.9',
+    excludes: 'abuse.handle,abuse.emails'
+    });
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching location:', error);
+}
 ```
 Sample Response:
 ```

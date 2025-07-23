@@ -1,36 +1,33 @@
 {
-  "author": "",
-  "bugs": {
-    "url": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk"
-  },
-  "deprecated": false,
-  "description": "[Typescript SDK for IP Geolocation API](https://ipgeolocation.io/documentation/ip-geolocation-api-typescript-sdk-201809051239). You can use this SDK to Geolocate an IP address and get time zone information based on geolocation coordinates, or an IP address.",
-  "homepage": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk",
-  "keywords": [
-    "ip",
-    "ipgeo",
-    "ip geolocation",
-    "ip geolocation api",
-    "time zone",
-    "ip geolocation sdk",
-    "geolocation typescript",
-    "geoip lookup",
-    "geoip api",
-    "ip location api"
-  ],
+  "author": "IPGeolocation.io",
+  "name": "ip-geolocation-api-typescript-sdk",
+  "version": "2.0.1",
+  "description": "Official Typescript SDK for IPGeolocation.io. Effortlessly integrate IP Geolocation, IP Security, Timezone, ASN, Astronomy, User Agent, Abuse Contact, and Timezone Conversion APIs into your Node.js applications.",
   "license": "ISC",
-  "main": "IPGeolocationAPI.ts",
-  "name": "ip-geolocation-api-sdk-typescript",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:IPGeolocation/ip-geolocation-api-typescript-sdk.git"
+    "url": "git+https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk.git"
   },
+  "keywords": [
+    "axios",
+    "typescript",
+    "openapi-client",
+    "openapi-generator",
+    "ipgeolocation-sdk-ts"
+  ],
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && tsc -p tsconfig.esm.json",
+    "prepare": "npm run build"
   },
-  "version": "1.0.7",
   "dependencies": {
-    "xmlhttprequest": "^1.8.0"
+    "axios": "^1.6.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "12.11.5 - 12.20.42",
+    "typescript": "^4.0 || ^5.0"
+  }
 }
