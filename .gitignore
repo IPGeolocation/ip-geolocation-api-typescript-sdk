@@ -1,7 +1,13 @@
-# directories
+# Ignore node_modules and lock file
 node_modules/
-
-# files
 package-lock.json
-index.ts
+
+# Ignore all JS files **except dist/**
 *.js
+!dist/**/*.js
+
+# Ignore TypeScript source files (optional)
+index.ts
+
+# Optional: Ignore build artifacts
+*.tgz
