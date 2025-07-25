@@ -12,34 +12,7 @@ All URIs are relative to *https://api.ipgeolocation.io/v2*
 
 The Bulk IP Security Lookup API can provide security details for up to `50,000` bulk IPs. This API also has parameters to customize the response, just like the single IP Security Lookup API.
 
-### Example
 
-```typescript
-import {
-    SecurityApi,
-    Configuration,
-    GetBulkIpGeolocationRequest
-} from 'ipgeolocation-sdk-ts';
-
-const configuration = new Configuration();
-const apiInstance = new SecurityApi(configuration);
-
-let getBulkIpGeolocationRequest: GetBulkIpGeolocationRequest; //
-let include: string; //Include optional objects like `location`, `network`.  Use comma-separated values. Example: include=location,network  (optional) (default to undefined)
-let fields: string; //Get specific fields, objects from the response. (optional) (default to undefined)
-let excludes: string; //Exclude specific fields, objects from the response. (optional) (default to undefined)
-let output: string; //Desired output format. (optional) (default to undefined)
-let lang: 'en' | 'de' | 'ru' | 'ja' | 'fr' | 'cn' | 'es' | 'cs' | 'it' | 'ko' | 'fa' | 'pt'; //By default, the API responds in English. You can change the response language by passing the language code as a query parameter `lang`. Multi language feature is available only for `paid users`. (optional) (default to undefined)
-
-const { status, data } = await apiInstance.getBulkIpSecurityInfo(
-    getBulkIpGeolocationRequest,
-    include,
-    fields,
-    excludes,
-    output,
-    lang
-);
-```
 
 ### Parameters
 
@@ -88,33 +61,6 @@ const { status, data } = await apiInstance.getBulkIpSecurityInfo(
 
 IP Security API provides security details of a given IP. It detects whether the IP is proxy, tor or bot. It also shows the proxy types of the IP (like VPN, PROXY, RELAY etc.) with it\'s VPN/proxy service provider making our API powerful VPN checker. It finds the IPs that are involved in spam activities. It also checks whether the IP links to a cloud provider and includes the provider\'s name.
 
-### Example
-
-```typescript
-import {
-    SecurityApi,
-    Configuration
-} from 'ipgeolocation-sdk-ts';
-
-const configuration = new Configuration();
-const apiInstance = new SecurityApi(configuration);
-
-let ip: string; //query parameter \'ip\'. If not provided, will be your network IP (optional) (default to undefined)
-let include: string; //Include optional details like location and/or network. (optional) (default to undefined)
-let fields: string; //Get specific fields, objects from the response. (optional) (default to undefined)
-let excludes: string; //Exclude specific fields, objects from the response. (optional) (default to undefined)
-let output: string; //Desired output format (json or xml). (optional) (default to undefined)
-let lang: 'en' | 'de' | 'ru' | 'ja' | 'fr' | 'cn' | 'es' | 'cs' | 'it' | 'ko' | 'fa' | 'pt'; //By default, the API responds in English. You can change the response language by passing the language code as a query parameter `lang`. Multi language feature is available only for `paid users`. (optional) (default to undefined)
-
-const { status, data } = await apiInstance.getIpSecurityInfo(
-    ip,
-    include,
-    fields,
-    excludes,
-    output,
-    lang
-);
-```
 
 ### Parameters
 

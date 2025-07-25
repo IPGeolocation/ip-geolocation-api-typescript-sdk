@@ -11,41 +11,6 @@ All URIs are relative to *https://api.ipgeolocation.io/v2*
 
 The Time Zone API provides current time, date, and time zone-related information. It supports various input types including time zone name, geographic coordinates, addresses, IPs, and location codes.  The API determines the time zone based on the following priority order if multiple parameters are provided:   1. Time Zone Name   2. Geographic Coordinates (latitude & longitude)   3. Location Address   4. IP Address   5. IATA Code   6. ICAO Code   7. UN/LOCODE  Enriched response data is returned based on the type of input: - IP: includes geolocation info - Address: includes location metadata - IATA/ICAO: includes airport info - UN/LOCODE: includes city details  You can call the time zone API without passing any time zone, coordinates, IATA, ICAO, LO code or IP address as well. It will use the calling machine\'s IP address to return the regional time zone information. 
 
-### Example
-
-```typescript
-import {
-    TimezoneApi,
-    Configuration
-} from 'ipgeolocation-sdk-ts';
-
-const configuration = new Configuration();
-const apiInstance = new TimezoneApi(configuration);
-
-let tz: string; //pass a valid time zone name as a query parameter tz to get the time zone information. (optional) (default to undefined)
-let location: string; //pass any address of a location as the query parameter location to get the time zone information. (optional) (default to undefined)
-let lat: number; //pass the latitude of a location as query parameters to get the time zone information. (optional) (default to undefined)
-let _long: number; //pass the longitude of a location as query parameters to get the time zone information. (optional) (default to undefined)
-let ip: string; //You can pass any IPv4 or IPv6 address as a query parameter ip to get the regional timezone information. (optional) (default to undefined)
-let iataCode: string; //pass any 3 letter IATA code as a query paramter iata_code to get the comprehensive airport details along with the time zone information, in which that airport exists. (optional) (default to undefined)
-let icaoCode: string; //pass any 4 letter ICAO code as a query paramter icao_code to get the comprehensive airport details along with the time zone information, in which that airport exists. (optional) (default to undefined)
-let loCode: string; //pass any 5 letter UNLOCODE as a query paramter lo_code to get the comprehensive lo code/city details along with the time zone information of the concerned city. (optional) (default to undefined)
-let output: string; //Desired output format (json or xml). (optional) (default to undefined)
-let lang: 'en' | 'de' | 'ru' | 'ja' | 'fr' | 'cn' | 'es' | 'cs' | 'it' | 'ko' | 'fa' | 'pt'; //By default, the API responds in English. You can change the response language by passing the language code as a query parameter `lang`. Multi language feature is available only for `paid users`. (optional) (default to undefined)
-
-const { status, data } = await apiInstance.getTimezoneInfo(
-    tz,
-    location,
-    lat,
-    _long,
-    ip,
-    iataCode,
-    icaoCode,
-    loCode,
-    output,
-    lang
-);
-```
 
 ### Parameters
 

@@ -12,34 +12,6 @@ All URIs are relative to *https://api.ipgeolocation.io/v2*
 
 This feature is available only on our paid API subscriptions (STANDARD or ADVANCED). This endpoint allows you to perform the geolocation lookup for multiple IPv4, IPv6 addresses or domain names (maximum 50,000) at the same time. The requests count per lookup is equal to total IP addresses or domain names passed. To perform bulk IP Geolocation Lookup, send a POST request and pass the \"ips\" array as JSON data along with it.  
 
-### Example
-
-```typescript
-import {
-    IPLocationApi,
-    Configuration,
-    GetBulkIpGeolocationRequest
-} from 'ipgeolocation-sdk-ts';
-
-const configuration = new Configuration();
-const apiInstance = new IPLocationApi(configuration);
-
-let getBulkIpGeolocationRequest: GetBulkIpGeolocationRequest; //
-let lang: 'en' | 'de' | 'ru' | 'ja' | 'fr' | 'cn' | 'es' | 'cs' | 'it' | 'ko' | 'fa' | 'pt'; //By default, the API responds in English. You can change the response language by passing the language code as a query parameter `lang`. Multi language feature is available only for `paid users`. (optional) (default to undefined)
-let fields: string; //you can filter the API response by specifying the fields that you need, instead of getting the full response. To do this, pass the desired field names using the `fields` query parameter with each field represented as a dot-separated path. (optional) (default to undefined)
-let excludes: string; //you can also filter the API response by excluding specific fields (except the IP address) that you don\'t need. To do this, pass the unwanted field names using the excludes query parameter, with each field represented as a dot-separated path (optional) (default to undefined)
-let include: string; //IP Geolocation API also provides IP-Security, abuse, timezone, user-agent and DMA (Designated Market Area) code, which is specifically used in the US for marketing and regional targeting information on Advanced API subscription, but doesn\'t respond it by default. To get these information along with the geolocation information, you must pass the `include=security` or `include=abuse` or `include=dma` or `include=time_zone` or `include=user-agent` or you can fetch multiples by adding values in comma-separated way. In addition to that, IPGeolocation API also provide hostname lookup for an IP address on all the paid API subscriptions (STANDARD and ADVANCED), but doesn\'t respond it by default. To get the hostname for an IP address, you can pass one of the three values `hostname, liveHostname, hostnameFallbackLive` as a URL parameter `include=`. (optional) (default to undefined)
-let output: string; //Desired output format(json or xml). (optional) (default to undefined)
-
-const { status, data } = await apiInstance.getBulkIpGeolocation(
-    getBulkIpGeolocationRequest,
-    lang,
-    fields,
-    excludes,
-    include,
-    output
-);
-```
 
 ### Parameters
 

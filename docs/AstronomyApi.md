@@ -11,37 +11,7 @@ All URIs are relative to *https://api.ipgeolocation.io/v2*
 
 The Astronomy API provides the location-based rise and set times for the Sun and Moon along with the current position, distance from earth, and azimuth of the Sun and the Moon for a specific date at the queried time. 
 
-### Example
 
-```typescript
-import {
-    AstronomyApi,
-    Configuration
-} from 'ipgeolocation-sdk-ts';
-
-const configuration = new Configuration();
-const apiInstance = new AstronomyApi(configuration);
-
-let ip: string; //query paramter \'ip\'. If not provided, will be your network IP (optional) (default to undefined)
-let location: string; //query paramter \'location\'. If not provided, will be your ip location (optional) (default to undefined)
-let lat: string; //query paramter \'lat\'. (optional) (default to undefined)
-let _long: string; //query paramter \'long\'. (optional) (default to undefined)
-let date: string; //The date (YYYY-MM-DD) to lookup for. default will be the current date (optional) (default to undefined)
-let elevation: number; //query parameter \'elevation\' (optional) (default to undefined)
-let output: string; //Desired output format. (optional) (default to undefined)
-let lang: 'en' | 'de' | 'ru' | 'ja' | 'fr' | 'cn' | 'es' | 'cs' | 'it' | 'ko' | 'fa' | 'pt'; //By default, the API responds in English. You can change the response language by passing the language code as a query parameter `lang`. Multi language feature is available only for `paid users`. (optional) (default to undefined)
-
-const { status, data } = await apiInstance.getAstronomyDetails(
-    ip,
-    location,
-    lat,
-    _long,
-    date,
-    elevation,
-    output,
-    lang
-);
-```
 
 ### Parameters
 
