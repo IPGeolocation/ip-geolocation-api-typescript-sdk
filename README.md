@@ -76,18 +76,18 @@ All URIs are relative to *https://api.ipgeolocation.io/v2*
 
 Class | Method                                                                                  | HTTP request | Description
 ------------ |-----------------------------------------------------------------------------------------| ------------- | -------------
-*ASNLookupAPI* | [**getAsnInfo**](docs/ASNLookupAPI.md#getasninfo)                                       | **GET** /asn | Get details of any ASN number
-*AbuseContactAPI* | [**getAbuseContactInfo**](docs/AbuseContactAPI.md#getabusecontactinfo)                  | **GET** /abuse | Retrieve abuse contact data for an IP address
-*AstronomyAPI* | [**getAstronomyDetails**](docs/AstronomyAPI.md#getastronomydetails)                     | **GET** /astronomy | Get sun and moon timings and positions
-*IPGeolocationAPI* | [**getBulkIpGeolocation**](docs/IPGeolocationAPI.md#getbulkipgeolocation)               | **POST** /ipgeo-bulk | Get geolocation data for multiple IP addresses
-*IPGeolocationAPI* | [**getIpGeolocation**](docs/IPGeolocationAPI.md#getipgeolocation)                       | **GET** /ipgeo | Get geolocation data for a single IP address
-*IPSecurityAPI* | [**getBulkIpSecurityInfo**](docs/IPSecurityAPI.md#getbulkipsecurityinfo)                | **POST** /security-bulk | Get threat intelligence for multiple IP addresses
-*IPSecurityAPI* | [**getIpSecurityInfo**](docs/IPSecurityAPI.md#getipsecurityinfo)                        | **GET** /security | Get threat intelligence for a single IP address
-*TimeConversionAPI* | [**convertTimeBetweenTimezones**](docs/TimeConversionAPI.md#converttimebetweentimezones) | **GET** /timezone/convert | Convert time from one timezone to another
-*TimezoneAPI* | [**getTimezoneInfo**](docs/TimezoneAPI.md#gettimezoneinfo)                              | **GET** /timezone | Get timezone information based on IP, coordinates, or name
-*UserAgentAPI* | [**getUserAgentDetails**](docs/UserAgentAPI.md#getuseragentdetails)                     | **GET** /user-agent | Parse a single user-agent string
-*UserAgentAPI* | [**parseBulkUserAgentStrings**](docs/UserAgentAPI.md#parsebulkuseragentstrings)         | **POST** /user-agent-bulk | Parse multiple user-agent strings 
-*UserAgentAPI* | [**parseUserAgentString**](docs/UserAgentAPI.md#parseuseragentstring)                   | **POST** /user-agent | Alternate method to parse a single user-agent string
+*ASNLookupAPI* | [**getAsnInfo**](docs/ASNLookupApi.md#getasninfo)                                       | **GET** /asn | Get details of any ASN number
+*AbuseContactAPI* | [**getAbuseContactInfo**](docs/AbuseContactApi.md#getabusecontactinfo)                  | **GET** /abuse | Retrieve abuse contact data for an IP address
+*AstronomyAPI* | [**getAstronomyDetails**](docs/AstronomyApi.md#getastronomydetails)                     | **GET** /astronomy | Get sun and moon timings and positions
+*IPGeolocationAPI* | [**getBulkIpGeolocation**](docs/IPLocationApi.md#getbulkipgeolocation)               | **POST** /ipgeo-bulk | Get geolocation data for multiple IP addresses
+*IPGeolocationAPI* | [**getIpGeolocation**](docs/IPLocationApi.md#getipgeolocation)                       | **GET** /ipgeo | Get geolocation data for a single IP address
+*IPSecurityAPI* | [**getBulkIpSecurityInfo**](docs/IPSecurityApi.md#getbulkipsecurityinfo)                | **POST** /security-bulk | Get threat intelligence for multiple IP addresses
+*IPSecurityAPI* | [**getIpSecurityInfo**](docs/IPSecurityApi.md#getipsecurityinfo)                        | **GET** /security | Get threat intelligence for a single IP address
+*TimeConversionAPI* | [**convertTimeBetweenTimezones**](docs/TimeConversionApi.md#converttimebetweentimezones) | **GET** /timezone/convert | Convert time from one timezone to another
+*TimezoneAPI* | [**getTimezoneInfo**](docs/TimezoneApi.md#gettimezoneinfo)                              | **GET** /timezone | Get timezone information based on IP, coordinates, or name
+*UserAgentAPI* | [**getUserAgentDetails**](docs/UserAgentApi.md#getuseragentdetails)                     | **GET** /user-agent | Parse a single user-agent string
+*UserAgentAPI* | [**parseBulkUserAgentStrings**](docs/UserAgentApi.md#parsebulkuseragentstrings)         | **POST** /user-agent-bulk | Parse multiple user-agent strings 
+*UserAgentAPI* | [**parseUserAgentString**](docs/UserAgentApi.md#parseuseragentstring)                   | **POST** /user-agent | Alternate method to parse a single user-agent string
 
 # Example Usage
 
