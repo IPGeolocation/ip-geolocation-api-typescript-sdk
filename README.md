@@ -34,13 +34,13 @@
 Install the SDK directly from NPM:
 
 ```bash
-npm install ip-geolocation-api-typescript-sdk
+npm install ip-geolocation-api-sdk-typescript
 ```
 
 ## Using Yarn
 Alternatively, if you use Yarn:
 ```bash
-yarn add ip-geolocation-api-typescript-sdk
+yarn add ip-geolocation-api-sdk-typescript
 ```
 
 ## Manual Installation
@@ -61,7 +61,7 @@ yarn install
 # Authentication Setup
 To authenticate API requests, you'll need an API key from [ipgeolocation.io](https://ipgeolocation.io). Once you have the key, initialize the SDK client with it:
 ```typescript
-import { Configuration } from "ip-geolocation-api-typescript-sdk";
+import { Configuration } from "ip-geolocation-api-sdk-typescript";
 
 const configuration = new Configuration({
     apiKey: "YOUR_API_KEY",
@@ -102,7 +102,7 @@ For the full list of supported fields/modules, refer to the [IP Geolocation API 
 import {
   IPGeolocationApi,
   Configuration
-} from 'ip-geolocation-api-typescript-sdk';
+} from 'ip-geolocation-api-sdk-typescript';
 
 const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
 const api = new IPGeolocationApi(configuration);
@@ -161,7 +161,7 @@ Sample Response:
 import {
     IPGeolocationApi,
     Configuration
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
   
   const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   
@@ -213,7 +213,7 @@ Sample Response:
 import {
     IPGeolocationApi,
     Configuration
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
   
   const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   
@@ -562,7 +562,7 @@ For full endpoint specifications, refer to the [IP Security API documentation](h
 import {
     Configuration,
     IPSecurityApi
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
   
 
   const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
@@ -778,7 +778,7 @@ Refer to the [ASN API documentation](https://ipgeolocation.io/asn-api.html#docum
 import {
     Configuration,
     ASNLookupApi
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
   
   const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' }); 
   const api = new ASNLookupApi(configuration);
@@ -1015,7 +1015,7 @@ For full API specifications, refer to the [Timezone API documentation](https://i
 import {
     Configuration,
     TimezoneApi
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
 
   const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   const api = new TimezoneApi(configuration);
@@ -1401,7 +1401,7 @@ For more details, refer to the [Timezone Converter API documentation](https://ip
 import {
     Configuration,
     TimeConversionApi
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
 
 const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
 const api = new TimeConversionApi(configuration);
@@ -1454,7 +1454,7 @@ For full explanation, visit the [User Agent API documentation](https://ipgeoloca
 import {
     Configuration,
     UserAgentApi
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
 
   const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   
@@ -1533,7 +1533,7 @@ Refer to the official [Astronomy API documentation](https://ipgeolocation.io/ast
 import {
     Configuration,
     AstronomyApi
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
   const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   
   const api = new AstronomyApi(configuration);
@@ -1959,7 +1959,7 @@ Refer to the official [Abuse Contact API documentation](https://ipgeolocation.io
 import {
     Configuration,
     AbuseContactApi
-  } from 'ip-geolocation-api-typescript-sdk';
+  } from 'ip-geolocation-api-sdk-typescript';
   const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   const api = new AbuseContactApi(configuration);
 
