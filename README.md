@@ -3,8 +3,8 @@
 **IPGeolocation** provides a set of APIs to make IP-based decisions and enrich your applications with real-time geolocation, timezone, user-agent, and threat intelligence data.
 
 **API version**: 2.0  
-**Package version**: 2.0.1
-**NPM package**: [`ip-geolocation-api-typescript-sdk`](https://www.npmjs.com/package/ip-geolocation-api-typescript-sdk)
+**Package version**: 2.0.0
+**NPM package**: [`ip-geolocation-api-sdk-typescript`](https://www.npmjs.com/package/ip-geolocation-api-sdk-typescript)
 
 ## Table of Contents
 
