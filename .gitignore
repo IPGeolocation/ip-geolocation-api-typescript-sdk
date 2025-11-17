@@ -6,8 +6,6 @@ package-lock.json
 *.js
 !dist/**/*.js
 
-# Ignore TypeScript source files (optional)
-index.ts
 
 # Optional: Ignore build artifacts
 *.tgz
