@@ -1046,6 +1046,121 @@ Sample Response:
   }
 }
 ```
+
+## Abuse Contact API Examples
+This section demonstrates how to use the `getAbuseContactInfo()` method of the SDK. This API helps security teams, hosting providers, and compliance professionals quickly identify the correct abuse reporting contacts for any IPv4 or IPv6 address.
+
+You can retrieve data like the responsible organization, role, contact emails, phone numbers, and address to take appropriate mitigation action against abusive or malicious activity.
+
+> [!NOTE]
+> Abuse Contact API is only available in the **Advanced Plan**.
+
+Refer to the official [Abuse Contact API documentation](https://ipgeolocation.io/ip-abuse-contact-api.html#documentation-overview) for details on all available fields.
+
+### Lookup Abuse Contact by IP
+```typescript
+import {
+    Configuration,
+    AbuseContactApi
+  } from 'ip-geolocation-api-sdk-typescript';
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+const api = new AbuseContactApi(configuration);
+
+async function getAbuseContact() {
+    try {
+      const {data} = await api.getAbuseContactInfo({
+        ip: '1.0.0.0'
+      });
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
+}
+getAbuseContact();
+```
+Sample Response:
+```json
+{
+  "ip": "1.0.0.0",
+  "abuse": {
+    "route": "1.0.0.0/24",
+    "country": "AU",
+    "handle": "IRT-APNICRANDNET-AU",
+    "name": "IRT-APNICRANDNET-AU",
+    "organization": "",
+    "role": "abuse",
+    "kind": "group",
+    "address": "PO Box 3646\nSouth Brisbane, QLD 4101\nAustralia",
+    "emails": [
+      "helpdesk@apnic.net"
+    ],
+    "phone_numbers": [
+      "+61 7 3858 3100"
+    ]
+  }
+}
+```
+### Lookup Abuse Contact with Specific Fields
+```typescript
+async function getAbuseContact() {
+    try {
+        const {data} = await api.getAbuseContactInfo({
+            ip: '1.2.3.4',
+            fields: 'abuse.role,abuse.emails'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
+}
+getAbuseContact();
+```
+Sample Response:
+```json
+{
+  "ip": "1.2.3.4",
+  "abuse": {
+    "role": "abuse",
+    "emails": [
+      "helpdesk@apnic.net"
+    ]
+  }
+}
+```
+### Lookup Abuse Contact while Excluding Fields
+```typescript
+async function getAbuseContact() {
+    try {
+        const {data} = await api.getAbuseContactInfo({
+            ip: '9.9.9.9',
+            excludes: 'abuse.handle,abuse.emails'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
+}
+getAbuseContact();
+```
+Sample Response:
+```json
+{
+  "ip": "9.9.9.9",
+  "abuse": {
+    "route": "9.9.9.0/24",
+    "country": "",
+    "name": "Quad9 Abuse",
+    "organization": "Quad9 Abuse",
+    "role": "abuse",
+    "kind": "group",
+    "address": "1442 A Walnut Street Ste 501\nBerkeley\nCA\n94709\nUnited States",
+    "phone_numbers": [
+      "+1-415-831-3129"
+    ]
+  }
+}
+```
+
 ## Timezone API Examples
 This section provides usage examples of the `getTimezoneInfo()` method from the typescript SDK, showcasing how to fetch timezone and time-related data using different query types — IP address, latitude/longitude, timezone ID, IATA code, ICAO code, or UN/LOCODE.
 
@@ -2005,120 +2120,6 @@ Sample Response:
     "moon_parallactic_angle": -105.42137124967556,
     "moon_illumination_percentage": "-5.81",
     "moon_angle": 332.095098449164
-  }
-}
-```
-
-## Abuse Contact API Examples
-This section demonstrates how to use the `getAbuseContactInfo()` method of the SDK. This API helps security teams, hosting providers, and compliance professionals quickly identify the correct abuse reporting contacts for any IPv4 or IPv6 address.
-
-You can retrieve data like the responsible organization, role, contact emails, phone numbers, and address to take appropriate mitigation action against abusive or malicious activity.
-
-> [!NOTE] 
-> Abuse Contact API is only available in the **Advanced Plan**.
-
-Refer to the official [Abuse Contact API documentation](https://ipgeolocation.io/ip-abuse-contact-api.html#documentation-overview) for details on all available fields.
-
-### Lookup Abuse Contact by IP
-```typescript
-import {
-    Configuration,
-    AbuseContactApi
-  } from 'ip-geolocation-api-sdk-typescript';
-const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
-const api = new AbuseContactApi(configuration);
-
-async function getAbuseContact() {
-    try {
-      const {data} = await api.getAbuseContactInfo({
-        ip: '1.0.0.0'
-      });
-      console.log(data);
-    } catch (error) {
-      console.error('Error fetching location:', error);
-    }
-}
-getAbuseContact();
-```
-Sample Response:
-```json
-{
-  "ip": "1.0.0.0",
-  "abuse": {
-    "route": "1.0.0.0/24",
-    "country": "AU",
-    "handle": "IRT-APNICRANDNET-AU",
-    "name": "IRT-APNICRANDNET-AU",
-    "organization": "",
-    "role": "abuse",
-    "kind": "group",
-    "address": "PO Box 3646\nSouth Brisbane, QLD 4101\nAustralia",
-    "emails": [
-      "helpdesk@apnic.net"
-    ],
-    "phone_numbers": [
-      "+61 7 3858 3100"
-    ]
-  }
-}
-```
-### Lookup Abuse Contact with Specific Fields
-```typescript
-async function getAbuseContact() {
-    try {
-        const {data} = await api.getAbuseContactInfo({
-            ip: '1.2.3.4',
-            fields: 'abuse.role,abuse.emails'
-        });
-        console.log(data);
-    } catch (error) {
-        console.error('Error fetching location:', error);
-    }
-}
-getAbuseContact();
-```
-Sample Response:
-```json
-{
-  "ip": "1.2.3.4",
-  "abuse": {
-    "role": "abuse",
-    "emails": [
-      "helpdesk@apnic.net"
-    ]
-  }
-}
-```
-### Lookup Abuse Contact while Excluding Fields
-```typescript
-async function getAbuseContact() {
-    try {
-        const {data} = await api.getAbuseContactInfo({
-            ip: '9.9.9.9',
-            excludes: 'abuse.handle,abuse.emails'
-        });
-        console.log(data);
-    } catch (error) {
-        console.error('Error fetching location:', error);
-    }
-}
-getAbuseContact();
-```
-Sample Response:
-```json
-{
-  "ip": "9.9.9.9",
-  "abuse": {
-    "route": "9.9.9.0/24",
-    "country": "",
-    "name": "Quad9 Abuse",
-    "organization": "Quad9 Abuse",
-    "role": "abuse",
-    "kind": "group",
-    "address": "1442 A Walnut Street Ste 501\nBerkeley\nCA\n94709\nUnited States",
-    "phone_numbers": [
-      "+1-415-831-3129"
-    ]
   }
 }
 ```
