@@ -11,3 +11,5 @@ index.ts
 
 # Optional: Ignore build artifacts
 *.tgz
+
+.idea/
