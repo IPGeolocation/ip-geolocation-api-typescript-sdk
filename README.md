@@ -1,65 +1,174 @@
 # IP Geolocation API Typescript SDK
 
-**IPGeolocation** provides a set of APIs to make IP-based decisions and enrich your applications with real-time geolocation, timezone, user-agent, and threat intelligence data.
+## Overview
+The official **TypeScript Library** for **[IPGeolocation.io](https://ipgeolocation.io)**'s set of APIs, provides a quick, developer friendly way to access IP Location, Security, Timezone, Astronomy, ASN, Abuse Contact, and useragent data. Lookup your own IP or provide any IPv4, IPv6 or domain name to get structured results in TypeScript (TS), without the need for manual HTTP requests handling.
 
-**API version**: 2.0  
-**Package version**: 2.0.0
-**NPM package**: [`ip-geolocation-api-sdk-typescript`](https://www.npmjs.com/package/ip-geolocation-api-sdk-typescript)
+- [IP Location API](https://ipgeolocation.io/ip-location-api.html): Get all-in-one unified solution for **location** (city, locality, state, country, etc.), **currency**, **network** (AS number, ASN name, organization, asn type, date of allocation, company/ISP name, company type, company domain), **timezone** , **useragent** string parsing, **security** (threat score, is_tor, is_bot, proxy_provider, cloud_provider), and **abuse contact** (route/CIDR network, country, address, email, phone numbers) information.
+- [IP Security API](https://ipgeolocation.io/ip-security-api.html): Get security, network, location, hostname, timezone and useragent parsing.
+- [ASN API](https://ipgeolocation.io/asn-api.html): Get ASN details along with peers, upstreams, downstreams, routes, and raw WHOIS.
+- [Abuse Contact API](https://ipgeolocation.io/ip-abuse-contact-api.html): Get abuse emails, phone numbers, kind, organization, route/CIDR network and country.
+- [Astronomy API](https://ipgeolocation.io/astronomy-api.html): Get sunrise, sunset, moonrise, moonset, moon phases with precise twilight period times in combination with location information.
+- [Timezone API](https://ipgeolocation.io/timezone-api.html): Get timezone name, multiple time formats, daylight saving status and its details along with location information.
+- [Timezone Convert API](https://ipgeolocation.io/timezone-api.html): Convert time between timezone names, geo coordinates, location addresses, IATA codes, ICAO codes, or UN/LOCODE.
+- [User Agent API](https://ipgeolocation.io/user-agent-api.html): Get browser, Operating System, and device info from single or multiple Useragent string parsing.
+
+This library aims to empower developers to integrate threat intelligence, personalization, fraud prevention, compliance, and analytics features directly into web based applications. Whether you're enriching signup forms with ip geolocation data, localizing content, embedding threat intelligence in back-end systems, or converting time zones and currencies, the library ensures seamless, scalable integration with IPGeolocation.io’s global API infrastructure.
+
+Based on:
+- API version: 2.0
+
+**Official Release:**
+- Available on [![npm version](https://img.shields.io/npm/v/ip-geolocation-api-sdk-typescript?color=brightgreen)](https://www.npmjs.com/package/ip-geolocation-api-sdk-typescript)
+- Source Code: [**GitHub Repository**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk)
 
 ## Table of Contents
-
-- [Installation](#installation)
+1. [Requirements](#requirements)
+2. [Installation](#installation)
     - [Using NPM](#using-npm)
     - [Using Yarn](#using-yarn)
     - [Manual Installation](#manual-installation)
-- [Authentication Setup](#authentication-setup)
-- [API Endpoints](#api-endpoints)
-- [Examples](#example-usage)
-    - [IP Geolocation Examples](#ip-geolocation-examples)
-    - [Bulk IP Geolocation Examples](#bulk-ip-geolocation-examples)
-    - [IP Security Examples](#ip-security-examples)
-    - [ASN API Examples](#asn-api-examples)
-    - [Timezone API Examples](#timezone-api-examples)
-    - [User Agent API Examples](#user-agent-api-examples)
-    - [Astronomy API Examples](#astronomy-api-examples)
-    - [Abuse Contact API Examples](#abuse-contact-api-examples)
-- [Models](#models)
+3. [API Plan Tiers and Documentation](#api-plan-tiers-and-documentation)
+4. [API Endpoints](#api-endpoints)
+5. [Fields and Methods Availability](#fields-and-methods-availability)
+6. [Authentication Setup](#authentication-setup)
+    - [How to Get Your API Key](#how-to-get-your-api-key)
+    - [ApiKeyAuth](#apikeyauth)
+7. [IP Geolocation Examples](#ip-geolocation-examples)
+   - [Developer (Free) Plan Examples](#developer-free-plan-examples)
+   - [Standard Plan Examples](#standard-plan-examples)
+   - [Advanced Plan Examples](#advanced-plan-example)
+   - [Bulk IP Geolocation Examples](#bulk-ip-geolocation-example)
+8. [IP Security Examples](#ip-security-examples)
+   - [Get Security API Default Fields](#get-security-api-default-fields)
+   - [Include Multiple Optional Fields](#include-multiple-optional-fields)
+   - [Request with Field Filtering](#request-with-field-filtering)
+   - [Bulk IP Security Lookup](#bulk-ip-security-lookup)
+9. [ASN API Examples](#asn-api-examples)
+   - [Get ASN Information by IP Address](#get-asn-information-by-ip-address)
+   - [Get ASN Information by ASN Number](#get-asn-information-by-asn-number)
+   - [Combine All objects using Include](#combine-all-objects-using-include)
+10. [Abuse Contact API Examples](#abuse-contact-api-examples)
+    - [Lookup Abuse Contact by IP](#lookup-abuse-contact-by-ip)
+    - [Lookup Abuse Contact with Specific Fields](#lookup-abuse-contact-with-specific-fields)
+    - [Lookup Abuse Contact while Excluding Fields](#lookup-abuse-contact-while-excluding-fields)
+11. [Timezone API Examples](#timezone-api-examples)
+    - [Get Timezone by IP Address](#get-timezone-by-ip-address)
+    - [Get Timezone by Timezone Name](#get-timezone-by-timezone-name)
+    - [Get Timezone from Any Address](#get-timezone-from-any-address)
+    - [Get Timezone from Location Coordinates](#get-timezone-from-location-coordinates)
+    - [Get Timezone and Airport Details from IATA Code](#get-timezone-and-airport-details-from-iata-code)
+    - [Get Timezone and City Details from UN/LOCODE](#get-timezone-and-city-details-from-unlocode)
+12. [Timezone Converter Examples](#timezone-converter-api-examples)
+    - [Convert Current Time from One Timezone to Another](#convert-current-time-from-one-timezone-to-another)
+13. [User Agent API Examples](#user-agent-api-examples)
+    - [Parse a Basic User Agent String](#parse-a-basic-user-agent-string)
+    - [Bulk User Agent Parsing Example](#bulk-user-agent-parsing-example)
+14. [Astronomy API Examples](#astronomy-api-examples)
+    - [Lookup Astronomy by Coordinates](#lookup-astronomy-api-by-coordinates)
+    - [Lookup Astronomy by IP Address](#lookup-astronomy-api-by-ip-address)
+    - [Lookup Astronomy by Location String](#lookup-astronomy-api-by-location-string)
+    - [Lookup Astronomy for Specific Date](#lookup-astronomy-api-for-specific-date)
+    - [Lookup Location Info in Different Language](#lookup-location-info-in-different-language)
+15. [Models](#models)
 
+## Requirements
+- NPM or Yarm Package manager
+- API Key from [IPGeolocation.io](https://ipgeolocation.io)
 
-
-# Installation
-
-## Using NPM
+## Installation
+### Using NPM
 
 Install the SDK directly from NPM:
-
 ```bash
 npm install ip-geolocation-api-sdk-typescript
 ```
 
-## Using Yarn
+### Using Yarn
 Alternatively, if you use Yarn:
 ```bash
 yarn add ip-geolocation-api-sdk-typescript
 ```
 
-## Manual Installation
+### Manual Installation
 To include the SDK manually:
 1. Clone this repository:
-```bash
-git clone https://github.com/ipgeolocation/ip-geolocation-api-typescript-sdk.git
-```
+   ```bash
+   git clone https://github.com/ipgeolocation/ip-geolocation-api-typescript-sdk.git
+   ```
 2. Navigate to the project folder and install dependencies:
-```bash
-npm install
-```
-or with Yarn:
-```bash
-yarn install
-```
+   ```bash
+   npm install
+   ```
+    or with Yarn:
+   ```bash
+   yarn install
+   ```
 
-# Authentication Setup
-To authenticate API requests, you'll need an API key from [ipgeolocation.io](https://ipgeolocation.io). Once you have the key, initialize the SDK client with it:
+## API Plan Tiers and Documentation
+
+The documentation below corresponds to the four available API tier plans:
+
+- **Developer Plan** (Free): [Full Documentation](https://ipgeolocation.io/ip-location-api.html#Free)
+- **Standard Plan**: [Full Documentation](https://ipgeolocation.io/ip-location-api.html#Standard)
+- **Advance Plan**: [Full Documentation](https://ipgeolocation.io/ip-location-api.html#Advance)
+- **Security Plan**: [Full Documentation](https://ipgeolocation.io/ip-security-api.html#documentation-overview)
+
+For a detailed comparison of what each plan offers, visit the [Pricing Page](https://ipgeolocation.io/pricing.html).
+
+## API Endpoints
+
+All URIs are relative to *https://api.ipgeolocation.io/v2*
+
+| Class               | Method                                                                                                                                                                  | HTTP request              | Description                                                |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|------------------------------------------------------------|
+| *IPGeolocationAPI*  | [**getIpGeolocation**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/IPLocationApi.md#getipgeolocation)                             | **GET** /ipgeo            | Get geolocation data for a single IP address               |
+| *IPGeolocationAPI*  | [**getBulkIpGeolocation**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/IPLocationApi.md#getbulkipgeolocation)                     | **POST** /ipgeo-bulk      | Get geolocation data for multiple IP addresses             |
+| *IPSecurityAPI*     | [**getIpSecurityInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/SecurityApi.md#getipsecurityinfo)                             | **GET** /security         | Get threat intelligence for a single IP address            |
+| *IPSecurityAPI*     | [**getBulkIpSecurityInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/SecurityApi.md#getbulkipsecurityinfo)                     | **POST** /security-bulk   | Get threat intelligence for multiple IP addresses          |
+| *ASNLookupAPI*      | [**getAsnInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/ASNLookupApi.md#getasninfo)                                          | **GET** /asn              | Get details of any ASN number                              |
+| *AbuseContactAPI*   | [**getAbuseContactInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AbuseContactApi.md#getabusecontactinfo)                     | **GET** /abuse            | Retrieve abuse contact data for an IP address              |
+| *AstronomyAPI*      | [**getAstronomyDetails**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AstronomyApi.md#getastronomydetails)                        | **GET** /astronomy        | Get sun and moon timings and positions                     |
+| *TimezoneAPI*       | [**getTimezoneInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimezoneApi.md#gettimezoneinfo)                                 | **GET** /timezone         | Get timezone information based on IP, coordinates, or name |
+| *TimeConversionAPI* | [**convertTimeBetweenTimezones**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimeConversionApi.md#converttimebetweentimezones)   | **GET** /timezone/convert | Convert time from one timezone to another                  |
+| *UserAgentAPI*      | [**getUserAgentDetails**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentApi.md#getuseragentdetails)                        | **GET** /user-agent       | Parse a single user-agent string                           |
+| *UserAgentAPI*      | [**parseUserAgentString**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentApi.md#parseuseragentstring)                      | **POST** /user-agent      | Alternate method to parse a single user-agent string       |
+| *UserAgentAPI*      | [**parseBulkUserAgentStrings**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentApi.md#parsebulkuseragentstrings)            | **POST** /user-agent-bulk | Parse multiple user-agent strings                          |
+
+## Fields and Methods Availability
+IP Geolocation offers four plans from billing point of view: **Free, Standard, Security, Advance**. The availability of each method calling from the respective class, over all plans are presented below.
+
+| Class               | Method                                                                                                                                                                | Free | Standard | Security | Advance |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|:--------:|:--------:|:-------:|
+| *IPGeolocationAPI*  | [**getIpGeolocation**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/IPLocationApi.md#getipgeolocation)                           |  ✔   |    ✔     |    ✖     |    ✔    |
+| *IPGeolocationAPI*  | [**getBulkIpGeolocation**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/IPLocationApi.md#getbulkipgeolocation)                   |  ✖   |    ✔     |    ✖     |    ✔    |
+| *IPSecurityAPI*     | [**getIpSecurityInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/SecurityApi.md#getipsecurityinfo)                           |  ✖   |    ✖     |    ✔     |    ✖    |
+| *IPSecurityAPI*     | [**getBulkIpSecurityInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/SecurityApi.md#getbulkipsecurityinfo)                   |  ✖   |    ✖     |    ✔     |    ✖    |
+| *ASNLookupAPI*      | [**getAsnInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/ASNLookupApi.md#getasninfo)                                        |  ✖   |    ✖     |    ✖     |    ✔    |
+| *AbuseContactAPI*   | [**getAbuseContactInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AbuseContactApi.md#getabusecontactinfo)                   |  ✖   |    ✖     |    ✖     |    ✔    |
+| *AstronomyAPI*      | [**getAstronomyDetails**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AstronomyApi.md#getastronomydetails)                      |  ✔   |    ✔     |    ✔     |    ✔    |
+| *TimezoneAPI*       | [**getTimezoneInfo**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimezoneApi.md#gettimezoneinfo)                               |  ✔   |    ✔     |    ✔     |    ✔    |
+| *TimeConversionAPI* | [**convertTimeBetweenTimezones**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimeConversionApi.md#converttimebetweentimezones) |  ✔   |    ✔     |    ✔     |    ✔    |
+| *UserAgentAPI*      | [**getUserAgentDetails**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentApi.md#getuseragentdetails)                      |  ✔   |    ✔     |    ✔     |    ✔    |
+| *UserAgentAPI*      | [**parseUserAgentString**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentApi.md#parseuseragentstring)                    |  ✔   |    ✔     |    ✔     |    ✔    |
+| *UserAgentAPI*      | [**parseBulkUserAgentStrings**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentApi.md#parsebulkuseragentstrings)          |  ✖   |    ✔     |    ✔     |    ✔    |
+
+> [!TIP]
+> The availability of fields in every API endpoint across all API plans is provided in the **_Reference Table_** within each respective API Documentation. e.g., for IPGeolocationApi, please visit [https://ipgeolocation.io/ip-location-api.html#reference-to-ipgeolocation-api-response](https://ipgeolocation.io/ip-location-api.html#reference-to-ipgeolocation-api-response).
+
+## Authentication Setup
+To authenticate API requests, you'll need an API key from [ipgeolocation.io](https://ipgeolocation.io). 
+
+### How to Get Your API Key
+
+1. **Sign up** here: [https://app.ipgeolocation.io/signup](https://app.ipgeolocation.io/signup)
+2. **(optional)** Verify your email, if you signed up using email.
+3. **Log in** to your account: [https://app.ipgeolocation.io/login](https://app.ipgeolocation.io/login)
+4. After logging in, navigate to your **Dashboard** to find your API key: [https://app.ipgeolocation.io/dashboard](https://app.ipgeolocation.io/dashboard)
+
+<a id="ApiKeyAuth"></a>
+### ApiKeyAuth
+
+Once you have the key, initialize the SDK client with it:
 ```typescript
 import { Configuration } from "ip-geolocation-api-sdk-typescript";
 
@@ -70,34 +179,29 @@ const configuration = new Configuration({
 
 ```
 
-# API Endpoints
-
-All URIs are relative to *https://api.ipgeolocation.io/v2*
-
-Class | Method                                                                                  | HTTP request | Description
------------- |-----------------------------------------------------------------------------------------| ------------- | -------------
-*ASNLookupAPI* | [**getAsnInfo**](docs/ASNLookupApi.md#getasninfo)                                       | **GET** /asn | Get details of any ASN number
-*AbuseContactAPI* | [**getAbuseContactInfo**](docs/AbuseContactApi.md#getabusecontactinfo)                  | **GET** /abuse | Retrieve abuse contact data for an IP address
-*AstronomyAPI* | [**getAstronomyDetails**](docs/AstronomyApi.md#getastronomydetails)                     | **GET** /astronomy | Get sun and moon timings and positions
-*IPGeolocationAPI* | [**getBulkIpGeolocation**](docs/IPLocationApi.md#getbulkipgeolocation)               | **POST** /ipgeo-bulk | Get geolocation data for multiple IP addresses
-*IPGeolocationAPI* | [**getIpGeolocation**](docs/IPLocationApi.md#getipgeolocation)                       | **GET** /ipgeo | Get geolocation data for a single IP address
-*IPSecurityAPI* | [**getBulkIpSecurityInfo**](docs/IPSecurityApi.md#getbulkipsecurityinfo)                | **POST** /security-bulk | Get threat intelligence for multiple IP addresses
-*IPSecurityAPI* | [**getIpSecurityInfo**](docs/IPSecurityApi.md#getipsecurityinfo)                        | **GET** /security | Get threat intelligence for a single IP address
-*TimeConversionAPI* | [**convertTimeBetweenTimezones**](docs/TimeConversionApi.md#converttimebetweentimezones) | **GET** /timezone/convert | Convert time from one timezone to another
-*TimezoneAPI* | [**getTimezoneInfo**](docs/TimezoneApi.md#gettimezoneinfo)                              | **GET** /timezone | Get timezone information based on IP, coordinates, or name
-*UserAgentAPI* | [**getUserAgentDetails**](docs/UserAgentApi.md#getuseragentdetails)                     | **GET** /user-agent | Parse a single user-agent string
-*UserAgentAPI* | [**parseBulkUserAgentStrings**](docs/UserAgentApi.md#parsebulkuseragentstrings)         | **POST** /user-agent-bulk | Parse multiple user-agent strings 
-*UserAgentAPI* | [**parseUserAgentString**](docs/UserAgentApi.md#parseuseragentstring)                   | **POST** /user-agent | Alternate method to parse a single user-agent string
-
-# Example Usage
-
 ##  IP Geolocation Examples
-This section shows how to use the getIpGeolocation() method from the TypeScript SDK across Free, Standard, and Advanced subscription tiers. Each example highlights different parameter combinations: fields, include, and excludes.
+This section shows how to use the `getIpGeolocation()` method from the TypeScript SDK across **Free**, **Standard**, and **Advanced** subscription tiers. Each example highlights different parameter combinations: `fields`, `include`, and `excludes`.
+
+**Parameters**
+
+- `fields`: Use this parameter to include specific fields in the response.
+
+- `excludes`: Use this parameter to omit specific fields from the response.
+
+- `include`: Use this parameter to add optional modules to the response, such as:
+  - `security`
+  - `user_agent`
+  - `hostname`
+  - `liveHostname`
+  - `hostnameFallbackLive`
+  - `abuse`
+  - `dma`
+  - `time_zone`
 
 For the full list of supported fields/modules, refer to the [IP Geolocation API Docs](https://ipgeolocation.io/ip-location-api.html#documentation-overview).
 
 ### Developer (Free) Plan Examples
-#### Default Fields
+#### Get Default Fields
 ```typescript
 import {
   IPGeolocationApi,
@@ -107,16 +211,19 @@ import {
 const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
 const api = new IPGeolocationApi(configuration);
 
-const { data } = await api.getIpGeolocation({
-    ip: '8.8.8.8'
-});
-console.log(data);
+async function getGeolocation() {
+    const {data} = await api.getIpGeolocation({
+        ip: '8.8.8.8'
+    });
+    console.log(data);
+}
 
+getGeolocation();
 ```
 If you don't provide an IP address, the API will use the request origin (IP of the request) to return geolocation data.
 
 Sample Response:
-```
+```json
 {
   "ip": "8.8.8.8",
   "location": {
@@ -154,20 +261,12 @@ Sample Response:
     "name": "US Dollar",
     "symbol": "$"
   }
-}z
+}
 ```
-#### Filtering Fields and Exclusions
+
+Filtering Specific Fields from the Response (Use of '`exclude`' and '`fields`')
 ```typescript
-import {
-    IPGeolocationApi,
-    Configuration
-  } from 'ip-geolocation-api-sdk-typescript';
-  
-  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
-  
-  const api = new IPGeolocationApi(configuration);
-  
-  async function getLocation() {
+async function getLocation() {
     try {
       const { data } = await api.getIpGeolocation({
         ip: '8.8.4.4',
@@ -184,7 +283,7 @@ import {
 getLocation();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "8.8.4.4",
   "location": {
@@ -210,16 +309,7 @@ Sample Response:
 ### Standard Plan Examples
 #### Geolocation with Default Fields
 ```typescript
-import {
-    IPGeolocationApi,
-    Configuration
-  } from 'ip-geolocation-api-sdk-typescript';
-  
-  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
-  
-  const api = new IPGeolocationApi(configuration);
-  
-  async function getLocation() {
+async function getLocation() {
     try {
       const { data } = await api.getIpGeolocation({
         ip: '8.8.4.4',
@@ -234,7 +324,7 @@ import {
 getLocation();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "8.8.8.8",
   "location": {
@@ -287,18 +377,21 @@ Sample Response:
 #### Language Support Example
 Here is an example to get the geolocation data for IP address '2001:4230:4890::1' in French language:
 ```typescript
-try {
-      const { data } = await api.getIpGeolocation({
-        ip: '2001:4230:4890::1',
-        lang: 'fr'
-      });
-      console.log(data); 
-} catch (error) {
-      console.error('Error fetching data:', error);
+async function getLocation() {
+    try {
+        const { data } = await api.getIpGeolocation({
+            ip: '2001:4230:4890::1',
+            lang: 'fr'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }
+getLocation();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "2001:4230:4890:0:0:0:0:1",
   "location": {
@@ -349,19 +442,23 @@ Sample Response:
 ```
 #### Include Hostname, Timezone, and User-Agent
 ```typescript
-try {
-  const { data } = await api.getIpGeolocation({
-  ip: '4.5.6.7',
-  fields: 'location.country_name,location.country_capital',
-  include: 'user_agent,time_zone,hostnameFallbackLive'
-});
-  console.log(data); 
-} catch (error) {
-      console.error('Error fetching data:', error);
+async function getLocation() {
+    try {
+        const { data } = await api.getIpGeolocation({
+            ip: '4.5.6.7',
+            fields: 'location.country_name,location.country_capital',
+            include: 'user_agent,time_zone,hostnameFallbackLive'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }
+
+getLocation();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "4.5.6.7",
   "hostname": "4.5.6.7",
@@ -423,29 +520,33 @@ Sample Response:
   }
 }
 ```
-> **Note on Hostname Parameters**:
->
-> The IP Geolocation API supports hostname lookup for all paid  subscriptions. However, this is not included by default. To enable hostname resolution, use the include parameter with one of the following options:
->  - `hostname`: Performs a quick lookup using the internal hostname database. If no match is found, the IP is returned as-is. This is fast but may produce incomplete results.
->  - `liveHostname`: Queries live sources for accurate hostname resolution. This may increase response time.
->  - `hostnameFallbackLive`: Attempts the internal database first, and falls back to live sources if no result is found. This option provides a balance of speed and reliability.
+> [!NOTE]
+> 
+> The IP Geolocation API supports hostname lookup for all paid  subscriptions. However, this is not included by default. To enable hostname resolution, use the `include` parameter with one of the following options:
+> - `hostname`: Performs a quick lookup using the internal hostname database. If no match is found, the IP is returned as-is. This is fast but may produce incomplete results.
+> - `liveHostname`: Queries live sources for accurate hostname resolution. This may increase response time.
+> - `hostnameFallbackLive`: Attempts the internal database first, and falls back to live sources if no result is found. This option provides a balance of speed and reliability.
 
 ### Advanced Plan Example
 #### Include DMA, Abuse, and Security
 ```typescript
-try {
-  const { data } = await api.getIpGeolocation({
-  ip: '8.8.8.8',
-  excludes: 'location.country_flag,location.country_emoji',
-  include: 'dma,abuse,security'
-});
-  console.log(data); 
-} catch (error) {
-      console.error('Error fetching data:', error);
+async function getLocation() {
+    try {
+        const { data } = await api.getIpGeolocation({
+            ip: '8.8.8.8',
+            excludes: 'location.country_flag,location.country_emoji',
+            include: 'dma,abuse,security'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }
+
+getLocation();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "8.8.8.8",
   "location": {
@@ -536,28 +637,34 @@ Sample Response:
   }
 }
 ```
-These examples demonstrate typical usage of the IP Geolocation API with different subscription tiers. Use fields to specify exactly which data to receive, include for optional data like security and user agent, and excludes to omit specific keys from the response.
+These examples demonstrate typical usage of the IP Geolocation API with different subscription tiers. Use `fields` to specify exactly which data to receive, `include` for optional data like security and user agent, and `excludes` to omit specific keys from the response.
 
-> **Note**: All features available in the Free plan are also included in the Standard and Advanced plans. Similarly, all features of the Standard plan are available in the Advanced plan.
-## Bulk IP Geolocation Example
-The SDK supports bulk IP geolocation using getBulkIpGeolocation(). This is available for Standard and Advanced plans. All parameters like fields, include, and excludes can be used in bulk requests.
+> [!NOTE] 
+> All features available in the Free plan are also included in the Standard and Advanced plans. Similarly, all features of the Standard plan are available in the Advanced plan.
+
+### Bulk IP Geolocation Example
+The SDK supports bulk IP geolocation using `getBulkIpGeolocation()`. This is available for **Standard** and **Advanced** plans. All parameters like `fields`, `include`, and `excludes` can be used in bulk requests.
 ```typescript
-try {
-    const {data} = await api.getBulkIpGeolocation({
-    ips: ['8.8.8.8', '1.1.1.1']
-    });
-    console.log(data);
+async function getBulkLocation() {
+    try {
+        const {data} = await api.getBulkIpGeolocation({
+            ips: ['8.8.8.8', '1.1.1.1']
+        });
+        console.log(data);
     } catch (error) {
-    console.error('Error fetching location:', error);
+        console.error('Error fetching location:', error);
+    }
 }
 
+getBulkLocation();
 ```
+
 ## IP Security Examples
 The `getIpSecurityInfo()` method lets you query threat intelligence, proxy/VPN detection, and risk metadata for IPs.
 
 For full endpoint specifications, refer to the [IP Security API documentation](https://ipgeolocation.io/ip-security-api.html#documentation-overview).
 
-### Basic Request (Minimal Setup)
+### Get Security API Default Fields
 ```typescript
 import {
     Configuration,
@@ -565,11 +672,11 @@ import {
   } from 'ip-geolocation-api-sdk-typescript';
   
 
-  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   
-  const api = new IPSecurityApi(configuration);
+const api = new IPSecurityApi(configuration);
   
-  async function getSecurity() {
+async function getSecurity() {
     try {
       const {data} = await api.getIpSecurityInfo({
         ip: '2.56.188.34'
@@ -578,12 +685,12 @@ import {
     } catch (error) {
       console.error('Error fetching location:', error);
     }
-  }
+}
   
-  getSecurity();
+getSecurity();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "2.56.188.34",
   "security": {
@@ -603,18 +710,22 @@ Sample Response:
 ```
 ### Include Multiple Optional Fields
 ```typescript
-try {
-    const {data} = await api.getIpSecurityInfo({
-    ip: '2.56.188.34',
-    include: 'location,network,currency,time_zone,user_agent,country_metadata,hostname'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getSecurity() {
+    try {
+        const {data} = await api.getIpSecurityInfo({
+            ip: '2.56.188.34',
+            include: 'location,network,currency,time_zone,user_agent,country_metadata,hostname'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getSecurity();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "2.56.188.34",
   "hostname": "2.56.188.34",
@@ -732,18 +843,22 @@ Sample Response:
 ```
 ### Request with Field Filtering
 ```typescript
-try {
-    const {data} = await api.getIpSecurityInfo({
-    ip: '195.154.221.54',
-    fields: 'security.is_tor,security.is_proxy,security.is_bot,security.is_spam'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getSecurity() {
+    try {
+        const {data} = await api.getIpSecurityInfo({
+            ip: '195.154.221.54',
+            fields: 'security.is_tor,security.is_proxy,security.is_bot,security.is_spam'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getSecurity();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "195.154.221.54",
   "security": {
@@ -754,8 +869,8 @@ Sample Response:
   }
 }
 ```
-## Bulk IP Security Lookup
-The SDK also supports bulk IP Security requests using the `getBulkIpSecurityInfo()` method. All parameters like fields, include, and excludes can also be used in bulk requests.
+### Bulk IP Security Lookup
+The SDK also supports bulk IP Security requests using the `getBulkIpSecurityInfo()` method. All parameters like `fields`, `include`, and `excludes` can also be used in bulk requests.
 ```typescript
 try {
     const {data} = await api.getBulkIpSecurityInfo({
@@ -770,7 +885,9 @@ try {
 
 ## ASN API Examples
 This section provides usage examples of the `getAsnInfo()` method from the SDK. These methods allow developers to retrieve detailed ASN-level network data either by ASN number or by IP address.
-> **Note:** ASN API is only available in the Advanced subscription plans.
+
+> [!NOTE] 
+> ASN API is only available in the Advanced subscription plans.
 
 Refer to the [ASN API documentation](https://ipgeolocation.io/asn-api.html#documentation-overview) for a detailed list of supported fields and behaviors.
 ### Get ASN Information by IP Address
@@ -780,10 +897,10 @@ import {
     ASNLookupApi
   } from 'ip-geolocation-api-sdk-typescript';
   
-  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' }); 
-  const api = new ASNLookupApi(configuration);
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' }); 
+const api = new ASNLookupApi(configuration);
   
-  async function getASN() {
+async function getASN() {
     try {
       const {data} = await api.getAsnInfo({
         ip: '8.8.8.8' // IP Address
@@ -792,13 +909,12 @@ import {
     } catch (error) {
       console.error('Error fetching location:', error);
     }
-  }
+}
   
 getASN();
-  
 ```
 Sample Response:
-```
+```json
 {
   "ip": "8.8.8.8",
   "asn": {
@@ -819,18 +935,22 @@ Sample Response:
 
 ### Get ASN Information by ASN Number
 ```typescript
-try {
-    const {data} = await api.getAsnInfo({
-    asn: 15169 // ASN number
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getASN() {
+    try {
+        const {data} = await api.getAsnInfo({
+            asn: 15169 // ASN number
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
+
 }
 
+getASN();
 ```
 Sample Response:
-```
+```json
 {
   "asn": {
     "as_number": "AS15169",
@@ -849,18 +969,22 @@ Sample Response:
 ```
 ### Combine All objects using Include
 ```typescript
-try {
-    const {data} = await api.getAsnInfo({
-    asn: 12 // ASN number
-    include: 'peers,downstreams,upstreams,routes,whois_response'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getASN() {
+    try {
+        const {data} = await api.getAsnInfo({
+            asn: 12, // ASN number
+            include: 'peers,downstreams,upstreams,routes,whois_response'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getASN();
 ```
 Sample Response:
-```
+```json
 {
   "asn": {
     "as_number": "AS12",
@@ -876,16 +1000,7 @@ Sample Response:
     "rir": "ARIN",
     "routes": [
       "192.76.177.0/24",
-      "216.165.96.0/20",
-      "128.122.0.0/16",
-      "216.165.88.0/24",
-      "192.86.139.0/24",
-      "216.165.103.0/24",
-      "216.165.89.0/24",
-      "216.165.0.0/18",
-      "216.165.112.0/21",
-      "2607:f600::/32",
-      "216.165.64.0/19",
+      "...",
       "216.165.102.0/24",
       "216.165.120.0/22"
     ],
@@ -895,36 +1010,7 @@ Sample Response:
         "description": "Telecom Italia S.p.A.",
         "country": "IT"
       },
-      {
-        "as_number": "AS8220",
-        "description": "COLT Technology Services Group Limited",
-        "country": "GB"
-      },
-      {
-        "as_number": "AS286",
-        "description": "GTT Communications Inc.",
-        "country": "US"
-      },
-      {
-        "as_number": "AS3257",
-        "description": "GTT Communications Inc.",
-        "country": "US"
-      },
-      {
-        "as_number": "AS3754",
-        "description": "NYSERNet",
-        "country": "US"
-      },
-      {
-        "as_number": "AS3356",
-        "description": "Level 3 Parent, LLC",
-        "country": "US"
-      },
-      {
-        "as_number": "AS6461",
-        "description": "Zayo Bandwidth",
-        "country": "US"
-      },
+      "...",
       {
         "as_number": "AS137",
         "description": "Consortium GARR",
@@ -949,58 +1035,14 @@ Sample Response:
         "description": "Telecom Italia S.p.A.",
         "country": "IT"
       },
-      {
-        "as_number": "AS8220",
-        "description": "COLT Technology Services Group Limited",
-        "country": "GB"
-      },
-      {
-        "as_number": "AS394666",
-        "description": "NYU Langone Health",
-        "country": "US"
-      },
-      {
-        "as_number": "AS286",
-        "description": "GTT Communications Inc.",
-        "country": "NL"
-      },
-      {
-        "as_number": "AS286",
-        "description": "GTT Communications Inc.",
-        "country": "US"
-      },
-      {
-        "as_number": "AS3257",
-        "description": "GTT Communications Inc.",
-        "country": "US"
-      },
-      {
-        "as_number": "AS3754",
-        "description": "NYSERNet",
-        "country": "US"
-      },
-      {
-        "as_number": "AS3356",
-        "description": "Level 3 Parent, LLC",
-        "country": "US"
-      },
-      {
-        "as_number": "AS6461",
-        "description": "Zayo Bandwidth",
-        "country": "US"
-      },
-      {
-        "as_number": "AS137",
-        "description": "Consortium GARR",
-        "country": "IT"
-      },
+      "...",
       {
         "as_number": "AS54965",
         "description": "Polytechnic Institute of NYU",
         "country": "US"
       }
     ],
-    "whois_response": "\n#\n# ARIN WHOIS data and services are subject to the Terms of Use\n# available at: https://www.arin.net/resources/registry/whois/tou/\n#\n# If you see inaccuracies in the results, please report at\n# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/\n#\n# Copyright 1997-2025, American Registry for Internet Numbers, Ltd.\n#\n\n\nASNumber:       12\nASName:         NYU-DOMAIN\nASHandle:       AS12\nRegDate:        1984-07-05\nUpdated:        2023-05-25    \nRef:            https://rdap.arin.net/registry/autnum/12\n\n\nOrgName:        New York University\nOrgId:          NYU-Z\nAddress:        726 Broadway, 8th Floor - ITS\nCity:           New York\nStateProv:      NY\nPostalCode:     10003\nCountry:        US\nRegDate:        2023-05-15\nUpdated:        2023-05-15\nRef:            https://rdap.arin.net/registry/entity/NYU-Z\n\n\nOrgAbuseHandle: OIS9-ARIN\nOrgAbuseName:   Office of Information Security\nOrgAbusePhone:  +1-212-998-3333 \nOrgAbuseEmail:  abuse@nyu.edu\nOrgAbuseRef:    https://rdap.arin.net/registry/entity/OIS9-ARIN\n\nOrgNOCHandle: COSI-ARIN\nOrgNOCName:   Communications Operations Services - ITS\nOrgNOCPhone:  +1-212-998-3444 \nOrgNOCEmail:  noc-cosi-arin@nyu.edu\nOrgNOCRef:    https://rdap.arin.net/registry/entity/COSI-ARIN\n\nOrgTechHandle: COSI-ARIN\nOrgTechName:   Communications Operations Services - ITS\nOrgTechPhone:  +1-212-998-3444 \nOrgTechEmail:  noc-cosi-arin@nyu.edu\nOrgTechRef:    https://rdap.arin.net/registry/entity/COSI-ARIN\n\nRNOCHandle: COSI-ARIN\nRNOCName:   Communications Operations Services - ITS\nRNOCPhone:  +1-212-998-3444 \nRNOCEmail:  noc-cosi-arin@nyu.edu\nRNOCRef:    https://rdap.arin.net/registry/entity/COSI-ARIN\n\nRTechHandle: COSI-ARIN\nRTechName:   Communications Operations Services - ITS\nRTechPhone:  +1-212-998-3444 \nRTechEmail:  noc-cosi-arin@nyu.edu\nRTechRef:    https://rdap.arin.net/registry/entity/COSI-ARIN\n\n\n#\n# ARIN WHOIS data and services are subject to the Terms of Use\n# available at: https://www.arin.net/resources/registry/whois/tou/\n#\n# If you see inaccuracies in the results, please report at\n# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/\n#\n# Copyright 1997-2025, American Registry for Internet Numbers, Ltd.\n#\n"
+    "whois_response": "<raw-whois-response>"
   }
 }
 ```
@@ -1009,7 +1051,7 @@ This section provides usage examples of the `getTimezoneInfo()` method from the 
 
 For full API specifications, refer to the [Timezone API documentation](https://ipgeolocation.io/timezone-api.html#documentation-overview).
 
-#### Get Timezone by IP Address
+### Get Timezone by IP Address
 
 ```typescript
 import {
@@ -1017,10 +1059,10 @@ import {
     TimezoneApi
   } from 'ip-geolocation-api-sdk-typescript';
 
-  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
-  const api = new TimezoneApi(configuration);
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+const api = new TimezoneApi(configuration);
   
-  async function getTimezone() {
+async function getTimezone() {
     try {
       const {data} = await api.getTimezoneInfo({
         ip: '8.8.8.8',
@@ -1029,13 +1071,12 @@ import {
     } catch (error) {
       console.error('Error fetching location:', error);
     }
-  }
-  
-  getTimezone();
-  
+}
+
+getTimezone();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "8.8.8.8",
   "location": {
@@ -1094,17 +1135,21 @@ Sample Response:
 ```
 ### Get Timezone by Timezone Name
 ```typescript
-try {
-    const {data} = await api.getTimezoneInfo({
-    tz: 'Europe/London',
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getTimezone() {
+    try {
+        const {data} = await api.getTimezoneInfo({
+            tz: 'Europe/London',
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getTimezone();
 ```
 Sample Response:
-```
+```json
 {
   "time_zone": {
     "name": "Europe/London",
@@ -1156,7 +1201,7 @@ try {
 }
 ```
 Sample Response:
-```
+```json
 {
   "location": {
     "location_string": "Munich, Germany",
@@ -1207,18 +1252,22 @@ Sample Response:
 ```
 ### Get Timezone from Location Coordinates
 ```typescript
-try {
-    const {data} = await api.getTimezoneInfo({
-    lat: 48.8566,
-    _long: 2.3522
-});
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getTimezone() {
+    try {
+        const {data} = await api.getTimezoneInfo({
+            lat: 48.8566,
+            _long: 2.3522
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getTimezone();
 ```
 Sample Response:
-```
+```json
 {
   "time_zone": {
     "name": "Europe/Paris",
@@ -1260,18 +1309,21 @@ Sample Response:
 ```
 ### Get Timezone and Airport Details from IATA Code
 ```typescript
-try {
-    const {data} = await api.getTimezoneInfo({
-    iataDode: 'ZRH'
-});
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getTimezone() {
+    try {
+        const {data} = await api.getTimezoneInfo({
+            iataCode: 'ZRH'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
 
+getTimezone();
 ```
 Sample Response:
-```
+```json
 {
   "airport_details": {
     "type": "large_airport",
@@ -1329,18 +1381,21 @@ You can also fetch Airport Details and Timezone using any ICAO code by passing t
 
 ### Get Timezone and City Details from UN/LOCODE
 ```typescript
-try {
-    const {data} = await api.getTimezoneInfo({
-    loCode: 'ESBCN'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getTimezone() {
+    try {
+        const {data} = await api.getTimezoneInfo({
+            loCode: 'ESBCN'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
-```
 
-Sample Response:
+getTimezone();
 ```
+Sample Response:
+```json
 {
   "lo_code_details": {
     "lo_code": "ESBCN",
@@ -1418,18 +1473,15 @@ try {
     console.error('Error converting time:', error);
 }
 }
-
 getTimezoneConversion();
-  
-
 ```
 Sample Response:
-```
+```json
 {
-  original_time: 2024-12-08T06:00:00.000Z,
-  converted_time: 2024-12-08T20:00:00.000Z,
-  diff_hour: 14,
-  diff_min: 840
+  "original_time": "2024-12-08T06:00:00.000Z",
+  "converted_time": "2024-12-08T20:00:00.000Z",
+  "diff_hour": 14,
+  "diff_min": 840
 }
 ```
 You can convert time from any timezone to another using:
@@ -1438,7 +1490,7 @@ You can convert time from any timezone to another using:
 - **Locations** (city or address)
 - **IATA codes**
 - **ICAO codes**
-- **UN/LOCODEs**
+- **UN/LOCODE**
 
 Simply provide the appropriate source and target parameters in the method.
 
@@ -1456,11 +1508,10 @@ import {
     UserAgentApi
   } from 'ip-geolocation-api-sdk-typescript';
 
-  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   
-  const api = new UserAgentApi(configuration);
-  
-  async function getUserAgentDetails() {
+const api = new UserAgentApi(configuration);
+async function getUserAgentDetails() {
     try {
       const {data} = await api.getUserAgentDetails({
        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
@@ -1469,14 +1520,12 @@ import {
     } catch (error) {
       console.error('Error fetching location:', error);
     }
-  }
+}
   
-  getUserAgentDetails();
-  
-
+getUserAgentDetails();
 ```
 Sample Response:
-```
+```json
 {
   "user_agent_string": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
   "name": "Chrome",
@@ -1504,41 +1553,47 @@ Sample Response:
   }
 }
 ```
-> **Note**: If you don’t pass any `userAgent` string, the API will return data of the device's current User-Agent automatically.
+> [!NOTE] 
+> If you don’t pass any `userAgent` string, the API will return data of the device's current User-Agent automatically.
 
-## Bulk User Agent Parsing Example
+### Bulk User Agent Parsing Example
 The SDK also supports bulk User Agent parsing using the `parseBulkUserAgentStrings()` method. This allows parsing multiple user agent strings in a single request. All fields available in single-user-agent parsing are returned per entry.
 
-**Note**: Bulk User Agent API is only available for paid plans
+> [!NOTE] 
+> Bulk User Agent API is only available for paid plans.
 ```typescript
-try {
-    const {data} = await api.parseBulkUserAgentStrings({
-    userAgents: [
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0  Mobile/15E148 Safari/604.1"
-    ]
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getUserAgentDetails() {
+    try {
+        const {data} = await api.parseBulkUserAgentStrings({
+            userAgents: [
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+                "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0  Mobile/15E148 Safari/604.1"
+            ]
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getUserAgentDetails();
 ```
 ## Astronomy API Examples
 This section provides usage examples of the `getAstronomyDetails()` method from the SDK, allowing developers to fetch **sun and moon timings** and **position data** based on **coordinates**, **IP**, or **location string**.
 
 Refer to the official [Astronomy API documentation](https://ipgeolocation.io/astronomy-api.html#documentation-overview) for more details.
 
-### Astronomy by Coordinates
+### Lookup Astronomy API by Coordinates
 ```typescript
 import {
     Configuration,
     AstronomyApi
   } from 'ip-geolocation-api-sdk-typescript';
-  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
   
-  const api = new AstronomyApi(configuration);
+const api = new AstronomyApi(configuration);
   
-  async function getAstronomy() {
+async function getAstronomy() {
     try {
       const {data} = await api.getAstronomyDetails({
         lat: '40.7128',
@@ -1548,13 +1603,12 @@ import {
     } catch (error) {
       console.error('Error fetching location:', error);
     }
-  }
+}
   
-getAstronomy();
-  
+getAstronomy(); 
 ```
 Sample Response:
-```
+```json
 {
   "location": {
     "country_name": "",
@@ -1616,19 +1670,23 @@ Sample Response:
   }
 }
 ```
-### Astronomy by IP Address
+### Lookup Astronomy API by IP Address
 ```typescript
-try {
-    const {data} = await api.getAstronomyDetails({
-    ip: '8.8.8.8'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getAstronomy() {
+    try {
+        const {data} = await api.getAstronomyDetails({
+            ip: '8.8.8.8'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getAstronomy();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "8.8.8.8",
   "location": {
@@ -1700,19 +1758,23 @@ Sample Response:
   }
 }
 ```
-### Astronomy by Location String
+### Lookup Astronomy API by Location String
 ```typescript
-try {
-    const {data} = await api.getAstronomyDetails({
-    location: 'Milan, Italy'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getAstronomy() {
+    try {
+        const {data} = await api.getAstronomyDetails({
+            location: 'Milan, Italy'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getAstronomy();
 ```
 Sample Response:
-```
+```json
 {
   "location": {
     "location_string": "Milan, Italy",
@@ -1776,27 +1838,25 @@ Sample Response:
 }
 ```
 
-### Astronomy for Specific Date
+### Lookup Astronomy API for Specific Date
 ```typescript
-const options = {
-  lat: '-27.47',
-  _long: '153.02',
-  date: '2025-01-01'
-};
-
-try {
-    const {data} = await api.getAstronomyDetails({
-    lat: '-27.47',
-    _long: '153.02',
-    date: '2025-01-01'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getAstronomy() {
+    try {
+        const {data} = await api.getAstronomyDetails({
+            lat: '-27.47',
+            _long: '153.02',
+            date: '2025-01-01'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getAstronomy();
 ```
 Sample Response:
-```
+```json
 {
   "location": {
     "country_name": "Australia",
@@ -1858,21 +1918,25 @@ Sample Response:
   }
 }
 ```
-### Astronomy in Different Language
+### Lookup location info in Different Language
 You can also get Astronomy Data in other languages. This feature is only available for paid subscriptions.
 ```typescript
-try {
-    const {data} = await api.getAstronomyDetails({
-    ip: '1.1.1.1',
-    lang: 'fr'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getAstronomy() {
+    try {
+        const {data} = await api.getAstronomyDetails({
+            ip: '1.1.1.1',
+            lang: 'fr'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+
+getAstronomy();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "1.1.1.1",
   "location": {
@@ -1950,7 +2014,8 @@ This section demonstrates how to use the `getAbuseContactInfo()` method of the S
 
 You can retrieve data like the responsible organization, role, contact emails, phone numbers, and address to take appropriate mitigation action against abusive or malicious activity.
 
-**Note**: Abuse Contact API is only available in the **Advanced Plan**.
+> [!NOTE] 
+> Abuse Contact API is only available in the **Advanced Plan**.
 
 Refer to the official [Abuse Contact API documentation](https://ipgeolocation.io/ip-abuse-contact-api.html#documentation-overview) for details on all available fields.
 
@@ -1960,10 +2025,10 @@ import {
     Configuration,
     AbuseContactApi
   } from 'ip-geolocation-api-sdk-typescript';
-  const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
-  const api = new AbuseContactApi(configuration);
+const configuration = new Configuration({ apiKey: 'YOUR_API_KEY' });
+const api = new AbuseContactApi(configuration);
 
-  async function getAbuseContact() {
+async function getAbuseContact() {
     try {
       const {data} = await api.getAbuseContactInfo({
         ip: '1.0.0.0'
@@ -1972,13 +2037,11 @@ import {
     } catch (error) {
       console.error('Error fetching location:', error);
     }
-  }
-  
+}
 getAbuseContact();
-  
 ```
 Sample Response:
-```
+```json
 {
   "ip": "1.0.0.0",
   "abuse": {
@@ -2001,18 +2064,21 @@ Sample Response:
 ```
 ### Lookup Abuse Contact with Specific Fields
 ```typescript
-try {
-    const {data} = await api.getAbuseContactInfo({
-    ip: '1.2.3.4',
-    fields: 'abuse.role,abuse.emails'
-    });
-    console.log(data);
-} catch (error) {
-    console.error('Error fetching location:', error);
+async function getAbuseContact() {
+    try {
+        const {data} = await api.getAbuseContactInfo({
+            ip: '1.2.3.4',
+            fields: 'abuse.role,abuse.emails'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+getAbuseContact();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "1.2.3.4",
   "abuse": {
@@ -2025,18 +2091,21 @@ Sample Response:
 ```
 ### Lookup Abuse Contact while Excluding Fields
 ```typescript
-try {
-    const {data} = await api.getAbuseContactInfo({
-    ip: '9.9.9.9',
-    excludes: 'abuse.handle,abuse.emails'
-    });
-    console.log(data);
-  } catch (error) {
-    console.error('Error fetching location:', error);
+async function getAbuseContact() {
+    try {
+        const {data} = await api.getAbuseContactInfo({
+            ip: '9.9.9.9',
+            excludes: 'abuse.handle,abuse.emails'
+        });
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching location:', error);
+    }
 }
+getAbuseContact();
 ```
 Sample Response:
-```
+```json
 {
   "ip": "9.9.9.9",
   "abuse": {
@@ -2054,50 +2123,46 @@ Sample Response:
 }
 ```
 
-
-
-
-
 ## Models
 
- - [ASNConnection](docs/ASNConnection.md)
- - [ASNResponse](docs/ASNResponse.md)
- - [ASNResponseAsn](docs/ASNResponseAsn.md.md)
- - [Abuse](docs/Abuse.md)
- - [AbuseResponse](docs/AbuseResponse.md)
- - [AstronomyEvening](docs/AstronomyEvening.md)
- - [AstronomyLocation](docs/AstronomyLocation.md)
- - [AstronomyMorning](docs/AstronomyMorning.md)
- - [Astronomy](docs/Astronomy.md)
- - [AstronomyResponse](docs/AstronomyResponse.md)
- - [CountryMetadata](docs/CountryMetadata.md)
- - [Currency](docs/Currency.md)
- - [ErrorResponse](docs/ErrorResponse.md)
- - [GeolocationResponse](docs/GeolocationResponse.md)
- - [Location](docs/Location.md)
- - [LocationMinimal](docs/LocationMinimal.md)
- - [Network](docs/Network.md)
- - [NetworkAsn](docs/NetworkAsn.md)
- - [NetworkCompany](docs/NetworkCompany.md)
- - [NetworkMinimal](docs/NetworkMinimal.md)
- - [NetworkMinimalAsn](docs/NetworkMinimalAsn.md)
- - [NetworkMinimalCompany](docs/NetworkMinimalCompany.md)
- - [BulkUserAgentRequest](docs/BulkUserAgentRequest.md)
- - [UserAgentRequest](docs/UserAgentRequest.md)
- - [Security](docs/Security.md)
- - [SecurityAPIResponse](docs/SecurityAPIResponse.md)
- - [TimeConversionResponse](docs/TimeConversionResponse.md)
- - [TimeZone](docs/TimeZone.md)
- - [TimeZoneDetailedResponse](docs/TimeZoneDetailedResponse.md)
- - [TimeZoneDstEnd](docs/TimeZoneDstEnd.md)
- - [TimeZoneDstStart](docs/TimeZoneDstStart.md)
- - [TimezoneAirport](docs/TimezoneAirport.md)
- - [TimezoneDetail](docs/TimezoneDetail.md)
- - [TimezoneDetailDstEnd](docs/TimezoneDetailDstEnd.md)
- - [TimezoneDetailDstStart](docs/TimezoneDetailDstStart.md)
- - [TimezoneLocation](docs/TimezoneLocation.md)
- - [TimezoneLocode](docs/TimezoneLocode.md)
- - [UserAgentData](docs/UserAgentData.md)
- - [UserAgentDataDevice](docs/UserAgentDataDevice.md)
- - [UserAgentDataEngine](docs/UserAgentDataEngine.md)
- - [UserAgentDataOperatingSystem](docs/UserAgentDataOperatingSystem.md)
+- [ASNConnection](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/ASNConnection.md)
+- [ASNResponse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/ASNResponse.md)
+- [ASNResponseAsn](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/ASNResponseAsn.md)
+- [Abuse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/Abuse.md)
+- [AbuseResponse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AbuseResponse.md)
+- [AstronomyEvening](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AstronomyEvening.md)
+- [AstronomyLocation](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AstronomyLocation.md)
+- [AstronomyMorning](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AstronomyMorning.md)
+- [Astronomy](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/Astronomy.md)
+- [AstronomyResponse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/AstronomyResponse.md)
+- [CountryMetadata](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/CountryMetadata.md)
+- [Currency](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/Currency.md)
+- [ErrorResponse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/ErrorResponse.md)
+- [GeolocationResponse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/GeolocationResponse.md)
+- [Location](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/Location.md)
+- [LocationMinimal](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/LocationMinimal.md)
+- [Network](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/Network.md)
+- [NetworkAsn](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/NetworkAsn.md)
+- [NetworkCompany](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/NetworkCompany.md)
+- [NetworkMinimal](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/NetworkMinimal.md)
+- [NetworkMinimalAsn](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/NetworkMinimalAsn.md)
+- [NetworkMinimalCompany](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/NetworkMinimalCompany.md)
+- [ParseBulkUserAgentStringsRequest](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/ParseBulkUserAgentStringsRequest.md)
+- [ParseUserAgentStringRequest.md](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/ParseUserAgentStringRequest.md)
+- [Security](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/Security.md)
+- [SecurityAPIResponse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/SecurityAPIResponse.md)
+- [TimeConversionResponse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimeConversionResponse.md)
+- [TimeZone](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimeZone.md)
+- [TimeZoneDetailedResponse](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimeZoneDetailedResponse.md)
+- [TimeZoneDstEnd](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimeZoneDstEnd.md)
+- [TimeZoneDstStart](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimeZoneDstStart.md)
+- [TimezoneAirport](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimezoneAirport.md)
+- [TimezoneDetail](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimezoneDetail.md)
+- [TimezoneDetailDstEnd](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimezoneDetailDstEnd.md)
+- [TimezoneDetailDstStart](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimezoneDetailDstStart.md)
+- [TimezoneLocation](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimezoneLocation.md)
+- [TimezoneLocode](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/TimezoneLocode.md)
+- [UserAgentData](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentData.md)
+- [UserAgentDataDevice](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentDataDevice.md)
+- [UserAgentDataEngine](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentDataEngine.md)
+- [UserAgentDataOperatingSystem](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentDataOperatingSystem.md)
