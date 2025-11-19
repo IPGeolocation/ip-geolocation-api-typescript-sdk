@@ -9,3 +9,5 @@ package-lock.json
 
 # Optional: Ignore build artifacts
 *.tgz
+
+.idea/
