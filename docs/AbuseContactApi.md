@@ -47,5 +47,5 @@ The Abuse Contact API provides essential contact information to report abusive a
 |**499** | Client Closed Request – Client terminated connection before completion |  -  |
 |**500** | Internal Server Error – Something went wrong on our end |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
