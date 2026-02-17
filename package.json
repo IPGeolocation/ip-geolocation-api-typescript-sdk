@@ -21,6 +21,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsc && tsc -p tsconfig.esm.json",
+    "build:types-package": "node ./node_modules/typescript/bin/tsc -p packages/types/tsconfig.json && node ./node_modules/typescript/bin/tsc -p packages/types/tsconfig.esm.json",
     "prepare": "npm run build"
   },
   "dependencies": {

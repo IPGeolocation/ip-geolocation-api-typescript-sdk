@@ -89,6 +89,17 @@ Alternatively, if you use Yarn:
 yarn add ip-geolocation-api-sdk-typescript
 ```
 
+### Types-only Package (No HTTP Client)
+If you only need TypeScript request/response interfaces without Axios or API client runtime code, install:
+```bash
+npm install ip-geolocation-api-typescript-types
+```
+
+Then use type-only imports:
+```ts
+import type { GeolocationResponse, Security } from "ip-geolocation-api-typescript-types";
+```
+
 ### Manual Installation
 To include the SDK manually:
 1. Clone this repository:
