@@ -27,7 +27,7 @@ Based on:
     - [Using NPM](#using-npm)
     - [Using Yarn](#using-yarn)
     - [Manual Installation](#manual-installation)
-3. [API Plan Tiers and Documentation](#api-plan-tiers-and-documentation)
+3. [API Documentation Links](#api-documentations)
 4. [API Endpoints](#api-endpoints)
 5. [Fields and Methods Availability](#fields-and-methods-availability)
 6. [Authentication Setup](#authentication-setup)
@@ -104,14 +104,17 @@ To include the SDK manually:
    yarn install
    ```
 
-## API Plan Tiers and Documentation
+## API Documentations
 
-The documentation below corresponds to the four available API tier plans:
-
-- **Developer Plan** (Free): [Full Documentation](https://ipgeolocation.io/ip-location-api.html#Free)
-- **Standard Plan**: [Full Documentation](https://ipgeolocation.io/ip-location-api.html#Standard)
-- **Advance Plan**: [Full Documentation](https://ipgeolocation.io/ip-location-api.html#Advance)
-- **Security Plan**: [Full Documentation](https://ipgeolocation.io/ip-security-api.html#documentation-overview)
+The documentation below corresponds to the available APIs:
+- [**Overview**](https://ipgeolocation.io/documentation.html)
+- [**IP GeoLocation API**](https://ipgeolocation.io/documentation/ip-location-api.html)
+- [**IP Security API**](https://ipgeolocation.io/documentation/ip-security-api.html)
+- [**ASN API**](https://ipgeolocation.io/documentation/asn-api.html)
+- [**IP Abuse Contact API**](https://ipgeolocation.io/documentation/ip-abuse-contact-api.html)
+- [**Timezone API**](https://ipgeolocation.io/documentation/timezone-api.html)
+- [**User-Agent API**](https://ipgeolocation.io/documentation/user-agent-api.html)
+- [**Astronomy API**](https://ipgeolocation.io/documentation/astronomy-api.html)
 
 For a detailed comparison of what each plan offers, visit the [Pricing Page](https://ipgeolocation.io/pricing.html).
 
@@ -153,7 +156,7 @@ IP Geolocation offers four plans from billing point of view: **Free, Standard, S
 | *UserAgentAPI*      | [**parseBulkUserAgentStrings**](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/blob/HEAD/docs/UserAgentApi.md#parsebulkuseragentstrings)          |  ✖   |    ✔     |    ✔     |    ✔    |
 
 > [!TIP]
-> The availability of fields in every API endpoint across all API plans is provided in the **_Reference Table_** within each respective API Documentation. e.g., for IPGeolocationApi, please visit [https://ipgeolocation.io/ip-location-api.html#reference-to-ipgeolocation-api-response](https://ipgeolocation.io/ip-location-api.html#reference-to-ipgeolocation-api-response).
+> The availability of fields in every API endpoint across Free and Paid plans is provided in the **_Reference Table_** within each respective API Documentation. e.g., for IPGeolocationApi, please visit [https://ipgeolocation.io/documentation/ip-location-api.html#reference-to-ipgeolocation-api-response](https://ipgeolocation.io/documentation/ip-location-api.html#reference-to-ipgeolocation-api-response).
 
 ## Authentication Setup
 To authenticate API requests, you'll need an API key from [ipgeolocation.io](https://ipgeolocation.io). 
@@ -198,7 +201,7 @@ This section shows how to use the `getIpGeolocation()` method from the TypeScrip
   - `dma`
   - `time_zone`
 
-For the full list of supported fields/modules, refer to the [IP Geolocation API Docs](https://ipgeolocation.io/ip-location-api.html#documentation-overview).
+For the full list of supported fields/modules, refer to the [IP Geolocation API Docs](https://ipgeolocation.io/documentation/ip-location-api.html).
 
 ### Developer (Free) Plan Examples
 #### Get Default Fields
@@ -662,7 +665,7 @@ getBulkLocation();
 ## IP Security Examples
 The `getIpSecurityInfo()` method lets you query threat intelligence, proxy/VPN detection, and risk metadata for IPs.
 
-For full endpoint specifications, refer to the [IP Security API documentation](https://ipgeolocation.io/ip-security-api.html#documentation-overview).
+For full endpoint specifications, refer to the [IP Security API documentation](https://ipgeolocation.io/documentation/ip-security-api.html).
 
 ### Get Security API Default Fields
 ```typescript
@@ -724,123 +727,10 @@ async function getSecurity() {
 
 getSecurity();
 ```
-Sample Response:
-```json
-{
-  "ip": "2.56.188.34",
-  "hostname": "2.56.188.34",
-  "security": {
-    "threat_score": 80,
-    "is_tor": false,
-    "is_proxy": true,
-    "proxy_type": "VPN",
-    "proxy_provider": "Nord VPN",
-    "is_anonymous": true,
-    "is_known_attacker": true,
-    "is_spam": false,
-    "is_bot": false,
-    "is_cloud_provider": true,
-    "cloud_provider": "Packethub S.A."
-  },
-  "location": {
-    "continent_code": "NA",
-    "continent_name": "North America",
-    "country_code2": "US",
-    "country_code3": "USA",
-    "country_name": "United States",
-    "country_name_official": "United States of America",
-    "country_capital": "Washington, D.C.",
-    "state_prov": "Texas",
-    "state_code": "US-TX",
-    "district": "Dallas",
-    "city": "Dallas",
-    "zipcode": "75201",
-    "latitude": "32.77822",
-    "longitude": "-96.79512",
-    "is_eu": false,
-    "country_flag": "https://ipgeolocation.io/static/flags/us_64.png",
-    "geoname_id": "4684902",
-    "country_emoji": "🇺🇸"
-  },
-  "network": {
-    "asn": {
-      "as_number": "AS62240",
-      "organization": "Clouvider Limited",
-      "country": "GB"
-    },
-    "company": {
-      "name": "Packethub S.A."
-    }
-  },
-  "time_zone": {
-    "name": "America/Chicago",
-    "offset": -6,
-    "offset_with_dst": -5,
-    "current_time": "2025-07-16 11:00:50.605-0500",
-    "current_time_unix": 1752681650.605,
-    "is_dst": true,
-    "dst_savings": 1,
-    "dst_exists": true,
-    "dst_start": {
-      "utc_time": "2025-03-09 TIME 08",
-      "duration": "+1H",
-      "gap": true,
-      "date_time_after": "2025-03-09 TIME 03",
-      "date_time_before": "2025-03-09 TIME 02",
-      "overlap": false
-    },
-    "dst_end": {
-      "utc_time": "2025-11-02 TIME 07",
-      "duration": "-1H",
-      "gap": false,
-      "date_time_after": "2025-11-02 TIME 01",
-      "date_time_before": "2025-11-02 TIME 02",
-      "overlap": true
-    }
-  },
-  "user_agent": {
-    "user_agent_string": "Ipgeolocation/2.0/typescript",
-    "name": "Ipgeolocation",
-    "type": "Special",
-    "version": "2.0",
-    "version_major": "2",
-    "device": {
-      "name": "Unknown",
-      "type": "Unknown",
-      "brand": "Unknown",
-      "cpu": "Unknown"
-    },
-    "engine": {
-      "name": "Unknown",
-      "type": "Unknown",
-      "version": "??",
-      "version_major": "??"
-    },
-    "operating_system": {
-      "name": "Unknown",
-      "type": "Unknown",
-      "version": "??",
-      "version_major": "??",
-      "build": "??"
-    }
-  },
-  "country_metadata": {
-    "calling_code": "+1",
-    "tld": ".us",
-    "languages": [
-      "en-US",
-      "es-US",
-      "haw",
-      "fr"
-    ]
-  },
-  "currency": {
-    "code": "USD",
-    "name": "US Dollar",
-    "symbol": "$"
-  }
-}
-```
+
+> [!NOTE]
+> You can get all the available fields in Paid plan in combination with security data, when subscribed to Paid plan.
+
 ### Request with Field Filtering
 ```typescript
 async function getSecurity() {
@@ -889,7 +779,7 @@ This section provides usage examples of the `getAsnInfo()` method from the SDK. 
 > [!NOTE] 
 > ASN API is only available in the Advanced subscription plans.
 
-Refer to the [ASN API documentation](https://ipgeolocation.io/asn-api.html#documentation-overview) for a detailed list of supported fields and behaviors.
+Refer to the [ASN API documentation](https://ipgeolocation.io/documentation/asn-api.html) for a detailed list of supported fields and behaviors.
 ### Get ASN Information by IP Address
 ```typescript
 import {
@@ -1055,7 +945,7 @@ You can retrieve data like the responsible organization, role, contact emails, p
 > [!NOTE]
 > Abuse Contact API is only available in the **Advanced Plan**.
 
-Refer to the official [Abuse Contact API documentation](https://ipgeolocation.io/ip-abuse-contact-api.html#documentation-overview) for details on all available fields.
+Refer to the official [Abuse Contact API documentation](https://ipgeolocation.io/documentation/ip-abuse-contact-api.html) for details on all available fields.
 
 ### Lookup Abuse Contact by IP
 ```typescript
@@ -1164,7 +1054,7 @@ Sample Response:
 ## Timezone API Examples
 This section provides usage examples of the `getTimezoneInfo()` method from the typescript SDK, showcasing how to fetch timezone and time-related data using different query types — IP address, latitude/longitude, timezone ID, IATA code, ICAO code, or UN/LOCODE.
 
-For full API specifications, refer to the [Timezone API documentation](https://ipgeolocation.io/timezone-api.html#documentation-overview).
+For full API specifications, refer to the [Timezone API documentation](https://ipgeolocation.io/documentation/timezone-api.html).
 
 ### Get Timezone by IP Address
 
@@ -1564,7 +1454,7 @@ Sample Response:
 ## Timezone Converter API Examples
 This section provides usage examples of the `convertTimeBetweenTimezones()` method from the SDK. The Timezone Converter API allows you to convert a specific time from one timezone to another using timezone identifiers and optional date/time inputs.
 
-For more details, refer to the [Timezone Converter API documentation](https://ipgeolocation.io/timezone-api.html#convert-time-bw-time-zones).
+For more details, refer to the [Timezone Converter API documentation](https://ipgeolocation.io/documentation/timezone-api.html#convert-time-between-time-zones).
 
 ### Convert Current Time from One Timezone to Another
 ```typescript
@@ -1613,7 +1503,7 @@ Simply provide the appropriate source and target parameters in the method.
 
 This section provides usage examples of the `getUserAgentDetails()` and `parseBulkUserAgentStrings()` methods from the TypeScript SDK. The **User Agent API** extracts and classifies information from user agent strings, including browser, engine, device, OS, and type metadata.
 
-For full explanation, visit the [User Agent API documentation](https://ipgeolocation.io/user-agent-api.html#documentation-overview).
+For full explanation, visit the [User Agent API documentation](https://ipgeolocation.io/documentation/user-agent-api.html).
 
 ### Parse a Basic User Agent String
 
@@ -1696,7 +1586,7 @@ getUserAgentDetails();
 ## Astronomy API Examples
 This section provides usage examples of the `getAstronomyDetails()` method from the SDK, allowing developers to fetch **sun and moon timings** and **position data** based on **coordinates**, **IP**, or **location string**.
 
-Refer to the official [Astronomy API documentation](https://ipgeolocation.io/astronomy-api.html#documentation-overview) for more details.
+Refer to the official [Astronomy API documentation](https://ipgeolocation.io/documentation/astronomy-api.html) for more details.
 
 ### Lookup Astronomy API by Coordinates
 ```typescript
