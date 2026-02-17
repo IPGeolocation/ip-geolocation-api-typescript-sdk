@@ -1,0 +1,38 @@
+{
+  "author": "IPGeolocation.io",
+  "name": "ip-geolocation-api-typescript-types",
+  "version": "2.0.1",
+  "description": "TypeScript interfaces for IPGeolocation.io API responses and request payloads (no HTTP client runtime).",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk.git",
+    "directory": "packages/types"
+  },
+  "keywords": [
+    "ipgeolocation",
+    "typescript",
+    "types",
+    "interfaces",
+    "response types"
+  ],
+  "main": "dist/models.js",
+  "types": "dist/models.d.ts",
+  "module": "dist/esm/models.js",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/models.d.ts",
+      "require": "./dist/models.js",
+      "import": "./dist/esm/models.js"
+    }
+  },
+  "scripts": {
+    "build": "node ../../node_modules/typescript/bin/tsc -p tsconfig.json && node ../../node_modules/typescript/bin/tsc -p tsconfig.esm.json",
+    "prepare": "npm run build"
+  }
+}
