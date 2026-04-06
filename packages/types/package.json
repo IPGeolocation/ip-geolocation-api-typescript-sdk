@@ -1,6 +1,6 @@
 {
   "author": "IPGeolocation.io",
-  "name": "@ipgeolocation/ip-geolocation-types",
+  "name": "ip-geolocation-api-typescript-types",
   "version": "3.0.0",
   "description": "Public TypeScript types for the IPGeolocation IP Location API v3 SDKs.",
   "license": "MIT",

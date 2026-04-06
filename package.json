@@ -1,6 +1,6 @@
 {
   "author": "IPGeolocation.io",
-  "name": "@ipgeolocation/ip-geolocation-ts-sdk",
+  "name": "ip-geolocation-api-sdk-typescript",
   "version": "3.0.0",
   "description": "Official TypeScript SDK for the IPGeolocation IP Location API with single and bulk lookup, typed JSON, and raw JSON/XML support.",
   "license": "MIT",

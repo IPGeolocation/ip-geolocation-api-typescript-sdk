@@ -6,7 +6,7 @@ Look up IPv4, IPv6, and domains with `/v3/ipgeo` and `/v3/ipgeo-bulk`. Get geolo
 
 Works in Node.js 18+ and in other runtimes that already provide `fetch`.
 
-If you already have your own HTTP client, use `@ipgeolocation/ip-geolocation-types` instead.
+If you already have your own HTTP client, use `ip-geolocation-api-typescript-types` instead.
 
 ## Table of Contents
 
@@ -36,11 +36,11 @@ If you already have your own HTTP client, use `@ipgeolocation/ip-geolocation-typ
 ## Installation
 
 ```bash
-npm install @ipgeolocation/ip-geolocation-ts-sdk
+npm install ip-geolocation-api-sdk-typescript
 ```
 
 ```ts
-import { IpGeolocationClient } from "@ipgeolocation/ip-geolocation-ts-sdk";
+import { IpGeolocationClient } from "ip-geolocation-api-sdk-typescript";
 ```
 
 ## Quick Start
@@ -49,7 +49,7 @@ import { IpGeolocationClient } from "@ipgeolocation/ip-geolocation-ts-sdk";
 import {
   IpGeolocationClient,
   type LookupIpGeolocationRequestInit,
-} from "@ipgeolocation/ip-geolocation-ts-sdk";
+} from "ip-geolocation-api-sdk-typescript";
 
 async function main() {
   const client = new IpGeolocationClient({
@@ -84,7 +84,7 @@ You can pass plain request objects, which is the most common option in TypeScrip
 
 | Item | Value |
 |------|-------|
-| Package | `@ipgeolocation/ip-geolocation-ts-sdk` |
+| Package | `ip-geolocation-api-sdk-typescript` |
 | API Type | IPGeolocation IP Location API |
 | Supported Endpoints | `/v3/ipgeo`, `/v3/ipgeo-bulk` |
 | Supported Inputs | IPv4, IPv6, domain |
@@ -222,7 +222,7 @@ You can also pass a custom `HttpTransport` as the second constructor argument.
 The examples below assume you already have a configured client and are running inside an async function or an ESM module with top-level `await`:
 
 ```ts
-import { IpGeolocationClient } from "@ipgeolocation/ip-geolocation-ts-sdk";
+import { IpGeolocationClient } from "ip-geolocation-api-sdk-typescript";
 
 const client = new IpGeolocationClient({
   apiKey: process.env.IPGEO_API_KEY!,
@@ -232,7 +232,7 @@ const client = new IpGeolocationClient({
 ### Typed Request Object
 
 ```ts
-import type { LookupIpGeolocationRequestInit } from "@ipgeolocation/ip-geolocation-ts-sdk";
+import type { LookupIpGeolocationRequestInit } from "ip-geolocation-api-sdk-typescript";
 
 const request: LookupIpGeolocationRequestInit = {
   ip: "8.8.8.8",
@@ -335,7 +335,7 @@ If you want validation before sending the call, create the request explicitly.
 import {
   Language,
   LookupIpGeolocationRequest,
-} from "@ipgeolocation/ip-geolocation-ts-sdk";
+} from "ip-geolocation-api-sdk-typescript";
 
 const request = new LookupIpGeolocationRequest({
   ip: "8.8.8.8",
@@ -373,7 +373,7 @@ Use raw methods when you want the original response body as a string.
 import {
   IpGeolocationClient,
   ResponseFormat,
-} from "@ipgeolocation/ip-geolocation-ts-sdk";
+} from "ip-geolocation-api-sdk-typescript";
 
 const client = new IpGeolocationClient({
   apiKey: process.env.IPGEO_API_KEY!,
@@ -467,7 +467,7 @@ console.log(response.metadata.firstHeaderValue("x-ratelimit-remaining"));
 Use `toJson()` or `toPrettyJson()` when you want a stable JSON view of SDK objects.
 
 ```ts
-import { toPrettyJson } from "@ipgeolocation/ip-geolocation-ts-sdk";
+import { toPrettyJson } from "ip-geolocation-api-sdk-typescript";
 
 const response = await client.lookupIpGeolocation({
   ip: "8.8.8.8",
@@ -513,7 +513,7 @@ import {
   IpGeolocationClient,
   RateLimitError,
   UnauthorizedError,
-} from "@ipgeolocation/ip-geolocation-ts-sdk";
+} from "ip-geolocation-api-sdk-typescript";
 
 const client = new IpGeolocationClient({
   apiKey: process.env.IPGEO_API_KEY!,
@@ -597,17 +597,17 @@ No. Typed methods require JSON. Use raw methods if you need XML.
 
 <details>
 <summary><strong>When should I use the types-only package instead?</strong></summary>
-Use `@ipgeolocation/ip-geolocation-types` if you already have your own HTTP client and only need the public request, response, and metadata types.
+Use `ip-geolocation-api-typescript-types` if you already have your own HTTP client and only need the public request, response, and metadata types.
 </details>
 
 ## Related Packages
 
-- JavaScript runtime SDK: `@ipgeolocation/ip-geolocation-js-sdk`
-- TypeScript types-only package: `@ipgeolocation/ip-geolocation-types`
+- JavaScript runtime SDK: `ip-geolocation-api-javascript-sdk`
+- TypeScript types-only package: `ip-geolocation-api-typescript-types`
 
 ## Links
 
-- [npm package](https://www.npmjs.com/package/@ipgeolocation/ip-geolocation-ts-sdk)
+- [npm package](https://www.npmjs.com/package/ip-geolocation-api-sdk-typescript)
 - [GitHub repository](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk)
 - [API documentation](https://ipgeolocation.io/documentation/ip-location-api.html)
 - [Pricing](https://ipgeolocation.io/pricing.html)

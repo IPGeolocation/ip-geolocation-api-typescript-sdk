@@ -6,8 +6,8 @@ Use this package if you already have your own HTTP client and only need request,
 
 If you want a runtime SDK instead, use:
 
-- `@ipgeolocation/ip-geolocation-js-sdk`
-- `@ipgeolocation/ip-geolocation-ts-sdk`
+- `ip-geolocation-api-javascript-sdk`
+- `ip-geolocation-api-sdk-typescript`
 
 ## Table of Contents
 
@@ -25,11 +25,11 @@ If you want a runtime SDK instead, use:
 ## Installation
 
 ```bash
-npm install @ipgeolocation/ip-geolocation-types
+npm install ip-geolocation-api-typescript-types
 ```
 
 ```ts
-import type { IpGeolocationResponse } from "@ipgeolocation/ip-geolocation-types";
+import type { IpGeolocationResponse } from "ip-geolocation-api-typescript-types";
 ```
 
 ## When To Use This Package
@@ -110,7 +110,7 @@ import type {
   ApiResponse,
   IpGeolocationResponse,
   LookupIpGeolocationRequestInit,
-} from "@ipgeolocation/ip-geolocation-types";
+} from "ip-geolocation-api-typescript-types";
 
 async function lookupIp(
   request: LookupIpGeolocationRequestInit,
@@ -173,7 +173,7 @@ async function lookupIp(
 Bulk lookups return a mixed array of success and error results. `BulkLookupResult` matches that shape.
 
 ```ts
-import type { BulkLookupResult } from "@ipgeolocation/ip-geolocation-types";
+import type { BulkLookupResult } from "ip-geolocation-api-typescript-types";
 
 function handleBulkResults(results: readonly BulkLookupResult[]): void {
   for (const result of results) {
@@ -200,7 +200,7 @@ It does not depend on the browser `Headers` type, so it works better in shared l
 Example:
 
 ```ts
-import type { RequestHeaders } from "@ipgeolocation/ip-geolocation-types";
+import type { RequestHeaders } from "ip-geolocation-api-typescript-types";
 
 const headers: RequestHeaders = [
   ["X-Trace-Id", "abc123"],
@@ -219,12 +219,12 @@ const headers: RequestHeaders = [
 
 ## Related Packages
 
-- JavaScript runtime SDK: `@ipgeolocation/ip-geolocation-js-sdk`
-- TypeScript runtime SDK: `@ipgeolocation/ip-geolocation-ts-sdk`
+- JavaScript runtime SDK: `ip-geolocation-api-javascript-sdk`
+- TypeScript runtime SDK: `ip-geolocation-api-sdk-typescript`
 
 ## Links
 
-- [npm package](https://www.npmjs.com/package/@ipgeolocation/ip-geolocation-types)
+- [npm package](https://www.npmjs.com/package/ip-geolocation-api-typescript-types)
 - [GitHub repository](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/tree/main/packages/types)
 - [API documentation](https://ipgeolocation.io/documentation/ip-location-api.html)
 - [Pricing](https://ipgeolocation.io/pricing.html)
