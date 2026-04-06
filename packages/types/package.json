@@ -1,38 +1,61 @@
 {
   "author": "IPGeolocation.io",
-  "name": "ip-geolocation-api-typescript-types",
-  "version": "2.0.1",
-  "description": "TypeScript interfaces for IPGeolocation.io API responses and request payloads (no HTTP client runtime).",
-  "license": "ISC",
+  "name": "@ipgeolocation/ip-geolocation-types",
+  "version": "3.0.0",
+  "description": "Public TypeScript types for the IPGeolocation IP Location API v3 SDKs.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk.git",
     "directory": "packages/types"
   },
+  "bugs": {
+    "url": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/issues"
+  },
+  "homepage": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/tree/main/packages/types",
   "keywords": [
     "ipgeolocation",
+    "geolocation",
+    "ip",
+    "ip-location",
+    "ip-geolocation",
+    "api",
+    "sdk",
     "typescript",
     "types",
     "interfaces",
-    "response types"
+    "models",
+    "request-types"
   ],
-  "main": "dist/models.js",
-  "types": "dist/models.d.ts",
-  "module": "dist/esm/models.js",
   "sideEffects": false,
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/models.d.ts",
-      "require": "./dist/models.js",
-      "import": "./dist/esm/models.js"
-    }
-  },
   "scripts": {
-    "build": "node ../../node_modules/typescript/bin/tsc -p tsconfig.json && node ../../node_modules/typescript/bin/tsc -p tsconfig.esm.json",
-    "prepare": "npm run build"
+    "build": "tsup",
+    "clean": "rm -rf dist coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
   }
 }

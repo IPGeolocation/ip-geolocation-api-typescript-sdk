@@ -1,13 +1,9 @@
-# Ignore node_modules and lock file
 node_modules/
-package-lock.json
-
-# Ignore all JS files **except dist/**
-*.js
-!dist/**/*.js
-
-
-# Optional: Ignore build artifacts
+dist/
+coverage/
+packages/types/node_modules/
+packages/types/dist/
 *.tgz
-
-.idea/
+.env
+.env.local
+.DS_Store
