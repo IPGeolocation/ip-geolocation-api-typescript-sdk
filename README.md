@@ -1,4 +1,4 @@
-# IPGeolocation TypeScript SDK
+# IPGeolocation.io TypeScript SDK
 
 Official TypeScript SDK for the IPGeolocation.io IP Geolocation API.
 
@@ -96,7 +96,7 @@ You can pass plain request objects, which is the most common option in TypeScrip
 
 ## Get Your API Key
 
-To use most SDK features, create or access your IPGeolocation account and copy an API key from your dashboard.
+To use most SDK features, create or access your IPGeolocation.io account and copy an API key from your dashboard.
 
 1. Sign up: [https://app.ipgeolocation.io/signup](https://app.ipgeolocation.io/signup)
 2. Verify your email if prompted
