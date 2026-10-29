@@ -1,6 +1,6 @@
 # IPGeolocation TypeScript SDK
 
-Official TypeScript SDK for the IPGeolocation IP Location API.
+Official TypeScript SDK for the IPGeolocation.io IP Geolocation API.
 
 Look up IPv4, IPv6, and domains with `/v3/ipgeo` and `/v3/ipgeo-bulk`. Get geolocation, company, ASN, timezone, network, hostname, abuse, user-agent, and security data from one API. Includes typed request and response models, ESM, CommonJS, and declaration files.
 
@@ -85,7 +85,7 @@ You can pass plain request objects, which is the most common option in TypeScrip
 | Item | Value |
 |------|-------|
 | Package | `ip-geolocation-api-sdk-typescript` |
-| API Type | IPGeolocation IP Location API |
+| API Type | IPGeolocation.io IP Geolocation API |
 | Supported Endpoints | `/v3/ipgeo`, `/v3/ipgeo-bulk` |
 | Supported Inputs | IPv4, IPv6, domain |
 | Main Data Returned | Geolocation, company, ASN, timezone, network, security, abuse, hostname, user-agent, currency |
