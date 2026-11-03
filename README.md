@@ -2,7 +2,7 @@
 
 Official TypeScript SDK for the IPGeolocation.io IP Geolocation API.
 
-Look up IPv4, IPv6, and domains with `/v3/ipgeo` and `/v3/ipgeo-bulk`. Get geolocation, company, ASN, timezone, network, hostname, abuse, user-agent, and security data from one API. Includes typed request and response models, ESM, CommonJS, and declaration files.
+Look up IPv4, IPv6, and domains with `/v3/ipgeo` and `/v3/ipgeo-bulk`. Get geolocation, company, ASN, time zone, network, hostname, abuse, user-agent, and security data from one API. Includes typed request and response models, ESM, CommonJS, and declaration files.
 
 Works in Node.js 18+ and in other runtimes that already provide `fetch`.
 
@@ -88,7 +88,7 @@ You can pass plain request objects, which is the most common option in TypeScrip
 | API Type | IPGeolocation.io IP Geolocation API |
 | Supported Endpoints | `/v3/ipgeo`, `/v3/ipgeo-bulk` |
 | Supported Inputs | IPv4, IPv6, domain |
-| Main Data Returned | Geolocation, company, ASN, timezone, network, security, abuse, hostname, user-agent, currency |
+| Main Data Returned | Geolocation, company, ASN, time zone, network, security, abuse, hostname, user-agent, currency |
 | Authentication | API key, request-origin auth for `/v3/ipgeo` only |
 | Response Formats | Structured JSON, raw JSON, raw XML |
 | Bulk Limit | Up to 50,000 IPs or domains per request |
@@ -146,7 +146,7 @@ Provider names, confidence scores, and last-seen dates appear when the API has t
 | `/v3/ipgeo` | `GET` | `lookupIpGeolocation(...)`, `lookupIpGeolocationRaw(...)` | Single IPv4, IPv6, or domain lookup |
 | `/v3/ipgeo-bulk` | `POST` | `bulkLookupIpGeolocation(...)`, `bulkLookupIpGeolocationRaw(...)` | Bulk lookup for up to 50,000 IPs or domains |
 
-These two endpoints can return geolocation, company, ASN, timezone, network, currency, hostname, abuse, user-agent, and security data depending on your request and plan.
+These two endpoints can return geolocation, company, ASN, time zone, network, currency, hostname, abuse, user-agent, and security data depending on your request and plan.
 
 ## Authentication Modes
 
