@@ -58,9 +58,10 @@ async function checkConsumerTypes(sdk, types, typesRoot) {
     for (const file of ['consumer.cts', 'consumer.mts']) {
       await copyFile(fixture, path.join(consumer, file));
     }
+    await copyFile(path.join(root, 'tests/package-esm.mts'), path.join(consumer, 'package-esm.mts'));
     for (const mode of ['Node16', 'NodeNext']) {
       execFileSync(process.execPath, [require.resolve('typescript/bin/tsc'), '--strict', '--noEmit',
-        '--target', 'ES2020', '--module', mode, '--moduleResolution', mode, 'consumer.cts', 'consumer.mts'],
+        '--target', 'ES2020', '--module', mode, '--moduleResolution', mode, 'consumer.cts', 'consumer.mts', 'package-esm.mts'],
         { cwd: consumer, stdio: 'inherit' });
     }
   } finally {
