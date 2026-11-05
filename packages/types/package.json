@@ -1,7 +1,7 @@
 {
   "author": "IPGeolocation.io",
   "name": "ip-geolocation-api-typescript-types",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Public TypeScript types for the IPGeolocation IP Location API v3 SDKs.",
   "license": "MIT",
   "type": "module",
@@ -10,9 +10,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -33,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/issues"
   },
-  "homepage": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/tree/main/packages/types",
+  "homepage": "https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/tree/master/packages/types",
   "keywords": [
     "ipgeolocation",
     "geolocation",
