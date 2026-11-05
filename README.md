@@ -190,6 +190,8 @@ Paid plans still need `include` for optional modules. `fields` and `excludes` on
 
 You can also pass a custom `HttpTransport` as the second constructor argument.
 
+If you set `baseUrl`, use the final API address. In Node.js, the built-in client follows redirects only within the same protocol, host and port. Browsers hide the redirect address, so the client stops at a redirect.
+
 ## Available Methods
 
 | Method | Returns | Notes |
@@ -209,7 +211,7 @@ You can also pass a custom `HttpTransport` as the second constructor argument.
 |--------|------------|-------|
 | `ip` | Single lookup | IPv4, IPv6, or domain. Omit it for caller IP lookup. Domain lookup requires a paid plan. |
 | `ips` | Bulk lookup | Iterable of 1 to 50,000 IPs or domains. |
-| `lang` | Single and bulk | One of `en`, `de`, `ru`, `ja`, `fr`, `cn`, `es`, `cs`, `it`, `ko`, `fa`, `pt`. |
+| `lang` | Single and bulk | One of `en`, `de`, `ru`, `ja`, `fr`, `cn`, `es`, `cs`, `it`, `ko`, `fa`, `pt`, `ar` (Arabic). |
 | `include` | Single and bulk | Iterable of module names such as `security`, `abuse`, `user_agent`, `hostname`, `liveHostname`, `hostnameFallbackLive`, `geo_accuracy`, `dma_code`, or `*`. |
 | `fields` | Single and bulk | Iterable of field paths to keep, for example `["location.country_name", "security.threat_score"]`. |
 | `excludes` | Single and bulk | Iterable of field paths to remove from the response. |
@@ -413,7 +415,7 @@ for (const result of response.data) {
 
 ### Success and Error Results
 
-Each bulk result is either a success with `data` or an error with `error.message`. TypeScript narrows it automatically on `result.success`.
+Each bulk result is either a success with `data` or an error with `error.message`. TypeScript narrows it automatically on `result.success`. If the API sends a different number of results than you requested, the typed lookup throws `SerializationError`. The raw lookup returns the response as received.
 
 ```ts
 const response = await client.bulkLookupIpGeolocation({
@@ -465,7 +467,7 @@ console.log(response.metadata.firstHeaderValue("x-credits-charged")); // the sam
 
 ## JSON Helpers
 
-Use `toJson()` or `toPrettyJson()` when you want a stable JSON view of SDK objects.
+Use `toJson()` or `toPrettyJson()` to print SDK objects as JSON. When you print a client or its settings as JSON, the SDK shows `[REDACTED]` in place of your API key. `config.apiKey` still gives you the key.
 
 ```ts
 import { toPrettyJson } from "ip-geolocation-api-sdk-typescript";
@@ -479,7 +481,7 @@ console.log(toPrettyJson(response.data));
 
 ## Error Handling
 
-All SDK errors extend `IpGeolocationError`.
+All SDK errors extend `IpGeolocationError`. If an API error includes your key, the SDK hides it. This also applies to error messages in typed bulk results. If the SDK receives an HTTP status but can’t read the error body, you still get the status code.
 
 Runtime and validation errors:
 

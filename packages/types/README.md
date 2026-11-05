@@ -103,74 +103,33 @@ This package is type declarations plus minimal JS stubs for package resolution.
 
 ## Quick Start
 
-This example uses your own `fetch` wrapper and the public request and response types from this package.
+This Node.js example requests the country name with `fetch`. The API sends `country_name`, so the example copies it to the SDK’s `countryName` field.
 
 ```ts
-import type {
-  ApiResponse,
-  IpGeolocationResponse,
-  LookupIpGeolocationRequestInit,
-} from "ip-geolocation-api-typescript-types";
+import type { IpGeolocationResponse } from "ip-geolocation-api-typescript-types";
 
-async function lookupIp(
-  request: LookupIpGeolocationRequestInit,
-): Promise<ApiResponse<IpGeolocationResponse>> {
+async function lookupCountry(ip: string): Promise<IpGeolocationResponse> {
+  const apiKey = process.env.IPGEO_API_KEY;
+  if (!apiKey) throw new Error("Set IPGEO_API_KEY before making a lookup.");
+
   const url = new URL("https://api.ipgeolocation.io/v3/ipgeo");
+  url.searchParams.set("apiKey", apiKey);
+  url.searchParams.set("ip", ip);
+  url.searchParams.set("fields", "location.country_name");
 
-  url.searchParams.set("apiKey", process.env.IPGEO_API_KEY!);
+  const response = await fetch(url, { redirect: "error" });
+  if (!response.ok) throw new Error(`Lookup failed (HTTP ${response.status}).`);
 
-  if (request.ip) {
-    url.searchParams.set("ip", request.ip);
-  }
-
-  if (request.lang) {
-    url.searchParams.set("lang", request.lang);
-  }
-
-  if (request.include) {
-    url.searchParams.set("include", [...request.include].join(","));
-  }
-
-  if (request.fields) {
-    url.searchParams.set("fields", [...request.fields].join(","));
-  }
-
-  if (request.excludes) {
-    url.searchParams.set("excludes", [...request.excludes].join(","));
-  }
-
-  if (request.output) {
-    url.searchParams.set("output", request.output);
-  }
-
-  const response = await fetch(url.toString(), {
-    // Adapt request.headers here if your wrapper supports custom headers.
-  });
-
-  const data = (await response.json()) as IpGeolocationResponse;
-
-  return {
-    data,
-    metadata: {
-      statusCode: response.status,
-      durationMs: 0,
-      creditsCharged: undefined,
-      successfulRecords: undefined,
-      rawHeaders: {},
-      headerValues() {
-        return [];
-      },
-      firstHeaderValue() {
-        return undefined;
-      },
-    },
-  };
+  const body = await response.json();
+  const countryName: unknown = body?.location?.country_name;
+  if (typeof countryName !== "string") throw new Error("No country name in the response.");
+  return { location: { countryName } };
 }
 ```
 
 ## Bulk Result Typing
 
-Bulk lookups return a mixed array of success and error results. `BulkLookupResult` matches that shape.
+Use this function with rows returned by the SDK’s typed bulk lookup. If you use `fetch` yourself, convert each successful row’s field names and wrap it as `{ success: true, data }`. Wrap each error as `{ success: false, error: { message } }`.
 
 ```ts
 import type { BulkLookupResult } from "ip-geolocation-api-typescript-types";
@@ -225,7 +184,7 @@ const headers: RequestHeaders = [
 ## Links
 
 - [npm package](https://www.npmjs.com/package/ip-geolocation-api-typescript-types)
-- [GitHub repository](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/tree/main/packages/types)
+- [GitHub repository](https://github.com/IPGeolocation/ip-geolocation-api-typescript-sdk/tree/master/packages/types)
 - [API documentation](https://ipgeolocation.io/documentation/ip-location-api.html)
 - [Pricing](https://ipgeolocation.io/pricing.html)
 - [Authentication](https://ipgeolocation.io/documentation/api-authentication.html)
